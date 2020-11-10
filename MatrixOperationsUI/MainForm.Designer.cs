@@ -48,6 +48,10 @@
 			this.ColumsCountSecondMatrix = new System.Windows.Forms.Label();
 			this.RowСountSecondMatrixTextBox = new System.Windows.Forms.TextBox();
 			this.ColumsСountSecondMatrixTextBox = new System.Windows.Forms.TextBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.AdditionButton = new System.Windows.Forms.Button();
+			this.SubtractionButton = new System.Windows.Forms.Button();
+			this.MultiplicationButton = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -58,6 +62,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.SecondMatrixDataGridView)).BeginInit();
 			this.groupBox5.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -262,11 +267,51 @@
 			this.ColumsСountSecondMatrixTextBox.Size = new System.Drawing.Size(113, 20);
 			this.ColumsСountSecondMatrixTextBox.TabIndex = 3;
 			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.MultiplicationButton);
+			this.groupBox6.Controls.Add(this.SubtractionButton);
+			this.groupBox6.Controls.Add(this.AdditionButton);
+			this.groupBox6.Location = new System.Drawing.Point(12, 460);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(261, 107);
+			this.groupBox6.TabIndex = 5;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Операции";
+			// 
+			// AdditionButton
+			// 
+			this.AdditionButton.Location = new System.Drawing.Point(12, 19);
+			this.AdditionButton.Name = "AdditionButton";
+			this.AdditionButton.Size = new System.Drawing.Size(243, 23);
+			this.AdditionButton.TabIndex = 0;
+			this.AdditionButton.Text = "Сложение";
+			this.AdditionButton.UseVisualStyleBackColor = true;
+			// 
+			// SubtractionButton
+			// 
+			this.SubtractionButton.Location = new System.Drawing.Point(12, 48);
+			this.SubtractionButton.Name = "SubtractionButton";
+			this.SubtractionButton.Size = new System.Drawing.Size(243, 23);
+			this.SubtractionButton.TabIndex = 1;
+			this.SubtractionButton.Text = "Вычитание";
+			this.SubtractionButton.UseVisualStyleBackColor = true;
+			// 
+			// MultiplicationButton
+			// 
+			this.MultiplicationButton.Location = new System.Drawing.Point(12, 77);
+			this.MultiplicationButton.Name = "MultiplicationButton";
+			this.MultiplicationButton.Size = new System.Drawing.Size(243, 23);
+			this.MultiplicationButton.TabIndex = 2;
+			this.MultiplicationButton.Text = "Умножение";
+			this.MultiplicationButton.UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(791, 685);
+			this.Controls.Add(this.groupBox6);
 			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.groupBox3);
@@ -287,6 +332,7 @@
 			this.groupBox5.ResumeLayout(false);
 			this.tableLayoutPanel2.ResumeLayout(false);
 			this.tableLayoutPanel2.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -313,6 +359,10 @@
 		private System.Windows.Forms.Label ColumsCountSecondMatrix;
 		private System.Windows.Forms.TextBox RowСountSecondMatrixTextBox;
 		private System.Windows.Forms.TextBox ColumsСountSecondMatrixTextBox;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.Button MultiplicationButton;
+		private System.Windows.Forms.Button SubtractionButton;
+		private System.Windows.Forms.Button AdditionButton;
 	}
 }
 

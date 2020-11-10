@@ -52,6 +52,7 @@
 			this.AdditionButton = new System.Windows.Forms.Button();
 			this.SubtractionButton = new System.Windows.Forms.Button();
 			this.MultiplicationButton = new System.Windows.Forms.Button();
+			this.SaveButton = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -269,12 +270,13 @@
 			// 
 			// groupBox6
 			// 
+			this.groupBox6.Controls.Add(this.SaveButton);
 			this.groupBox6.Controls.Add(this.MultiplicationButton);
 			this.groupBox6.Controls.Add(this.SubtractionButton);
 			this.groupBox6.Controls.Add(this.AdditionButton);
 			this.groupBox6.Location = new System.Drawing.Point(12, 460);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(261, 107);
+			this.groupBox6.Size = new System.Drawing.Size(261, 136);
 			this.groupBox6.TabIndex = 5;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Операции";
@@ -287,6 +289,7 @@
 			this.AdditionButton.TabIndex = 0;
 			this.AdditionButton.Text = "Сложение";
 			this.AdditionButton.UseVisualStyleBackColor = true;
+			this.AdditionButton.Click += new System.EventHandler(this.AdditionButton_Click);
 			// 
 			// SubtractionButton
 			// 
@@ -296,6 +299,7 @@
 			this.SubtractionButton.TabIndex = 1;
 			this.SubtractionButton.Text = "Вычитание";
 			this.SubtractionButton.UseVisualStyleBackColor = true;
+			this.SubtractionButton.Click += new System.EventHandler(this.SubtractionButton_Click);
 			// 
 			// MultiplicationButton
 			// 
@@ -305,6 +309,17 @@
 			this.MultiplicationButton.TabIndex = 2;
 			this.MultiplicationButton.Text = "Умножение";
 			this.MultiplicationButton.UseVisualStyleBackColor = true;
+			this.MultiplicationButton.Click += new System.EventHandler(this.MultiplicationButton_Click);
+			// 
+			// SaveButton
+			// 
+			this.SaveButton.Location = new System.Drawing.Point(12, 106);
+			this.SaveButton.Name = "SaveButton";
+			this.SaveButton.Size = new System.Drawing.Size(243, 23);
+			this.SaveButton.TabIndex = 3;
+			this.SaveButton.Text = "Сохранить результат";
+			this.SaveButton.UseVisualStyleBackColor = true;
+			this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
 			// 
 			// MainForm
 			// 
@@ -363,6 +378,7 @@
 		private System.Windows.Forms.Button MultiplicationButton;
 		private System.Windows.Forms.Button SubtractionButton;
 		private System.Windows.Forms.Button AdditionButton;
+		private System.Windows.Forms.Button SaveButton;
 	}
 }
 

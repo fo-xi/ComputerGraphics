@@ -8,24 +8,24 @@ namespace MatrixOperations
 {
     public class Matrix
     {
-	    private int _rowСount;
+	    private int _rowsСount;
 
 	    private int _columnsСount;
 
 	    public double[,] MatrixElements { get; set; }
 
-		public int RowСount
+		public int RowsСount
 		{
-		    get { return _rowСount; }
+		    get { return _rowsСount; }
 		    set
 		    {
-			    if (value <= 0 || value > 4)
+			    if (value <= 0)
 			    {
-				    throw new ArgumentException($"{nameof(RowСount)} cannot be " +
-				                                $"negative or more than four");
+				    throw new ArgumentException($"{nameof(RowsСount)} cannot be " +
+				                                $"negative");
 			    }
 
-			    _rowСount = value;
+			    _rowsСount = value;
 		    }
 	    }
 
@@ -37,10 +37,10 @@ namespace MatrixOperations
 			}
 			set
 			{
-				if (value <= 0 || value > 4)
+				if (value <= 0)
 				{
 					throw new ArgumentException($"{nameof(СolumnsСount)} cannot be " +
-					                            $"negative or more than four");
+					                            $"negative");
 				}
 
 				_columnsСount = value;
@@ -49,9 +49,9 @@ namespace MatrixOperations
 
 	    public Matrix(int length, int width)
 		{
-			RowСount = length;
+			RowsСount = length;
 			СolumnsСount = width;
-			MatrixElements = new double[RowСount, СolumnsСount];
+			MatrixElements = new double[RowsСount, СolumnsСount];
 		}
 
     }

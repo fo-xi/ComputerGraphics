@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using MatrixOperations;
 using System.IO;
+using System.Windows;
 
 namespace MatrixOperationsUI
 {
@@ -135,7 +136,7 @@ namespace MatrixOperationsUI
 			fw = new FileStream("Res_Matr.txt", FileMode.Create);
 
 			msg = "Rows count = " + _firstMatrix.RowsСount +
-				  "\tСolumns count = " + _secondMatrix.СolumnsСount + "\r\n";
+				  "\t Сolumns count = " + _secondMatrix.СolumnsСount + "\r\n";
 
 			msgByte = Encoding.Default.GetBytes(msg);
 
@@ -169,7 +170,7 @@ namespace MatrixOperationsUI
 			{
 				for (int j = 0; j < _firstMatrix.СolumnsСount; j++)
 				{
-					_firstMatrix.MatrixElements[i, j] = Convert.ToDouble(random.Next(-100, 100) / 10.0);
+					_firstMatrix.MatrixElements[i, j] = random.Next(-100, 100) / 10.0;
 				}
 			}
 		}
@@ -181,7 +182,7 @@ namespace MatrixOperationsUI
 			{
 				for (int j = 0; j < _secondMatrix.СolumnsСount; j++)
 				{
-					_secondMatrix.MatrixElements[i, j] = Convert.ToDouble(random.Next(-100, 100) / 10.0);
+					_secondMatrix.MatrixElements[i, j] = random.Next(-100, 100) / 10.0;
 				}
 			}
 		}
@@ -193,43 +194,97 @@ namespace MatrixOperationsUI
 
 		private void OKButtonFirst_Click(object sender, EventArgs e)
 		{
-			if (!int.TryParse(RowСountFirstMatrixTextBox.Text, out var row))
-			{
-				MessageBox.Show("Wrong length", "Warning",
-					MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
+			int rowСount = Int32.Parse(RowСountFirstMatrixTextBox.Text);
+			int columСount = Int32.Parse(ColumsСountFirstMatrixTextBox.Text);
 
-			if (!int.TryParse(ColumsСountFirstMatrixTextBox.Text, out var columns))
-			{
-				MessageBox.Show("Wrong columns", "Warning",
-					MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
-
-			_firstMatrix = new Matrix(row, columns);
+			_firstMatrix = new Matrix(rowСount, columСount);
 			InputFirstMatrix();
 			UpdateDataGridView();
 		}
 
 		private void OKButtonSecond_Click(object sender, EventArgs e)
 		{
-			if (!int.TryParse(RowСountSecondMatrixTextBox.Text, out var row))
-			{
-				MessageBox.Show("Wrong length", "Warning",
-					MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
+			int rowСount = Int32.Parse(RowСountSecondMatrixTextBox.Text);
+			int columСount = Int32.Parse(ColumsСountSecondMatrixTextBox.Text);
 
-			if (!int.TryParse(ColumsСountSecondMatrixTextBox.Text, out var columns))
-			{
-				MessageBox.Show("Wrong columns", "Warning",
-					MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
-
-			_secondMatrix = new Matrix(row, columns);
+			_secondMatrix = new Matrix(rowСount, columСount);
 			InputSecondMatrix();
+			UpdateDataGridView();
+		}
+
+		private void ClearButton_Click(object sender, EventArgs e)
+		{
+			for (int i = 0; i < _firstMatrix.RowsСount; i++)
+			{
+				for (int j = 0; j < _firstMatrix.СolumnsСount; j++)
+				{
+					FirstMatrixDataGridView.Rows[i].Cells[j].Value = DBNull.Value;
+				}
+			}
+
+			for (int i = 0; i < _secondMatrix.RowsСount; i++)
+			{
+				for (int j = 0; j < _secondMatrix.СolumnsСount; j++)
+				{
+					SecondMatrixDataGridView.Rows[i].Cells[j].Value = DBNull.Value;
+				}
+			}
+
+			for (int i = 0; i < _firstMatrix.RowsСount; i++)
+			{
+				for (int j = 0; j < _firstMatrix.СolumnsСount; j++)
+				{
+					_firstMatrix.MatrixElements[i, j] = 0;
+				}
+			}
+
+			for (int i = 0; i < _secondMatrix.RowsСount; i++)
+			{
+				for (int j = 0; j < _secondMatrix.СolumnsСount; j++)
+				{
+					_secondMatrix.MatrixElements[i, j] = 0;
+				}
+			}
+		}
+
+		private void MultiplyingConstantButton_Click(object sender, EventArgs e)
+		{
+			_resultMatrix = new Matrix(_firstMatrix.RowsСount, _firstMatrix.СolumnsСount);
+			int constant = Int32.Parse(ConstantTextBox.Text);
+
+			for (int i = 0; i < _firstMatrix.RowsСount; i++)
+			{
+				for (int j = 0; j < _firstMatrix.СolumnsСount; j++)
+				{
+					_resultMatrix.MatrixElements[i, j] = _firstMatrix.MatrixElements[i, j] * constant;
+				}
+			}
+			UpdateDataGridView();
+		}
+
+		private void MultiplicationVectorsButton_Click(object sender, EventArgs e)
+		{
+			_resultMatrix = new Matrix(_firstMatrix.RowsСount, _firstMatrix.СolumnsСount);
+
+			if (_firstMatrix.СolumnsСount != 1 || _secondMatrix.СolumnsСount != 1 ||
+			    _firstMatrix.RowsСount != 3 || _secondMatrix.RowsСount != 3)
+			{
+				MessageBox.Show("The vector must be of size {3,1}", "Error",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			_resultMatrix.MatrixElements[0, 0] =
+				_firstMatrix.MatrixElements[1, 0] * _secondMatrix.MatrixElements[2, 0] -
+				_firstMatrix.MatrixElements[2, 0] * _secondMatrix.MatrixElements[1, 0];
+			_resultMatrix.MatrixElements[1, 0] =
+				_firstMatrix.MatrixElements[0, 0] * _secondMatrix.MatrixElements[2, 0] -
+				_firstMatrix.MatrixElements[2, 0] * _secondMatrix.MatrixElements[0, 0];
+			_resultMatrix.MatrixElements[2, 0] =
+				_firstMatrix.MatrixElements[0, 0] * _secondMatrix.MatrixElements[1, 0] -
+				_firstMatrix.MatrixElements[1, 0] * _secondMatrix.MatrixElements[1, 0];
+
+
 			UpdateDataGridView();
 		}
 	}

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixOperationsUI", "Matri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Form1", "Form1\Form1.csproj", "{A32B96C4-8287-4473-B4D6-B1FB126B634F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINII", "LINII\LINII.csproj", "{19CECC64-FF8E-463D-B114-3620254DDFC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A32B96C4-8287-4473-B4D6-B1FB126B634F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A32B96C4-8287-4473-B4D6-B1FB126B634F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A32B96C4-8287-4473-B4D6-B1FB126B634F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19CECC64-FF8E-463D-B114-3620254DDFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19CECC64-FF8E-463D-B114-3620254DDFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19CECC64-FF8E-463D-B114-3620254DDFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19CECC64-FF8E-463D-B114-3620254DDFC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

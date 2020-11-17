@@ -59,6 +59,10 @@ namespace LINII
 			this.label5 = new System.Windows.Forms.Label();
 			this.ThickLineRadioButton = new System.Windows.Forms.RadioButton();
 			this.WidthTextBox = new System.Windows.Forms.TextBox();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.FisrtFigureButton = new System.Windows.Forms.Button();
+			this.SecondFigureButton = new System.Windows.Forms.Button();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.panel1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -66,6 +70,8 @@ namespace LINII
 			((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
 			this.panel2.SuspendLayout();
 			this.groupBox4.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -207,10 +213,10 @@ namespace LINII
 			this.radioButton1.AutoSize = true;
 			this.radioButton1.Location = new System.Drawing.Point(6, 65);
 			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(99, 17);
+			this.radioButton1.Size = new System.Drawing.Size(139, 17);
 			this.radioButton1.TabIndex = 1;
 			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Обычный ЦДА";
+			this.radioButton1.Text = "Алгоритм Брезенхема";
 			this.radioButton1.UseVisualStyleBackColor = true;
 			// 
 			// DDARadioButton
@@ -241,6 +247,8 @@ namespace LINII
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel2.Controls.Add(this.groupBox6);
+			this.panel2.Controls.Add(this.groupBox5);
 			this.panel2.Controls.Add(this.label7);
 			this.panel2.Controls.Add(this.ColorsComboBox);
 			this.panel2.Controls.Add(this.groupBox4);
@@ -269,32 +277,29 @@ namespace LINII
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Controls.Add(this.DottedLineStepTextBox);
-			this.groupBox4.Controls.Add(this.label6);
-			this.groupBox4.Controls.Add(this.DottedLineRadioButton);
-			this.groupBox4.Controls.Add(this.SolidLineRadioButton);
 			this.groupBox4.Controls.Add(this.ThinLineRadioButton);
 			this.groupBox4.Controls.Add(this.label5);
 			this.groupBox4.Controls.Add(this.ThickLineRadioButton);
 			this.groupBox4.Controls.Add(this.WidthTextBox);
-			this.groupBox4.Location = new System.Drawing.Point(3, 46);
+			this.groupBox4.Location = new System.Drawing.Point(3, 39);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(185, 187);
+			this.groupBox4.Size = new System.Drawing.Size(185, 100);
 			this.groupBox4.TabIndex = 3;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Настройка стиля линии";
 			// 
 			// DottedLineStepTextBox
 			// 
-			this.DottedLineStepTextBox.Location = new System.Drawing.Point(91, 146);
+			this.DottedLineStepTextBox.Location = new System.Drawing.Point(91, 77);
 			this.DottedLineStepTextBox.Name = "DottedLineStepTextBox";
 			this.DottedLineStepTextBox.Size = new System.Drawing.Size(88, 20);
 			this.DottedLineStepTextBox.TabIndex = 10;
+			this.DottedLineStepTextBox.TextChanged += new System.EventHandler(this.DottedLineStepTextBox_TextChanged);
 			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(6, 149);
+			this.label6.Location = new System.Drawing.Point(6, 80);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(79, 13);
 			this.label6.TabIndex = 9;
@@ -303,7 +308,7 @@ namespace LINII
 			// DottedLineRadioButton
 			// 
 			this.DottedLineRadioButton.AutoSize = true;
-			this.DottedLineRadioButton.Location = new System.Drawing.Point(6, 121);
+			this.DottedLineRadioButton.Location = new System.Drawing.Point(6, 54);
 			this.DottedLineRadioButton.Name = "DottedLineRadioButton";
 			this.DottedLineRadioButton.Size = new System.Drawing.Size(118, 17);
 			this.DottedLineRadioButton.TabIndex = 8;
@@ -315,7 +320,7 @@ namespace LINII
 			// SolidLineRadioButton
 			// 
 			this.SolidLineRadioButton.AutoSize = true;
-			this.SolidLineRadioButton.Location = new System.Drawing.Point(6, 98);
+			this.SolidLineRadioButton.Location = new System.Drawing.Point(6, 29);
 			this.SolidLineRadioButton.Name = "SolidLineRadioButton";
 			this.SolidLineRadioButton.Size = new System.Drawing.Size(109, 17);
 			this.SolidLineRadioButton.TabIndex = 7;
@@ -365,6 +370,50 @@ namespace LINII
 			this.WidthTextBox.TabIndex = 2;
 			this.WidthTextBox.TextChanged += new System.EventHandler(this.WidthTextBox_TextChanged);
 			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.DottedLineStepTextBox);
+			this.groupBox5.Controls.Add(this.SolidLineRadioButton);
+			this.groupBox5.Controls.Add(this.DottedLineRadioButton);
+			this.groupBox5.Controls.Add(this.label6);
+			this.groupBox5.Location = new System.Drawing.Point(3, 145);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(185, 105);
+			this.groupBox5.TabIndex = 6;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Настройка стиля линии";
+			// 
+			// FisrtFigureButton
+			// 
+			this.FisrtFigureButton.Location = new System.Drawing.Point(6, 22);
+			this.FisrtFigureButton.Name = "FisrtFigureButton";
+			this.FisrtFigureButton.Size = new System.Drawing.Size(79, 23);
+			this.FisrtFigureButton.TabIndex = 7;
+			this.FisrtFigureButton.Text = "Фигура №1";
+			this.FisrtFigureButton.UseVisualStyleBackColor = true;
+			this.FisrtFigureButton.Click += new System.EventHandler(this.FisrtFigureButton_Click);
+			// 
+			// SecondFigureButton
+			// 
+			this.SecondFigureButton.Location = new System.Drawing.Point(100, 22);
+			this.SecondFigureButton.Name = "SecondFigureButton";
+			this.SecondFigureButton.Size = new System.Drawing.Size(79, 23);
+			this.SecondFigureButton.TabIndex = 8;
+			this.SecondFigureButton.Text = "Фигура №2";
+			this.SecondFigureButton.UseVisualStyleBackColor = true;
+			this.SecondFigureButton.Click += new System.EventHandler(this.SecondFigureButton_Click);
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.FisrtFigureButton);
+			this.groupBox6.Controls.Add(this.SecondFigureButton);
+			this.groupBox6.Location = new System.Drawing.Point(3, 256);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(185, 56);
+			this.groupBox6.TabIndex = 7;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Фигуры";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,6 +437,9 @@ namespace LINII
 			this.panel2.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -424,6 +476,10 @@ namespace LINII
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.RadioButton ThickLineRadioButton;
 		private System.Windows.Forms.Button OKButton;
+		private System.Windows.Forms.GroupBox groupBox5;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.Button FisrtFigureButton;
+		private System.Windows.Forms.Button SecondFigureButton;
 	}
 }
 

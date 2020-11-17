@@ -65,7 +65,14 @@ namespace LINII
 			xk = Int32.Parse(SecondXTextBox.Text);
 			yk = Int32.Parse(SecondYTextBox.Text);
 
-			DrawByCoordinates(xn, yn, xk, yk);
+			if (DDARadioButton.Checked)
+			{
+				DrawByCoordinates(xn, yn, xk, yk);
+			}
+			else
+			{
+				BresenhamsAlgorithm(xn, yn, xk, yk);
+			}
 		}
 
 		public MainForm()
@@ -164,44 +171,75 @@ namespace LINII
 				new Point(255, 130),//11
 				new Point(310, 200),//12
 			};
+			if (DDARadioButton.Checked)
+			{
+				DrawByCoordinates(points[0].X, points[0].Y, points[1].X, points[1].Y);
+				DrawByCoordinates(points[2].X, points[2].Y, points[3].X, points[3].Y);
+				DrawByCoordinates(points[3].X, points[3].Y, points[4].X, points[4].Y);
+				DrawByCoordinates(points[4].X, points[4].Y, points[5].X, points[5].Y);
+				DrawByCoordinates(points[5].X, points[5].Y, points[2].X, points[2].Y);
+				DrawByCoordinates(points[6].X, points[6].Y, points[7].X, points[7].Y);
+				DrawByCoordinates(points[7].X, points[7].Y, points[8].X, points[8].Y);
+				DrawByCoordinates(points[8].X, points[8].Y, points[9].X, points[9].Y);
+				DrawByCoordinates(points[9].X, points[9].Y, points[6].X, points[6].Y);
+				DrawByCoordinates(points[10].X, points[10].Y, points[11].X, points[11].Y);
+				DrawByCoordinates(points[11].X, points[11].Y, points[12].X, points[12].Y);
+				DrawByCoordinates(points[12].X, points[12].Y, points[10].X, points[10].Y);
+			}
 
-			DrawByCoordinates(points[0].X, points[0].Y, points[1].X, points[1].Y);
-			DrawByCoordinates(points[2].X, points[2].Y, points[3].X, points[3].Y);
-			DrawByCoordinates(points[3].X, points[3].Y, points[4].X, points[4].Y);
-			DrawByCoordinates(points[4].X, points[4].Y, points[5].X, points[5].Y);
-			DrawByCoordinates(points[5].X, points[5].Y, points[2].X, points[2].Y);
-			DrawByCoordinates(points[6].X, points[6].Y, points[7].X, points[7].Y);
-			DrawByCoordinates(points[7].X, points[7].Y, points[8].X, points[8].Y);
-			DrawByCoordinates(points[8].X, points[8].Y, points[9].X, points[9].Y);
-			DrawByCoordinates(points[9].X, points[9].Y, points[6].X, points[6].Y);
-			DrawByCoordinates(points[10].X, points[10].Y, points[11].X, points[11].Y);
-			DrawByCoordinates(points[11].X, points[11].Y, points[12].X, points[12].Y);
-			DrawByCoordinates(points[12].X, points[12].Y, points[10].X, points[10].Y);
+			if (BresenhamAlgorithmRadioButton.Checked)
+			{
+				BresenhamsAlgorithm(points[0].X, points[0].Y, points[1].X, points[1].Y);
+				BresenhamsAlgorithm(points[2].X, points[2].Y, points[3].X, points[3].Y);
+				BresenhamsAlgorithm(points[3].X, points[3].Y, points[4].X, points[4].Y);
+				BresenhamsAlgorithm(points[4].X, points[4].Y, points[5].X, points[5].Y);
+				BresenhamsAlgorithm(points[5].X, points[5].Y, points[2].X, points[2].Y);
+				BresenhamsAlgorithm(points[6].X, points[6].Y, points[7].X, points[7].Y);
+				BresenhamsAlgorithm(points[7].X, points[7].Y, points[8].X, points[8].Y);
+				BresenhamsAlgorithm(points[8].X, points[8].Y, points[9].X, points[9].Y);
+				BresenhamsAlgorithm(points[9].X, points[9].Y, points[6].X, points[6].Y);
+				BresenhamsAlgorithm(points[10].X, points[10].Y, points[11].X, points[11].Y);
+				BresenhamsAlgorithm(points[11].X, points[11].Y, points[12].X, points[12].Y);
+				BresenhamsAlgorithm(points[12].X, points[12].Y, points[10].X, points[10].Y);
+			}
 		}
 
 		private void SecondFigureButton_Click(object sender, EventArgs e)
 		{
 			Point[] points = new Point[]
 			{
-				new Point(61,76),//0
-				new Point(181, 124),//1
-				new Point(301, 76),//2
-				new Point(301, 292),//3
-				new Point(181, 244),//4
-				new Point(61, 292),//5
+				new Point(61, 76), //0
+				new Point(181, 124), //1
+				new Point(301, 76), //2
+				new Point(301, 292), //3
+				new Point(181, 244), //4
+				new Point(61, 292), //5
 			};
 
-			DrawByCoordinates(points[0].X, points[0].Y, points[1].X, points[1].Y);
-			DrawByCoordinates(points[1].X, points[1].Y, points[2].X, points[2].Y);
-			DrawByCoordinates(points[2].X, points[2].Y, points[3].X, points[3].Y);
-			DrawByCoordinates(points[3].X, points[3].Y, points[4].X, points[4].Y);
-			DrawByCoordinates(points[4].X, points[4].Y, points[5].X, points[5].Y);
-			DrawByCoordinates(points[5].X, points[5].Y, points[0].X, points[0].Y);
+			if (DDARadioButton.Checked)
+			{
+				DrawByCoordinates(points[0].X, points[0].Y, points[1].X, points[1].Y);
+				DrawByCoordinates(points[1].X, points[1].Y, points[2].X, points[2].Y);
+				DrawByCoordinates(points[2].X, points[2].Y, points[3].X, points[3].Y);
+				DrawByCoordinates(points[3].X, points[3].Y, points[4].X, points[4].Y);
+				DrawByCoordinates(points[4].X, points[4].Y, points[5].X, points[5].Y);
+				DrawByCoordinates(points[5].X, points[5].Y, points[0].X, points[0].Y);
+			}
+
+			if (BresenhamAlgorithmRadioButton.Checked)
+			{
+				BresenhamsAlgorithm(points[0].X, points[0].Y, points[1].X, points[1].Y);
+				BresenhamsAlgorithm(points[1].X, points[1].Y, points[2].X, points[2].Y);
+				BresenhamsAlgorithm(points[2].X, points[2].Y, points[3].X, points[3].Y);
+				BresenhamsAlgorithm(points[3].X, points[3].Y, points[4].X, points[4].Y);
+				BresenhamsAlgorithm(points[4].X, points[4].Y, points[5].X, points[5].Y);
+				BresenhamsAlgorithm(points[5].X, points[5].Y, points[0].X, points[0].Y);
+			}
 		}
 
 		private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (DDARadioButton.Checked == true)
+			if (DDARadioButton.Checked || BresenhamAlgorithmRadioButton.Checked)
 			{
 				xn = e.X;
 				yn = e.Y;
@@ -218,7 +256,15 @@ namespace LINII
 			xk = e.X;
 			yk = e.Y;
 
-			DrawByCoordinates(xn, yn, xk, yk);
+			if (DDARadioButton.Checked)
+			{
+				DrawByCoordinates(xn, yn, xk, yk);
+			}
+
+			if (BresenhamAlgorithmRadioButton.Checked)
+			{
+				BresenhamsAlgorithm(xn, yn, xk, yk);
+			}
 
 		}
 
@@ -248,19 +294,56 @@ namespace LINII
 
 					if (isDrawing)
 					{
-						Graphics g = Graphics.FromHwnd(PictureBox.Handle);
-						g.DrawRectangle(pen, (int)xt, (int)yt, 2, 2);
+						PutPixel((int)xt, (int)yt);
 					}
 					count++;
 				}
 				else
 				{
-					Graphics g = Graphics.FromHwnd(PictureBox.Handle);
-					g.DrawRectangle(pen, (int)xt, (int)yt, 2, 2);
+					PutPixel((int)xt, (int)yt);
 				}
 				xt = xt + dx / n;
 				yt = yt + dy / n;
 			}
+		}
+
+		private void BresenhamsAlgorithm(int firstPointX, int firstPointY, int secondPointX, int secondPointY)
+		{
+			//приращения по х и у на всем отрезке
+			int deltaX = Math.Abs(secondPointX - firstPointX);
+			int deltaY = Math.Abs(secondPointY - firstPointY);
+			//опредлеляет в какую сторону рисовать отрезок
+			int signX = firstPointX < secondPointX ? 1 : -1;
+			int signY = firstPointY < secondPointY ? 1 : -1;
+			//погрешность отрисовки отрезка
+			int error = deltaX - deltaY;
+			//заносим конечную точку отрезка
+			PutPixel(secondPointX, secondPointY);
+			//пока линия от начальной точки не дойдет до конечной
+			while (firstPointX != secondPointX || firstPointY != secondPointY)
+			{
+				//заносим начальную точку отрезка
+				PutPixel(firstPointX, firstPointY);
+				//расчет следующей точки
+				int error2 = error * 2;
+
+				if (error2 > -deltaY)
+				{
+					error -= deltaY;
+					firstPointX += signX;
+				}
+				if (error2 < deltaX)
+				{
+					error += deltaX;
+					firstPointY += signY;
+				}
+			}
+		}
+
+		private void PutPixel(int x, int y)
+		{
+			Graphics g = Graphics.FromHwnd(PictureBox.Handle);
+			g.DrawRectangle(pen, (int)x, (int)y, 2, 2);
 		}
 	}
 }

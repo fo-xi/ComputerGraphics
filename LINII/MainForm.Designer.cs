@@ -43,7 +43,7 @@ namespace LINII
 			this.label1 = new System.Windows.Forms.Label();
 			this.ClearButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.BresenhamAlgorithmRadioButton = new System.Windows.Forms.RadioButton();
 			this.DDARadioButton = new System.Windows.Forms.RadioButton();
 			this.PictureBox = new System.Windows.Forms.PictureBox();
 			this.printDialog1 = new System.Windows.Forms.PrintDialog();
@@ -199,7 +199,7 @@ namespace LINII
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.radioButton1);
+			this.groupBox1.Controls.Add(this.BresenhamAlgorithmRadioButton);
 			this.groupBox1.Controls.Add(this.DDARadioButton);
 			this.groupBox1.Location = new System.Drawing.Point(3, 3);
 			this.groupBox1.Name = "groupBox1";
@@ -208,16 +208,16 @@ namespace LINII
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Выберите алгоритм";
 			// 
-			// radioButton1
+			// BresenhamAlgorithmRadioButton
 			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(6, 65);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(139, 17);
-			this.radioButton1.TabIndex = 1;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Алгоритм Брезенхема";
-			this.radioButton1.UseVisualStyleBackColor = true;
+			this.BresenhamAlgorithmRadioButton.AutoSize = true;
+			this.BresenhamAlgorithmRadioButton.Location = new System.Drawing.Point(6, 65);
+			this.BresenhamAlgorithmRadioButton.Name = "BresenhamAlgorithmRadioButton";
+			this.BresenhamAlgorithmRadioButton.Size = new System.Drawing.Size(139, 17);
+			this.BresenhamAlgorithmRadioButton.TabIndex = 1;
+			this.BresenhamAlgorithmRadioButton.TabStop = true;
+			this.BresenhamAlgorithmRadioButton.Text = "Алгоритм Брезенхема";
+			this.BresenhamAlgorithmRadioButton.UseVisualStyleBackColor = true;
 			// 
 			// DDARadioButton
 			// 
@@ -461,7 +461,7 @@ namespace LINII
 		private System.Windows.Forms.TextBox FirstXTextBox;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.RadioButton BresenhamAlgorithmRadioButton;
 		private System.Windows.Forms.PrintDialog printDialog1;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.GroupBox groupBox4;

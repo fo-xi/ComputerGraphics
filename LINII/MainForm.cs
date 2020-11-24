@@ -268,7 +268,7 @@ namespace LINII
 
 		}
 
-		private void DrawByCoordinates(int firstPointX, int firstPointY, int secondPointX, int secondPointY)
+        private void DrawByCoordinates(int firstPointX, int firstPointY, int secondPointX, int secondPointY)
 		{
 			xk = secondPointX;
 			yk = secondPointY;

@@ -30,6 +30,8 @@ namespace ZAPOLNENIE
 		private void InitializeComponent()
 		{
             this.panel1 = new System.Windows.Forms.Panel();
+            this.FillButton = new System.Windows.Forms.Button();
+            this.FigureButton = new System.Windows.Forms.Button();
             this.FillColorButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.LineColorButton = new System.Windows.Forms.Button();
@@ -40,8 +42,7 @@ namespace ZAPOLNENIE
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.ColorLineDialog = new System.Windows.Forms.ColorDialog();
             this.ColorFillDialog = new System.Windows.Forms.ColorDialog();
-            this.FigureButton = new System.Windows.Forms.Button();
-            this.PolygonAlgorithmRadioButton = new System.Windows.Forms.RadioButton();
+            this.BypassButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
@@ -50,6 +51,8 @@ namespace ZAPOLNENIE
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.BypassButton);
+            this.panel1.Controls.Add(this.FillButton);
             this.panel1.Controls.Add(this.FigureButton);
             this.panel1.Controls.Add(this.FillColorButton);
             this.panel1.Controls.Add(this.ClearButton);
@@ -59,6 +62,26 @@ namespace ZAPOLNENIE
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(193, 363);
             this.panel1.TabIndex = 0;
+            // 
+            // FillButton
+            // 
+            this.FillButton.Location = new System.Drawing.Point(3, 219);
+            this.FillButton.Name = "FillButton";
+            this.FillButton.Size = new System.Drawing.Size(185, 23);
+            this.FillButton.TabIndex = 12;
+            this.FillButton.Text = "Заполнение по алгоритму";
+            this.FillButton.UseVisualStyleBackColor = true;
+            this.FillButton.Click += new System.EventHandler(this.FillButton_Click);
+            // 
+            // FigureButton
+            // 
+            this.FigureButton.Location = new System.Drawing.Point(3, 306);
+            this.FigureButton.Name = "FigureButton";
+            this.FigureButton.Size = new System.Drawing.Size(185, 23);
+            this.FigureButton.TabIndex = 11;
+            this.FigureButton.Text = "Фигура";
+            this.FigureButton.UseVisualStyleBackColor = true;
+            this.FigureButton.Click += new System.EventHandler(this.FigureButton_Click);
             // 
             // FillColorButton
             // 
@@ -92,12 +115,11 @@ namespace ZAPOLNENIE
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.PolygonAlgorithmRadioButton);
             this.groupBox1.Controls.Add(this.FillRadioButton);
             this.groupBox1.Controls.Add(this.CDARadioButton);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(185, 141);
+            this.groupBox1.Size = new System.Drawing.Size(185, 102);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Выберите алгоритм";
@@ -138,26 +160,14 @@ namespace ZAPOLNENIE
             // 
             this.printDialog1.UseEXDialog = true;
             // 
-            // FigureButton
+            // BypassButton
             // 
-            this.FigureButton.Location = new System.Drawing.Point(3, 306);
-            this.FigureButton.Name = "FigureButton";
-            this.FigureButton.Size = new System.Drawing.Size(185, 23);
-            this.FigureButton.TabIndex = 11;
-            this.FigureButton.Text = "Фигура";
-            this.FigureButton.UseVisualStyleBackColor = true;
-            this.FigureButton.Click += new System.EventHandler(this.FigureButton_Click);
-            // 
-            // PolygonAlgorithmRadioButton
-            // 
-            this.PolygonAlgorithmRadioButton.AutoSize = true;
-            this.PolygonAlgorithmRadioButton.Location = new System.Drawing.Point(6, 107);
-            this.PolygonAlgorithmRadioButton.Name = "PolygonAlgorithmRadioButton";
-            this.PolygonAlgorithmRadioButton.Size = new System.Drawing.Size(48, 17);
-            this.PolygonAlgorithmRadioButton.TabIndex = 2;
-            this.PolygonAlgorithmRadioButton.TabStop = true;
-            this.PolygonAlgorithmRadioButton.Text = "АЗМ";
-            this.PolygonAlgorithmRadioButton.UseVisualStyleBackColor = true;
+            this.BypassButton.Location = new System.Drawing.Point(3, 190);
+            this.BypassButton.Name = "BypassButton";
+            this.BypassButton.Size = new System.Drawing.Size(185, 23);
+            this.BypassButton.TabIndex = 13;
+            this.BypassButton.Text = "Обход контура";
+            this.BypassButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -191,7 +201,8 @@ namespace ZAPOLNENIE
         private System.Windows.Forms.Button FillColorButton;
         private System.Windows.Forms.ColorDialog ColorFillDialog;
         private System.Windows.Forms.Button FigureButton;
-        private System.Windows.Forms.RadioButton PolygonAlgorithmRadioButton;
+        private System.Windows.Forms.Button FillButton;
+        private System.Windows.Forms.Button BypassButton;
     }
 }
 

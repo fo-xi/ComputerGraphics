@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -83,15 +85,16 @@ namespace ZAPOLNENIE
 			if (d == DialogResult.OK)
 			{
 				colorFill = ColorFillDialog.Color;
-
-			}
+            }
 		}
 
 		private void ClearButton_Click(object sender, EventArgs e)
 		{
 			PictureBox.Image = null;
 			bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
-		}
+            PictureBox.Image = bitmap;
+			lines = new List<List<Point>>();
+        }
 
 		private void PictureBox_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -110,6 +113,12 @@ namespace ZAPOLNENIE
 		{
 			xk = e.X;
 			yk = e.Y;
+			lines.Add(new List<Point>
+            {
+				new Point(xn, yn),
+                new Point(xk, yk),
+			});
+
 			using (Graphics g = Graphics.FromHwnd(PictureBox.Handle))
 			{
 				if (CDARadioButton.Checked)
@@ -353,111 +362,122 @@ namespace ZAPOLNENIE
 			}
 		}
 
+		private  List<List<Point>> lines = new List<List<Point>>();
+
         private void ClippingButton_Click(object sender, EventArgs e)
         {
-			Clipping(xn, yn, xk, yk);
-			PictureBox.Image = bitmap;
+            foreach (var line in lines)
+            {
+                try
+                {
+                    Clipping(line);
+                    PictureBox.Image = bitmap;
+                }
+                catch
+                {
+                    lines.Remove(line);
+                }
+            }
+
+            PictureBox.Image = null;
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
+
+            Rectangle();
+
+            Graphics g = Graphics.FromHwnd(PictureBox.Handle);
+
+
+			foreach (var line in lines)
+            {
+                CDA(line[0].X, line[0].Y, line[1].X, line[1].Y);
+            }
+
+            PictureBox.Image = bitmap;
+        }
+
+        private void Clipping(List<Point> line)
+		{
+			//если точки находятся вне окна
+			if (line[0].X < rectangle[0].X || line[0].X > rectangle[1].X)
+			{
+				GOTO1(line, 0);
+			}
+
+            if (line[0].Y < rectangle[0].Y || line[0].Y > rectangle[2].Y)
+            {
+                GOTO1(line, 0);
+            }
+
+			if (line[1].X < rectangle[0].X || line[1].X > rectangle[1].X)
+			{
+				GOTO1(line, 1);
+			}
+
+			if (line[1].Y < rectangle[0].Y || line[1].Y > rectangle[2].Y)
+			{
+				GOTO1(line, 1);
+			}
+        }
+
+		//проверка отрезка на видимость
+        private void GOTO1(List<Point> line, int index)
+		{
+			if (line[0].X < rectangle[0].X && line[1].X < rectangle[0].X)
+			{
+                throw new Exception();
+			}
+
+			if (line[0].X > rectangle[1].X && line[1].X > rectangle[1].X)
+			{
+                throw new Exception();
+			}
+
+			if (line[0].Y > rectangle[2].Y && line[1].Y > rectangle[2].Y)
+			{
+                throw new Exception();
+			}
+
+			if (line[0].Y < rectangle[0].Y && line[1].Y < rectangle[0].Y)
+			{
+                throw new Exception();
+			}
+
+            //первая или вторая точка
+            line[index] = (GOTO4(line[index].X, line[index].Y, Incline(line[0].X, line[0].Y, line[1].X, line[1].Y)));
 		}
 
-        private void Clipping(double x1, double y1, double x2, double y2)
-		{
-			if (x1 < rectangle[0].X || x1 > rectangle[1].X)
-			{
-				GOTO1(x1, y1, x2, y2);
-			}
-
-			if (x2 < rectangle[0].X || x2 > rectangle[1].X)
-			{
-				GOTO1(x1, y1, x2, y2);
-			}
-
-			if (y1 < rectangle[2].Y || y1 > rectangle[1].Y)
-			{
-				GOTO1(x1, y1, x2, y2);
-			}
-
-			if (y2 < rectangle[2].Y || y2 > rectangle[1].Y)
-			{
-				GOTO1(x1, y1, x2, y2);
-			}
-
-			GOTO3(x1, y1, x2, y2);
+        private double Incline(double x1, double y1, double x2, double y2)
+        {
+			return (y1 - y2) / (x1 - x2);
 		}
 
-		private void GOTO1(double x1, double y1, double x2, double y2)
+        private Point GOTO4(double x, double y, double m)
 		{
-			if (x1 < rectangle[0].X && x2 < rectangle[0].X)
+            if (x < rectangle[0].X)
 			{
-				return;
+                double tempY1 = y;
+                x = rectangle[0].X;
+				y = m * (rectangle[0].X - x) + tempY1;
 			}
-
-			if (x1 > rectangle[1].X && x2 > rectangle[1].X)
+			if (x > rectangle[1].X)
 			{
-				return;
+                double tempY1 = y;
+                x = rectangle[1].X;
+				y = m * (rectangle[1].X - x) + tempY1;
 			}
-
-			if (y1 > rectangle[1].Y && y2 > rectangle[1].Y)
+			if (y > rectangle[2].Y && m != 0)
 			{
-				return;
+                double tempX1 = x;
+                y = rectangle[2].Y;
+				x = tempX1 + (1 / m) * (rectangle[2].Y - y);
 			}
-
-			if (y1 < rectangle[2].Y && y2 < rectangle[2].Y)
+			if (y < rectangle[0].Y && m != 0)
 			{
-				return;
+                double tempX1 = x;
+                y = rectangle[0].Y;
+                x = tempX1 + (1 / m) * (rectangle[0].Y - y);
 			}
-		}
-
-		private void GOTO3(double x1, double y1, double x2, double y2)
-		{
-			double m = (y1 - y2) / (x1 - x2);
-			//для первой точки
-			if (x1 < rectangle[0].X)
-			{
-				double tempY1 = y1;
-				y1 = m * (rectangle[0].X - x1) + tempY1;
-			}
-			if (x2 < rectangle[0].X)
-			{
-				double tempY2 = y2;
-				y2 = m * (rectangle[0].X - x2) + tempY2;
-			}
-			if (x1 > rectangle[1].X)
-			{
-				double tempY1 = y1;
-				y1 = m * (rectangle[1].X - x1) + tempY1;
-			}
-			if (x2 > rectangle[1].X)
-			{
-				double tempY2 = y2;
-				y2 = m * (rectangle[1].X - x2) + tempY2;
-			}
-			if (y1 < rectangle[0].Y && m != 0)
-			{
-				double tempX1 = x1;
-				x1 = tempX1 + (1 / m) * (rectangle[0].Y - y1);
-			}
-			if (y2 < rectangle[0].Y && m != 0)
-			{
-				double tempX2 = x2;
-				x2 = tempX2 + (1 / m) * (rectangle[0].Y - y2);
-			}
-			if (y1 > rectangle[2].Y && m != 0)
-			{
-				double tempX1 = x1;
-				x1 = tempX1 + (1 / m) * (rectangle[2].Y - y1);
-			}
-			if (y2 > rectangle[2].Y && m != 0)
-			{
-				double tempX2 = x2;
-				x2 = tempX2 + (1 / m) * (rectangle[2].Y - y2);
-			}
-			PictureBox.Image = null;
-			bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
-
-			Rectangle();
-
-			CDA((int)x1, (int)y1, (int)x2, (int)y2);
-			PictureBox.Image = bitmap;
+			return new Point((int)x, (int)y);
 		}
 	}
 }

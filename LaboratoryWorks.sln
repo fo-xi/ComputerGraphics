@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINII", "LINII\LINII.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPOLNENIE", "ZAPOLNENIE\ZAPOLNENIE.csproj", "{24930DB9-FFAD-4805-B62B-100FBD9E400E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaboratoryWork4", "LaboratoryWork4\LaboratoryWork4.csproj", "{464911AF-C079-4657-B084-189B8052E9B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{24930DB9-FFAD-4805-B62B-100FBD9E400E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24930DB9-FFAD-4805-B62B-100FBD9E400E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24930DB9-FFAD-4805-B62B-100FBD9E400E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{464911AF-C079-4657-B084-189B8052E9B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{464911AF-C079-4657-B084-189B8052E9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{464911AF-C079-4657-B084-189B8052E9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{464911AF-C079-4657-B084-189B8052E9B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

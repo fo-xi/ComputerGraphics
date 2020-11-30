@@ -215,22 +215,23 @@ namespace LaboratoryWork4
 			return r;
 		}
 
-		private void DrawKvadrat()
-		{
-			InitKvadrat(); 
-			InitMatrPreob(k, l); 
-			int[,] kv1 = MultiplyMatr(kv, matrSdv); 
+        private void DrawKvadrat()
+        {
+            InitKvadrat();
+            InitMatrPreob(k, l);
+            int[,] kv1 = MultiplyMatr(kv, matrSdv);
 
-			Graphics g = Graphics.FromHwnd(PictureBox.Handle);
-			g.DrawLine(pen, kv1[0, 0], kv1[0, 1], kv1[1, 0], kv1[1, 1]);
-			g.DrawLine(pen, kv1[1, 0], kv1[1, 1], kv1[2, 0], kv1[2, 1]);
-			g.DrawLine(pen, kv1[2, 0], kv1[2, 1], kv1[3, 0], kv1[3, 1]);
-			g.DrawLine(pen, kv1[3, 0], kv1[3, 1], kv1[0, 0], kv1[0, 1]);
-			g.Dispose();
-			pen.Dispose();
-		}
+            Graphics g = Graphics.FromHwnd(PictureBox.Handle);
 
-		private void DrawOsi()
+            g.DrawLine(pen, kv1[0, 0], kv1[0, 1], kv1[1, 0], kv1[1, 1]);
+            g.DrawLine(pen, kv1[1, 0], kv1[1, 1], kv1[2, 0], kv1[2, 1]);
+            g.DrawLine(pen, kv1[2, 0], kv1[2, 1], kv1[3, 0], kv1[3, 1]);
+            g.DrawLine(pen, kv1[3, 0], kv1[3, 1], kv1[0, 0], kv1[0, 1]);
+            g.Dispose();
+
+        }
+
+        private void DrawOsi()
 		{
 			InitOsi();
 			InitMatrPreob(k, l);
@@ -239,8 +240,7 @@ namespace LaboratoryWork4
 
 			g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
 			g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
-			g.Dispose();
-			pen.Dispose();
+            g.Dispose();
 		}
 
         private void OXRightButton_Click(object sender, EventArgs e)

@@ -33,10 +33,8 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.DottedLineStepTextBox = new System.Windows.Forms.TextBox();
             this.SolidLineRadioButton = new System.Windows.Forms.RadioButton();
             this.DottedLineRadioButton = new System.Windows.Forms.RadioButton();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ColorsComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -57,18 +55,18 @@
             this.DrawAxisButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.YXReflectionButton = new System.Windows.Forms.Button();
-            this.Y0ReflectionButton = new System.Windows.Forms.Button();
-            this.X0ReflectionButton = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ScalingTextBox = new System.Windows.Forms.TextBox();
-            this.ApplyScalingButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.AngleTextBox = new System.Windows.Forms.TextBox();
             this.ApplyAngleButton = new System.Windows.Forms.Button();
+            this.AngleTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.X0ReflectionButton = new System.Windows.Forms.Button();
+            this.Y0ReflectionButton = new System.Windows.Forms.Button();
+            this.YXReflectionButton = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ApplyScalingButton = new System.Windows.Forms.Button();
+            this.ScalingTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -76,9 +74,9 @@
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // PictureBox
@@ -107,24 +105,14 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.DottedLineStepTextBox);
             this.groupBox5.Controls.Add(this.SolidLineRadioButton);
             this.groupBox5.Controls.Add(this.DottedLineRadioButton);
-            this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Location = new System.Drawing.Point(3, 145);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(185, 105);
+            this.groupBox5.Size = new System.Drawing.Size(185, 80);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Настройка стиля линии";
-            // 
-            // DottedLineStepTextBox
-            // 
-            this.DottedLineStepTextBox.Location = new System.Drawing.Point(91, 77);
-            this.DottedLineStepTextBox.Name = "DottedLineStepTextBox";
-            this.DottedLineStepTextBox.Size = new System.Drawing.Size(88, 20);
-            this.DottedLineStepTextBox.TabIndex = 10;
-            this.DottedLineStepTextBox.TextChanged += new System.EventHandler(this.DottedLineStepTextBox_TextChanged);
             // 
             // SolidLineRadioButton
             // 
@@ -149,15 +137,6 @@
             this.DottedLineRadioButton.Text = "Пунктирная линия";
             this.DottedLineRadioButton.UseVisualStyleBackColor = true;
             this.DottedLineRadioButton.CheckedChanged += new System.EventHandler(this.DottedLineRadioButton_CheckedChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 80);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Шаг пунктира:";
             // 
             // label7
             // 
@@ -367,6 +346,44 @@
             this.panel3.Size = new System.Drawing.Size(193, 363);
             this.panel3.TabIndex = 4;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.ApplyAngleButton);
+            this.groupBox7.Controls.Add(this.AngleTextBox);
+            this.groupBox7.Controls.Add(this.label2);
+            this.groupBox7.Location = new System.Drawing.Point(3, 202);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(185, 75);
+            this.groupBox7.TabIndex = 13;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Поворот";
+            // 
+            // ApplyAngleButton
+            // 
+            this.ApplyAngleButton.Location = new System.Drawing.Point(104, 45);
+            this.ApplyAngleButton.Name = "ApplyAngleButton";
+            this.ApplyAngleButton.Size = new System.Drawing.Size(75, 23);
+            this.ApplyAngleButton.TabIndex = 4;
+            this.ApplyAngleButton.Text = "Применить";
+            this.ApplyAngleButton.UseVisualStyleBackColor = true;
+            this.ApplyAngleButton.Click += new System.EventHandler(this.ApplyAngleButton_Click);
+            // 
+            // AngleTextBox
+            // 
+            this.AngleTextBox.Location = new System.Drawing.Point(50, 19);
+            this.AngleTextBox.Name = "AngleTextBox";
+            this.AngleTextBox.Size = new System.Drawing.Size(129, 20);
+            this.AngleTextBox.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Угол: ";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.X0ReflectionButton);
@@ -379,14 +396,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Отражение";
             // 
-            // YXReflectionButton
+            // X0ReflectionButton
             // 
-            this.YXReflectionButton.Location = new System.Drawing.Point(6, 19);
-            this.YXReflectionButton.Name = "YXReflectionButton";
-            this.YXReflectionButton.Size = new System.Drawing.Size(173, 23);
-            this.YXReflectionButton.TabIndex = 0;
-            this.YXReflectionButton.Text = "Относительно прямой Y = X";
-            this.YXReflectionButton.UseVisualStyleBackColor = true;
+            this.X0ReflectionButton.Location = new System.Drawing.Point(6, 76);
+            this.X0ReflectionButton.Name = "X0ReflectionButton";
+            this.X0ReflectionButton.Size = new System.Drawing.Size(173, 23);
+            this.X0ReflectionButton.TabIndex = 2;
+            this.X0ReflectionButton.Text = "Относительно прямой X = 0";
+            this.X0ReflectionButton.UseVisualStyleBackColor = true;
+            this.X0ReflectionButton.Click += new System.EventHandler(this.X0ReflectionButton_Click);
             // 
             // Y0ReflectionButton
             // 
@@ -396,15 +414,17 @@
             this.Y0ReflectionButton.TabIndex = 1;
             this.Y0ReflectionButton.Text = "Относительно прямой Y = 0";
             this.Y0ReflectionButton.UseVisualStyleBackColor = true;
+            this.Y0ReflectionButton.Click += new System.EventHandler(this.Y0ReflectionButton_Click);
             // 
-            // X0ReflectionButton
+            // YXReflectionButton
             // 
-            this.X0ReflectionButton.Location = new System.Drawing.Point(6, 76);
-            this.X0ReflectionButton.Name = "X0ReflectionButton";
-            this.X0ReflectionButton.Size = new System.Drawing.Size(173, 23);
-            this.X0ReflectionButton.TabIndex = 2;
-            this.X0ReflectionButton.Text = "Относительно прямой X = 0";
-            this.X0ReflectionButton.UseVisualStyleBackColor = true;
+            this.YXReflectionButton.Location = new System.Drawing.Point(6, 19);
+            this.YXReflectionButton.Name = "YXReflectionButton";
+            this.YXReflectionButton.Size = new System.Drawing.Size(173, 23);
+            this.YXReflectionButton.TabIndex = 0;
+            this.YXReflectionButton.Text = "Относительно прямой Y = X";
+            this.YXReflectionButton.UseVisualStyleBackColor = true;
+            this.YXReflectionButton.Click += new System.EventHandler(this.YXReflectionButton_Click);
             // 
             // groupBox3
             // 
@@ -418,17 +438,22 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Масштабирование";
             // 
-            // groupBox7
+            // ApplyScalingButton
             // 
-            this.groupBox7.Controls.Add(this.ApplyAngleButton);
-            this.groupBox7.Controls.Add(this.AngleTextBox);
-            this.groupBox7.Controls.Add(this.label2);
-            this.groupBox7.Location = new System.Drawing.Point(3, 202);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(185, 75);
-            this.groupBox7.TabIndex = 13;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Поворот";
+            this.ApplyScalingButton.Location = new System.Drawing.Point(104, 49);
+            this.ApplyScalingButton.Name = "ApplyScalingButton";
+            this.ApplyScalingButton.Size = new System.Drawing.Size(75, 23);
+            this.ApplyScalingButton.TabIndex = 3;
+            this.ApplyScalingButton.Text = "Применить";
+            this.ApplyScalingButton.UseVisualStyleBackColor = true;
+            this.ApplyScalingButton.Click += new System.EventHandler(this.ApplyScalingButton_Click);
+            // 
+            // ScalingTextBox
+            // 
+            this.ScalingTextBox.Location = new System.Drawing.Point(71, 22);
+            this.ScalingTextBox.Name = "ScalingTextBox";
+            this.ScalingTextBox.Size = new System.Drawing.Size(108, 20);
+            this.ScalingTextBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -438,47 +463,6 @@
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Масштаб: ";
-            // 
-            // ScalingTextBox
-            // 
-            this.ScalingTextBox.Location = new System.Drawing.Point(71, 22);
-            this.ScalingTextBox.Name = "ScalingTextBox";
-            this.ScalingTextBox.Size = new System.Drawing.Size(108, 20);
-            this.ScalingTextBox.TabIndex = 1;
-            // 
-            // ApplyScalingButton
-            // 
-            this.ApplyScalingButton.Location = new System.Drawing.Point(104, 49);
-            this.ApplyScalingButton.Name = "ApplyScalingButton";
-            this.ApplyScalingButton.Size = new System.Drawing.Size(75, 23);
-            this.ApplyScalingButton.TabIndex = 3;
-            this.ApplyScalingButton.Text = "Применить";
-            this.ApplyScalingButton.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Угол: ";
-            // 
-            // AngleTextBox
-            // 
-            this.AngleTextBox.Location = new System.Drawing.Point(50, 19);
-            this.AngleTextBox.Name = "AngleTextBox";
-            this.AngleTextBox.Size = new System.Drawing.Size(129, 20);
-            this.AngleTextBox.TabIndex = 2;
-            // 
-            // ApplyAngleButton
-            // 
-            this.ApplyAngleButton.Location = new System.Drawing.Point(104, 45);
-            this.ApplyAngleButton.Name = "ApplyAngleButton";
-            this.ApplyAngleButton.Size = new System.Drawing.Size(75, 23);
-            this.ApplyAngleButton.TabIndex = 4;
-            this.ApplyAngleButton.Text = "Применить";
-            this.ApplyAngleButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -503,11 +487,11 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -520,8 +504,6 @@
         private System.Windows.Forms.TextBox WidthTextBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox ColorsComboBox;
-        private System.Windows.Forms.TextBox DottedLineStepTextBox;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RadioButton DottedLineRadioButton;
         private System.Windows.Forms.RadioButton SolidLineRadioButton;
         private System.Windows.Forms.RadioButton ThinLineRadioButton;

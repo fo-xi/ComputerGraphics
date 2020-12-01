@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -12,44 +13,54 @@ namespace LaboratoryWork4
 
         public Bitmap bitmap;
 
-		public int step = 0;
+		public float step = 0;
 
-		public int[,] figure = new int[6, 3];
+		public float[,] figure = new float[6, 3];
 
-		public int[,] matrSdv = new int[3, 3];
+		public float[,] matrSdv = new float[3, 3];
 
-		public int[,] osi = new int[4, 3];
+		public float[,] osi = new float[4, 3];
 
-		public int k;
+        public float [,] otobr = new float[3, 3];
 
-		public int l;
+		public float [,] rotation = new float[3, 3];
+
+		public float [,] scaling = new float[3, 3];
+
+		public float k;
+
+		public float l;
 
 		public bool f;
 
-		private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        public float angle = 0;
+
+        public float scale = 1;
+
+        private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			switch (ColorsComboBox.SelectedIndex)
 			{
 				case 0:
-					{
-						pen = new Pen(Color.DarkRed);
-						break;
-					}
+                {
+                    pen = new Pen(Color.DarkRed);
+                    break;
+                }
 				case 1:
-					{
-						pen = new Pen(Color.PaleVioletRed);
-						break;
-					}
+                {
+                    pen = new Pen(Color.PaleVioletRed);
+                    break;
+                }
 				case 2:
-					{
-						pen = new Pen(Color.CornflowerBlue);
-						break;
-					}
+				{
+					pen = new Pen(Color.CornflowerBlue);
+					break;
+				}
 				case 3:
-					{
-						pen = new Pen(Color.DarkGreen);
-						break;
-					}
+				{
+					pen = new Pen(Color.DarkGreen);
+					break;
+				}
 			}
 		}
 
@@ -63,7 +74,8 @@ namespace LaboratoryWork4
 		{
 			InitializeComponent();
             bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
-		}
+            StandardDisplay();
+        }
 
 		private void ThickLineRadioButton_CheckedChanged(object sender, EventArgs e)
 		{
@@ -72,7 +84,7 @@ namespace LaboratoryWork4
 				WidthTextBox.Enabled = true;
 				if (WidthTextBox.Text != "")
 				{
-					int width = Int32.Parse(WidthTextBox.Text);
+					float width = Int32.Parse(WidthTextBox.Text);
 					pen = new Pen(pen.Color, width);
 				}
 			}
@@ -86,7 +98,7 @@ namespace LaboratoryWork4
 		{
 			try
 			{
-				int width = Int32.Parse(WidthTextBox.Text);
+				float width = float.Parse(WidthTextBox.Text);
 				pen = new Pen(pen.Color, width);
 			}
 			catch (Exception exception)
@@ -98,53 +110,30 @@ namespace LaboratoryWork4
 		private void ThinLineRadioButton_CheckedChanged(object sender, EventArgs e)
 		{
 			WidthTextBox.Enabled = false;
-			pen = new Pen(pen.Color, 2);
+			pen = new Pen(pen.Color, 1);
 		}
 
 		private void SolidLineRadioButton_CheckedChanged(object sender, EventArgs e)
-		{
-			DottedLineStepTextBox.Enabled = false;
-		}
+        {
+            pen.DashStyle = DashStyle.Solid;
+        }
 
 		private void DottedLineRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            pen.DashStyle = DashStyle.Dash;
+        }
+
+        private void InitFigure()
 		{
-			try
-			{
-				DottedLineStepTextBox.Enabled = true;
-				if (DottedLineStepTextBox.Text != "")
-				{
-					step = Int32.Parse(DottedLineStepTextBox.Text);
-				}
-			}
-			catch (Exception exception)
-			{
-				// ignored
-			}
+			figure[0, 0] = -60;   figure[0, 1] = 60;   figure[0, 2] = 1;
+			figure[1, 0] = 0;    figure[1, 1] = 20;    figure[1, 2] = 1;
+			figure[2, 0] = 60;   figure[2, 1] = 60;   figure[2, 2] = 1;
+			figure[3, 0] = 60;   figure[3, 1] = -60;   figure[3, 2] = 1;
+            figure[4, 0] = 0;    figure[4, 1] = -20;   figure[4, 2] = 1;
+            figure[5, 0] = -60;   figure[5, 1] = -60;   figure[5, 2] = 1;
 		}
 
-		private void DottedLineStepTextBox_TextChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				step = Int32.Parse(DottedLineStepTextBox.Text);
-			}
-			catch (Exception exception)
-			{
-				// ignored
-			}
-		}
-
-		private void InitFigure()
-		{
-			figure[0, 0] = -59;   figure[0, 1] = -32;   figure[0, 2] = 1;
-			figure[1, 0] = 61;    figure[1, 1] = 16;    figure[1, 2] = 1;
-			figure[2, 0] = 181;   figure[2, 1] = -32;   figure[2, 2] = 1;
-			figure[3, 0] = 181;   figure[3, 1] = 184;   figure[3, 2] = 1;
-            figure[4, 0] = 61;    figure[4, 1] = 136;   figure[4, 2] = 1;
-            figure[5, 0] = -59;   figure[5, 1] = 184;   figure[5, 2] = 1;
-		}
-
-		private void InitMatrPreob(int k1, int l1)
+		private void InitMatrSdv(float k1, float l1)
 		{
 			matrSdv[0, 0] = 1;  matrSdv[0, 1] = 0;  matrSdv[0, 2] = 0;
 			matrSdv[1, 0] = 0;  matrSdv[1, 1] = 1;  matrSdv[1, 2] = 0;
@@ -153,8 +142,8 @@ namespace LaboratoryWork4
 
         private void DrawFigureButton_Click(object sender, EventArgs e)
         {
-			k = PictureBox.Width / 2 - 60;
-			l = PictureBox.Height / 2 - 70;
+			k = PictureBox.Width / 2;
+			l = PictureBox.Height / 2;
 
 			DrawFigure();
 		}
@@ -169,8 +158,6 @@ namespace LaboratoryWork4
 
         private void DrawAxisButton_Click(object sender, EventArgs e)
         {
-			k = PictureBox.Width / 2;
-			l = PictureBox.Height / 2;
 			DrawOsi();
 		}
 
@@ -193,67 +180,78 @@ namespace LaboratoryWork4
         {
 			if (OXRightRadioButton.Checked)
             {
-                k++;
-                RemovingOldFigure();
-			}
+                k += 5;
+            }
 
             if (OXLeftRadioButton.Checked)
             {
-                k--;
-                RemovingOldFigure();
-			}
+                k -= 5;
+            }
 
             if (OYDownRadioButton.Checked)
             {
-                l++;
-                RemovingOldFigure();
-			}
+                l += 5;
+            }
 
             if (OYUpRadioButton.Checked)
             {
-                l--;
-                RemovingOldFigure();
+                l -= 5;
 			}
             RemovingOldFigure();
 			Thread.Sleep(100);
 		}
 
-        private int[,] MultiplyMatr(int[,] a, int[,] b)
+        private float[,] MultiplyMatr(float[,] a, float[,] b)
 		{
 			int n = a.GetLength(0);
-			int m = a.GetLength(1);
+            int m = a.GetLength(1);
 
-			int[,] r = new int[n, m];
+			float[,] result = new float[n, m];
 
 			for (int i = 0; i < n; i++)
 			{
 				for (int j = 0; j < m; j++)
 				{
-					r[i, j] = 0;
+					result[i, j] = 0;
 
 					for (int ii = 0; ii < m; ii++)
 					{
-						r[i, j] += a[i, ii] * b[ii, j];
+						result[i, j] += a[i, ii] * b[ii, j];
 					}
 				}
 			}
-			return r;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    result[i, j] = result[i, j] / result[i, 2];
+                }
+            }
+
+			return result;
 		}
 
         private void DrawFigure()
         {
             InitFigure();
-            InitMatrPreob(k, l);
-            int[,] kv1 = MultiplyMatr(figure, matrSdv);
+            InitMatrSdv(k, l);
+            InitRotation(angle);
+			InitScaling(scale);
+
+            float[,] figure1 = MultiplyMatr(figure, scaling);
+			figure1 = MultiplyMatr(figure1, rotation);
+            figure1 = MultiplyMatr(figure1, otobr);
+			figure1 = MultiplyMatr(figure1, matrSdv);
 
 			Graphics g = Graphics.FromImage(bitmap);
 
-			g.DrawLine(pen, kv1[0, 0], kv1[0, 1], kv1[1, 0], kv1[1, 1]);
-            g.DrawLine(pen, kv1[1, 0], kv1[1, 1], kv1[2, 0], kv1[2, 1]);
-            g.DrawLine(pen, kv1[2, 0], kv1[2, 1], kv1[3, 0], kv1[3, 1]);
-            g.DrawLine(pen, kv1[3, 0], kv1[3, 1], kv1[4, 0], kv1[4, 1]);
-            g.DrawLine(pen, kv1[4, 0], kv1[4, 1], kv1[5, 0], kv1[5, 1]);
-            g.DrawLine(pen, kv1[5, 0], kv1[5, 1], kv1[0, 0], kv1[0, 1]);
+			g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
+            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
+            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
+            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[4, 0], figure1[4, 1]);
+            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
+            g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[0, 0], figure1[0, 1]);
 			g.Dispose();
 
             PictureBox.Image = bitmap;
@@ -262,8 +260,8 @@ namespace LaboratoryWork4
         private void DrawOsi()
 		{
 			InitOsi();
-			InitMatrPreob(PictureBox.Width / 2, PictureBox.Height / 2);
-			int[,] osi1 = MultiplyMatr(osi, matrSdv);
+			InitMatrSdv(PictureBox.Width / 2, PictureBox.Height / 2);
+			float[,] osi1 = MultiplyMatr(osi, matrSdv);
 			Graphics g = Graphics.FromImage(bitmap);
 
 			g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
@@ -278,6 +276,7 @@ namespace LaboratoryWork4
             PictureBox.Image = null;
             bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
             PictureBox.Image = bitmap;
+            StandardDisplay();
 		}
 
         private void ShiftButton_Click(object sender, EventArgs e)
@@ -285,28 +284,22 @@ namespace LaboratoryWork4
             if (OXRightRadioButton.Checked)
             {
                 k += 5;
-                RemovingOldFigure();
-
             }
 
             if (OXLeftRadioButton.Checked)
             {
                 k -= 5;
-                RemovingOldFigure();
-
             }
 
             if (OYDownRadioButton.Checked)
             {
                 l += 5;
-                RemovingOldFigure();
-			}
+            }
 
             if (OYUpRadioButton.Checked)
             {
                 l -= 5;
-                RemovingOldFigure();
-			}
+            }
 
 			RemovingOldFigure();
 		}
@@ -315,10 +308,91 @@ namespace LaboratoryWork4
         {
 			PictureBox.Image = null;
             bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
-            PictureBox.Image = bitmap;
-			DrawOsi();
+            DrawOsi();
             DrawFigure();
             PictureBox.Image = bitmap;
 		}
+
+        private void StandardDisplay()
+        {
+            otobr[0, 0] = 1; otobr[0, 1] = 0; otobr[0, 2] = 0;
+            otobr[1, 0] = 0; otobr[1, 1] = 1; otobr[1, 2] = 0;
+            otobr[2, 0] = 0; otobr[2, 1] = 0; otobr[2, 2] = 1;
+        }
+
+        private void YX()
+        {
+            otobr[0, 0] = 0; otobr[0, 1] = 1; otobr[0, 2] = 0;
+            otobr[1, 0] = 1; otobr[1, 1] = 0; otobr[1, 2] = 0;
+            otobr[2, 0] = 0; otobr[2, 1] = 0; otobr[2, 2] = 1;
+
+            var temp = k;
+            k = l;
+            l = temp;
+        }
+
+        private void Y0()
+        {
+            otobr[0, 0] = 1; otobr[0, 1] = 0;  otobr[0, 2] = 0;
+            otobr[1, 0] = 0; otobr[1, 1] = -1; otobr[1, 2] = 0;
+            otobr[2, 0] = 0; otobr[2, 1] = 0;  otobr[2, 2] = 1;
+
+            l = PictureBox.Height - l;
+		}
+
+        private void X0()
+        {
+            otobr[0, 0] = -1; otobr[0, 1] = 0; otobr[0, 2] = 0;
+            otobr[1, 0] = 0;  otobr[1, 1] = 1; otobr[1, 2] = 0;
+            otobr[2, 0] = 0;  otobr[2, 1] = 0; otobr[2, 2] = 1;
+
+            k = PictureBox.Width - k;
+		}
+
+		private void YXReflectionButton_Click(object sender, EventArgs e)
+        {
+            YX();
+            RemovingOldFigure();
+
+        }
+
+        private void Y0ReflectionButton_Click(object sender, EventArgs e)
+        {
+            Y0();
+            RemovingOldFigure();
+        }
+
+        private void X0ReflectionButton_Click(object sender, EventArgs e)
+        {
+            X0();
+            RemovingOldFigure();
+        }
+
+        private void InitScaling(float scale)
+        {
+            scaling[0, 0] = 1; scaling[0, 1] = 0; scaling[0, 2] = 0;
+            scaling[1, 0] = 0; scaling[1, 1] = 1; scaling[1, 2] = 0;
+            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = scale;
+		}
+
+        private void ApplyScalingButton_Click(object sender, EventArgs e)
+        {
+            scale = float.Parse(ScalingTextBox.Text);
+            RemovingOldFigure();
+		}
+
+        private void InitRotation(float angle)
+        {
+            angle = (angle * (float)Math.PI) / 180;
+			rotation[0, 0] = (float)Math.Cos(angle); rotation[0, 1] = (float)Math.Sin(angle); rotation[0, 2] = 0;
+            rotation[1, 0] = -(float)Math.Sin(angle); rotation[1, 1] = (float)Math.Cos(angle); rotation[1, 2] = 0;
+            rotation[2, 0] = -((float)Math.Cos(angle) - 1) + ((float)Math.Sin(angle)); rotation[2, 1] = -((float)Math.Sin(angle)) - ((float)Math.Cos(angle) - 1); rotation[2, 2] = 1;
+		}
+
+        private void ApplyAngleButton_Click(object sender, EventArgs e)
+        {
+            angle = float.Parse(AngleTextBox.Text);
+            RemovingOldFigure();
+        }
     }
 }

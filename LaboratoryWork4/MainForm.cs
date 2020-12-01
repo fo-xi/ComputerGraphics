@@ -10,6 +10,8 @@ namespace LaboratoryWork4
 	{
 		public Pen pen = new Pen(Color.Black);
 
+        public Bitmap bitmap;
+
 		public int step = 0;
 
 		public int[,] kv = new int[4, 3];
@@ -62,6 +64,7 @@ namespace LaboratoryWork4
 		public MainForm()
 		{
 			InitializeComponent();
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
 		}
 
 		private void ThickLineRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -188,8 +191,30 @@ namespace LaboratoryWork4
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-			k++;
-			DrawKvadrat();
+			if (OXRightRadioButton.Checked)
+            {
+                k++;
+                RemovingOldFigure();
+			}
+
+            if (OXLeftRadioButton.Checked)
+            {
+                k--;
+                RemovingOldFigure();
+			}
+
+            if (OYDownRadioButton.Checked)
+            {
+                l++;
+                RemovingOldFigure();
+			}
+
+            if (OYUpRadioButton.Checked)
+            {
+                l--;
+                RemovingOldFigure();
+			}
+            RemovingOldFigure();
 			Thread.Sleep(100);
 		}
 
@@ -221,55 +246,77 @@ namespace LaboratoryWork4
             InitMatrPreob(k, l);
             int[,] kv1 = MultiplyMatr(kv, matrSdv);
 
-            Graphics g = Graphics.FromHwnd(PictureBox.Handle);
+			Graphics g = Graphics.FromImage(bitmap);
 
-            g.DrawLine(pen, kv1[0, 0], kv1[0, 1], kv1[1, 0], kv1[1, 1]);
+			g.DrawLine(pen, kv1[0, 0], kv1[0, 1], kv1[1, 0], kv1[1, 1]);
             g.DrawLine(pen, kv1[1, 0], kv1[1, 1], kv1[2, 0], kv1[2, 1]);
             g.DrawLine(pen, kv1[2, 0], kv1[2, 1], kv1[3, 0], kv1[3, 1]);
             g.DrawLine(pen, kv1[3, 0], kv1[3, 1], kv1[0, 0], kv1[0, 1]);
             g.Dispose();
 
+            PictureBox.Image = bitmap;
         }
 
         private void DrawOsi()
 		{
 			InitOsi();
-			InitMatrPreob(k, l);
+			InitMatrPreob(PictureBox.Width / 2, PictureBox.Height / 2);
 			int[,] osi1 = MultiplyMatr(osi, matrSdv);
-			Graphics g = Graphics.FromHwnd(PictureBox.Handle);
+			Graphics g = Graphics.FromImage(bitmap);
 
 			g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
 			g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
             g.Dispose();
-		}
 
-        private void OXRightButton_Click(object sender, EventArgs e)
-        {
-			k += 5;
-			DrawKvadrat();
-		}
-
-        private void OXLeftButton_Click(object sender, EventArgs e)
-        {
-			k -= 5;
-			DrawKvadrat();
-		}
-
-        private void OYDownButton_Click(object sender, EventArgs e)
-        {
-			l += 5;
-			DrawKvadrat();
-		}
-
-        private void OYUpButton_Click(object sender, EventArgs e)
-        {
-			l -= 5;
-			DrawKvadrat();
+            PictureBox.Image = bitmap;
 		}
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
+            PictureBox.Image = null;
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
+            PictureBox.Image = bitmap;
+		}
+
+        private void ShiftButton_Click(object sender, EventArgs e)
+        {
+            if (OXRightRadioButton.Checked)
+            {
+                k += 5;
+                RemovingOldFigure();
+
+            }
+
+            if (OXLeftRadioButton.Checked)
+            {
+                k -= 5;
+                RemovingOldFigure();
+
+            }
+
+            if (OYDownRadioButton.Checked)
+            {
+                l += 5;
+                RemovingOldFigure();
+			}
+
+            if (OYUpRadioButton.Checked)
+            {
+                l -= 5;
+                RemovingOldFigure();
+			}
+
+			RemovingOldFigure();
+		}
+
+        private void RemovingOldFigure()
+        {
 			PictureBox.Image = null;
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
+            PictureBox.Image = bitmap;
+			DrawOsi();
+            DrawKvadrat();
+            PictureBox.Image = bitmap;
 		}
     }
 }

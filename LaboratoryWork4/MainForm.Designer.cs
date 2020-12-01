@@ -49,15 +49,16 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.StartButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.OYUpButton = new System.Windows.Forms.Button();
-            this.OYDownButton = new System.Windows.Forms.Button();
-            this.OXLeftButton = new System.Windows.Forms.Button();
-            this.OXRightButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.DrawAxisButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.OXRightRadioButton = new System.Windows.Forms.RadioButton();
+            this.OYDownRadioButton = new System.Windows.Forms.RadioButton();
+            this.OXLeftRadioButton = new System.Windows.Forms.RadioButton();
+            this.OYUpRadioButton = new System.Windows.Forms.RadioButton();
+            this.ShiftButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -240,6 +241,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ShiftButton);
             this.panel1.Controls.Add(this.StartButton);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.DrawFigureButton);
@@ -252,9 +254,9 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(3, 244);
+            this.StartButton.Location = new System.Drawing.Point(96, 222);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(70, 23);
+            this.StartButton.Size = new System.Drawing.Size(87, 23);
             this.StartButton.TabIndex = 12;
             this.StartButton.Text = "Старт";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -262,56 +264,16 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.OYUpButton);
-            this.groupBox1.Controls.Add(this.OYDownButton);
-            this.groupBox1.Controls.Add(this.OXLeftButton);
-            this.groupBox1.Controls.Add(this.OXRightButton);
+            this.groupBox1.Controls.Add(this.OYUpRadioButton);
+            this.groupBox1.Controls.Add(this.OXLeftRadioButton);
+            this.groupBox1.Controls.Add(this.OYDownRadioButton);
+            this.groupBox1.Controls.Add(this.OXRightRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(3, 97);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(185, 141);
+            this.groupBox1.Size = new System.Drawing.Size(185, 119);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Сдвиг";
-            // 
-            // OYUpButton
-            // 
-            this.OYUpButton.Location = new System.Drawing.Point(6, 106);
-            this.OYUpButton.Name = "OYUpButton";
-            this.OYUpButton.Size = new System.Drawing.Size(173, 23);
-            this.OYUpButton.TabIndex = 14;
-            this.OYUpButton.Text = "Сдвиг по оси OY вверх";
-            this.OYUpButton.UseVisualStyleBackColor = true;
-            this.OYUpButton.Click += new System.EventHandler(this.OYUpButton_Click);
-            // 
-            // OYDownButton
-            // 
-            this.OYDownButton.Location = new System.Drawing.Point(6, 77);
-            this.OYDownButton.Name = "OYDownButton";
-            this.OYDownButton.Size = new System.Drawing.Size(173, 23);
-            this.OYDownButton.TabIndex = 13;
-            this.OYDownButton.Text = "Сдвиг по оси OY вниз";
-            this.OYDownButton.UseVisualStyleBackColor = true;
-            this.OYDownButton.Click += new System.EventHandler(this.OYDownButton_Click);
-            // 
-            // OXLeftButton
-            // 
-            this.OXLeftButton.Location = new System.Drawing.Point(6, 48);
-            this.OXLeftButton.Name = "OXLeftButton";
-            this.OXLeftButton.Size = new System.Drawing.Size(173, 23);
-            this.OXLeftButton.TabIndex = 12;
-            this.OXLeftButton.Text = "Сдвиг по оси ОХ влево";
-            this.OXLeftButton.UseVisualStyleBackColor = true;
-            this.OXLeftButton.Click += new System.EventHandler(this.OXLeftButton_Click);
-            // 
-            // OXRightButton
-            // 
-            this.OXRightButton.Location = new System.Drawing.Point(6, 19);
-            this.OXRightButton.Name = "OXRightButton";
-            this.OXRightButton.Size = new System.Drawing.Size(173, 23);
-            this.OXRightButton.TabIndex = 11;
-            this.OXRightButton.Text = "Сдвиг по оси ОХ вправо";
-            this.OXRightButton.UseVisualStyleBackColor = true;
-            this.OXRightButton.Click += new System.EventHandler(this.OXRightButton_Click);
             // 
             // ClearButton
             // 
@@ -355,6 +317,60 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Преобразования над фигурой";
             // 
+            // OXRightRadioButton
+            // 
+            this.OXRightRadioButton.AutoSize = true;
+            this.OXRightRadioButton.Location = new System.Drawing.Point(6, 25);
+            this.OXRightRadioButton.Name = "OXRightRadioButton";
+            this.OXRightRadioButton.Size = new System.Drawing.Size(148, 17);
+            this.OXRightRadioButton.TabIndex = 0;
+            this.OXRightRadioButton.TabStop = true;
+            this.OXRightRadioButton.Text = "Сдвиг по оси ОХ вправо";
+            this.OXRightRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // OYDownRadioButton
+            // 
+            this.OYDownRadioButton.AutoSize = true;
+            this.OYDownRadioButton.Location = new System.Drawing.Point(6, 71);
+            this.OYDownRadioButton.Name = "OYDownRadioButton";
+            this.OYDownRadioButton.Size = new System.Drawing.Size(136, 17);
+            this.OYDownRadioButton.TabIndex = 1;
+            this.OYDownRadioButton.TabStop = true;
+            this.OYDownRadioButton.Text = "Сдвиг по оси OY вниз";
+            this.OYDownRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // OXLeftRadioButton
+            // 
+            this.OXLeftRadioButton.AutoSize = true;
+            this.OXLeftRadioButton.Location = new System.Drawing.Point(6, 48);
+            this.OXLeftRadioButton.Name = "OXLeftRadioButton";
+            this.OXLeftRadioButton.Size = new System.Drawing.Size(142, 17);
+            this.OXLeftRadioButton.TabIndex = 1;
+            this.OXLeftRadioButton.TabStop = true;
+            this.OXLeftRadioButton.Text = "Сдвиг по оси ОХ влево";
+            this.OXLeftRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // OYUpRadioButton
+            // 
+            this.OYUpRadioButton.AutoSize = true;
+            this.OYUpRadioButton.Location = new System.Drawing.Point(6, 94);
+            this.OYUpRadioButton.Name = "OYUpRadioButton";
+            this.OYUpRadioButton.Size = new System.Drawing.Size(141, 17);
+            this.OYUpRadioButton.TabIndex = 2;
+            this.OYUpRadioButton.TabStop = true;
+            this.OYUpRadioButton.Text = "Сдвиг по оси OY вверх";
+            this.OYUpRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ShiftButton
+            // 
+            this.ShiftButton.Location = new System.Drawing.Point(9, 222);
+            this.ShiftButton.Name = "ShiftButton";
+            this.ShiftButton.Size = new System.Drawing.Size(81, 23);
+            this.ShiftButton.TabIndex = 13;
+            this.ShiftButton.Text = "Сдвиг";
+            this.ShiftButton.UseVisualStyleBackColor = true;
+            this.ShiftButton.Click += new System.EventHandler(this.ShiftButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,6 +392,7 @@
             this.groupBox4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -403,14 +420,15 @@
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Button DrawAxisButton;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button OYUpButton;
-        private System.Windows.Forms.Button OYDownButton;
-        private System.Windows.Forms.Button OXLeftButton;
-        private System.Windows.Forms.Button OXRightButton;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button ShiftButton;
+        private System.Windows.Forms.RadioButton OYUpRadioButton;
+        private System.Windows.Forms.RadioButton OXLeftRadioButton;
+        private System.Windows.Forms.RadioButton OYDownRadioButton;
+        private System.Windows.Forms.RadioButton OXRightRadioButton;
     }
 }
 

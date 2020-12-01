@@ -14,9 +14,7 @@ namespace LaboratoryWork4
 
 		public int step = 0;
 
-		public int[,] kv = new int[4, 3];
-
-		public int[,] figure = new int[4, 3];
+		public int[,] figure = new int[6, 3];
 
 		public int[,] matrSdv = new int[3, 3];
 
@@ -136,12 +134,14 @@ namespace LaboratoryWork4
 			}
 		}
 
-		private void InitKvadrat()
+		private void InitFigure()
 		{
-			kv[0, 0] = -50; kv[0, 1] = 0;   kv[0, 2] = 1;
-			kv[1, 0] = 0;   kv[1, 1] = 50;  kv[1, 2] = 1;
-			kv[2, 0] = 50;  kv[2, 1] = 0;   kv[2, 2] = 1;
-			kv[3, 0] = 0;   kv[3, 1] = -50; kv[3, 2] = 1;
+			figure[0, 0] = -59;   figure[0, 1] = -32;   figure[0, 2] = 1;
+			figure[1, 0] = 61;    figure[1, 1] = 16;    figure[1, 2] = 1;
+			figure[2, 0] = 181;   figure[2, 1] = -32;   figure[2, 2] = 1;
+			figure[3, 0] = 181;   figure[3, 1] = 184;   figure[3, 2] = 1;
+            figure[4, 0] = 61;    figure[4, 1] = 136;   figure[4, 2] = 1;
+            figure[5, 0] = -59;   figure[5, 1] = 184;   figure[5, 2] = 1;
 		}
 
 		private void InitMatrPreob(int k1, int l1)
@@ -153,10 +153,10 @@ namespace LaboratoryWork4
 
         private void DrawFigureButton_Click(object sender, EventArgs e)
         {
-			k = PictureBox.Width / 2;
-			l = PictureBox.Height / 2;
+			k = PictureBox.Width / 2 - 60;
+			l = PictureBox.Height / 2 - 70;
 
-			DrawKvadrat();
+			DrawFigure();
 		}
 
         private void InitOsi()
@@ -240,19 +240,21 @@ namespace LaboratoryWork4
 			return r;
 		}
 
-        private void DrawKvadrat()
+        private void DrawFigure()
         {
-            InitKvadrat();
+            InitFigure();
             InitMatrPreob(k, l);
-            int[,] kv1 = MultiplyMatr(kv, matrSdv);
+            int[,] kv1 = MultiplyMatr(figure, matrSdv);
 
 			Graphics g = Graphics.FromImage(bitmap);
 
 			g.DrawLine(pen, kv1[0, 0], kv1[0, 1], kv1[1, 0], kv1[1, 1]);
             g.DrawLine(pen, kv1[1, 0], kv1[1, 1], kv1[2, 0], kv1[2, 1]);
             g.DrawLine(pen, kv1[2, 0], kv1[2, 1], kv1[3, 0], kv1[3, 1]);
-            g.DrawLine(pen, kv1[3, 0], kv1[3, 1], kv1[0, 0], kv1[0, 1]);
-            g.Dispose();
+            g.DrawLine(pen, kv1[3, 0], kv1[3, 1], kv1[4, 0], kv1[4, 1]);
+            g.DrawLine(pen, kv1[4, 0], kv1[4, 1], kv1[5, 0], kv1[5, 1]);
+            g.DrawLine(pen, kv1[5, 0], kv1[5, 1], kv1[0, 0], kv1[0, 1]);
+			g.Dispose();
 
             PictureBox.Image = bitmap;
         }
@@ -315,7 +317,7 @@ namespace LaboratoryWork4
             bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
             PictureBox.Image = bitmap;
 			DrawOsi();
-            DrawKvadrat();
+            DrawFigure();
             PictureBox.Image = bitmap;
 		}
     }

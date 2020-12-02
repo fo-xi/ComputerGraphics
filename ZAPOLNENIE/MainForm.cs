@@ -366,8 +366,9 @@ namespace ZAPOLNENIE
 
         private void ClippingButton_Click(object sender, EventArgs e)
         {
-            foreach (var line in lines)
+            for (var index = 0; index < lines.Count; index++)
             {
+                var line = lines[index];
                 try
                 {
                     Clipping(line);
@@ -376,6 +377,7 @@ namespace ZAPOLNENIE
                 catch
                 {
                     lines.Remove(line);
+                    index = -1;
                 }
             }
 

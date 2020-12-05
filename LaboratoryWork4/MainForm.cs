@@ -407,50 +407,55 @@ namespace LaboratoryWork4
 
         private void InitWheel()
         {
-            wheels[0, 0] = 60; wheels[0, 1] = 300; wheels[0, 2] = 50;
-            wheels[1, 0] = 180; wheels[1, 1] = 300; wheels[1, 2] = 50;
-            wheels[2, 0] = 150; wheels[2, 1] = 315; wheels[2, 2] = 20;
+            wheels[0, 0] = -85; wheels[0, 1] = 0; wheels[0, 2] = 1;
+            wheels[1, 0] = 35; wheels[1, 1] = 0; wheels[1, 2] = 1;
+            wheels[2, 0] = 5; wheels[2, 1] = 15; wheels[2, 2] = 1;
         }
 
         private void InitHousing()
         {
-            housing[0, 0] = 85; housing[0, 1] = 325; housing[0, 2] = 1;
-            housing[1, 0] = 85; housing[1, 1] = 260; housing[1, 2] = 1;
-            housing[2, 0] = 85; housing[2, 1] = 280; housing[2, 2] = 1;
-            housing[3, 0] = 160; housing[3, 1] = 280; housing[3, 2] = 1;
-            housing[4, 0] = 160; housing[4, 1] = 260; housing[4, 2] = 1;
-            housing[5, 0] = 160; housing[5, 1] = 325; housing[5, 2] = 1;
-            housing[6, 0] = 205; housing[6, 1] = 325; housing[6, 2] = 1;
+            housing[0, 0] = -60; housing[0, 1] = 25; housing[0, 2] = 1;
+            housing[1, 0] = -60; housing[1, 1] = -35; housing[1, 2] = 1;
+            housing[2, 0] = -60; housing[2, 1] = -15; housing[2, 2] = 1;
+            housing[3, 0] = 15; housing[3, 1] = -15; housing[3, 2] = 1;
+            housing[4, 0] = 15; housing[4, 1] = -35; housing[4, 2] = 1;
+            housing[5, 0] = 15; housing[5, 1] = 25; housing[5, 2] = 1;
+            housing[6, 0] = 60; housing[6, 1] = 25; housing[6, 2] = 1;
         }
 
         private void InitPedal()
         {
-            pedal[0, 0] = 160; pedal[0, 1] = 335; pedal[0, 2] = 1;
-            pedal[1, 0] = 160; pedal[1, 1] = 345; pedal[1, 2] = 1;
-            pedal[2, 0] = 155; pedal[2, 1] = 345; pedal[2, 2] = 1;
-            pedal[3, 0] = 165; pedal[3, 1] = 345; pedal[3, 2] = 1;
+            pedal[0, 0] = 15; pedal[0, 1] = -35; pedal[0, 2] = 1;
+            pedal[1, 0] = 15; pedal[1, 1] = -45; pedal[1, 2] = 1;
+            pedal[2, 0] = 10; pedal[2, 1] = -45; pedal[2, 2] = 1;
+            pedal[3, 0] = 20; pedal[3, 1] = -45; pedal[3, 2] = 1;
         }
 
         private void DrawBicycle()
         {
+            InitMatrSdv(PictureBox.Width / 2, PictureBox.Height / 2);
             InitWheel();
             InitHousing();
             InitPedal();
 
+            float[,] figure1 = MultiplyMatr(wheels, matrSdv);
+            float[,] figure2 = MultiplyMatr(housing, matrSdv);
+            float[,] figure3 = MultiplyMatr(pedal, matrSdv);
+
             Graphics g = Graphics.FromImage(bitmap);
 
-            g.DrawEllipse(pen, wheels[0, 0], wheels[0, 1], wheels[0, 2], wheels[0, 2]);
-            g.DrawEllipse(pen, wheels[1, 0], wheels[1, 1], wheels[1, 2], wheels[1, 2]);
-            g.DrawEllipse(pen, wheels[2, 0], wheels[2, 1], wheels[2, 2], wheels[2, 2]);
+            g.DrawEllipse(pen, figure1[0, 0], figure1[0, 1], 50, 50);
+            g.DrawEllipse(pen, figure1[1, 0], figure1[1, 1], 50, 50);
+            g.DrawEllipse(pen, figure1[2, 0], figure1[2, 1], 20, 20);
 
-            g.DrawLine(pen, housing[0, 0], housing[0, 1], housing[1, 0], housing[1, 1]);
-            g.DrawLine(pen, housing[2, 0], housing[2, 1], housing[3, 0], housing[3, 1]);
-            g.DrawLine(pen, housing[4, 0], housing[4, 1], housing[5, 0], housing[5, 1]);
-            g.DrawLine(pen, housing[5, 0], housing[5, 1], housing[6, 0], housing[6, 1]);
-            g.DrawLine(pen, housing[6, 0], housing[6, 1], housing[3, 0], housing[3, 1]);
+            g.DrawLine(pen, figure2[0, 0], figure2[0, 1], figure2[1, 0], figure2[1, 1]);
+            g.DrawLine(pen, figure2[2, 0], figure2[2, 1], figure2[3, 0], figure2[3, 1]);
+            g.DrawLine(pen, figure2[4, 0], figure2[4, 1], figure2[5, 0], figure2[5, 1]);
+            g.DrawLine(pen, figure2[5, 0], figure2[5, 1], figure2[6, 0], figure2[6, 1]);
+            g.DrawLine(pen, figure2[6, 0], figure2[6, 1], figure2[3, 0], figure2[3, 1]);
 
-            g.DrawLine(pen, pedal[0, 0], pedal[0, 1], pedal[1, 0], pedal[1, 1]);
-            g.DrawLine(pen, pedal[2, 0], pedal[2, 1], pedal[3, 0], pedal[3, 1]);
+            g.DrawLine(pen, figure3[0, 0], figure3[0, 1], figure3[1, 0], figure3[1, 1]);
+            g.DrawLine(pen, figure3[2, 0], figure3[2, 1], figure3[3, 0], figure3[3, 1]);
 
 
             g.Dispose();

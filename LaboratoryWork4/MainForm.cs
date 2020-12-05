@@ -39,11 +39,25 @@ namespace LaboratoryWork4
 
         /// Велосипед
         
-        public float [,] wheels = new float[3, 3];
+        public float [,] matrWheel1Spokes = new float[2, 3];
 
-        public float[,] housing = new float[7, 3];
+        public float[,] matrWheel2Spokes = new float[2, 3];
 
-        public float[,] pedal = new float[4, 3];
+        public float[,] matrHousing = new float[10, 3];
+
+        public float[,] matrPedal = new float[4, 3];
+
+        public float kWheel1 = 0;
+
+        public float lWheel1 = 0;
+
+        public float kWheel2 = 0;
+
+        public float lWheel2 = 0;
+
+        public float kWheel3 = 0;
+
+        public float lWheel3 = 0;
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -405,57 +419,83 @@ namespace LaboratoryWork4
 
         ///Велосипед
 
-        private void InitWheel()
+        private void InitWheelSpokes()
         {
-            wheels[0, 0] = -85; wheels[0, 1] = 0; wheels[0, 2] = 1;
-            wheels[1, 0] = 35; wheels[1, 1] = 0; wheels[1, 2] = 1;
-            wheels[2, 0] = 5; wheels[2, 1] = 15; wheels[2, 2] = 1;
+            matrWheel1Spokes[0, 0] = -25; matrWheel1Spokes[0, 1] = 0; matrWheel1Spokes[0, 2] = 1;
+            matrWheel1Spokes[1, 0] = 25; matrWheel1Spokes[1, 1] = 0; matrWheel1Spokes[1, 2] = 1;
+
+            matrWheel2Spokes[0, 0] = -25; matrWheel2Spokes[0, 1] = 0; matrWheel2Spokes[0, 2] = 1;
+            matrWheel2Spokes[1, 0] = 25; matrWheel2Spokes[1, 1] = 0; matrWheel2Spokes[1, 2] = 1;
+
+            kWheel1 = k - 60;
+            lWheel1 = l + 25;
+
+            kWheel2 = k + 60;
+            lWheel2 = l + 25;
         }
 
         private void InitHousing()
         {
-            housing[0, 0] = -60; housing[0, 1] = 25; housing[0, 2] = 1;
-            housing[1, 0] = -60; housing[1, 1] = -35; housing[1, 2] = 1;
-            housing[2, 0] = -60; housing[2, 1] = -15; housing[2, 2] = 1;
-            housing[3, 0] = 15; housing[3, 1] = -15; housing[3, 2] = 1;
-            housing[4, 0] = 15; housing[4, 1] = -35; housing[4, 2] = 1;
-            housing[5, 0] = 15; housing[5, 1] = 25; housing[5, 2] = 1;
-            housing[6, 0] = 60; housing[6, 1] = 25; housing[6, 2] = 1;
+            matrHousing[0, 0] = -60; matrHousing[0, 1] = 25; matrHousing[0, 2] = 1;
+            matrHousing[1, 0] = -60; matrHousing[1, 1] = -35; matrHousing[1, 2] = 1;
+            matrHousing[2, 0] = -60; matrHousing[2, 1] = -15; matrHousing[2, 2] = 1;
+            matrHousing[3, 0] = 15; matrHousing[3, 1] = -15; matrHousing[3, 2] = 1;
+            matrHousing[4, 0] = 15; matrHousing[4, 1] = -35; matrHousing[4, 2] = 1;
+            matrHousing[5, 0] = 15; matrHousing[5, 1] = 25; matrHousing[5, 2] = 1;
+            matrHousing[6, 0] = 60; matrHousing[6, 1] = 25; matrHousing[6, 2] = 1;
+            matrHousing[7, 0] = -85; matrHousing[7, 1] = 0; matrHousing[7, 2] = 1;
+            matrHousing[8, 0] = 35; matrHousing[8, 1] = 0; matrHousing[8, 2] = 1;
+            matrHousing[9, 0] = 5; matrHousing[9, 1] = 15; matrHousing[9, 2] = 1;
         }
 
         private void InitPedal()
         {
-            pedal[0, 0] = 15; pedal[0, 1] = -35; pedal[0, 2] = 1;
-            pedal[1, 0] = 15; pedal[1, 1] = -45; pedal[1, 2] = 1;
-            pedal[2, 0] = 10; pedal[2, 1] = -45; pedal[2, 2] = 1;
-            pedal[3, 0] = 20; pedal[3, 1] = -45; pedal[3, 2] = 1;
+            matrPedal[0, 0] = 15; matrPedal[0, 1] = 35; matrPedal[0, 2] = 1;
+            matrPedal[1, 0] = 15; matrPedal[1, 1] = 45; matrPedal[1, 2] = 1;
+            matrPedal[2, 0] = 10; matrPedal[2, 1] = 45; matrPedal[2, 2] = 1;
+            matrPedal[3, 0] = 20; matrPedal[3, 1] = 45; matrPedal[3, 2] = 1;
+
+            kWheel3 = k + 15;
+            lWheel3 = l + 25;
         }
 
         private void DrawBicycle()
         {
-            InitMatrSdv(PictureBox.Width / 2, PictureBox.Height / 2);
-            InitWheel();
+            InitWheelSpokes();
             InitHousing();
             InitPedal();
+            InitRotation(angle);
 
-            float[,] figure1 = MultiplyMatr(wheels, matrSdv);
-            float[,] figure2 = MultiplyMatr(housing, matrSdv);
-            float[,] figure3 = MultiplyMatr(pedal, matrSdv);
+            InitMatrSdv(kWheel1, lWheel1);
+            float[,] wheel1Spokes = MultiplyMatr(matrWheel1Spokes, rotation);
+            wheel1Spokes = MultiplyMatr(wheel1Spokes, matrSdv);
+
+            InitMatrSdv(kWheel2, lWheel2);
+            float[,] wheel2Spokes = MultiplyMatr(matrWheel2Spokes, rotation);
+            wheel2Spokes = MultiplyMatr(wheel2Spokes, matrSdv);
+
+            InitMatrSdv(k, l);
+            float[,] frame = MultiplyMatr(matrHousing, matrSdv);
+            float[,] pedal = MultiplyMatr(matrPedal, matrSdv);
 
             Graphics g = Graphics.FromImage(bitmap);
 
-            g.DrawEllipse(pen, figure1[0, 0], figure1[0, 1], 50, 50);
-            g.DrawEllipse(pen, figure1[1, 0], figure1[1, 1], 50, 50);
-            g.DrawEllipse(pen, figure1[2, 0], figure1[2, 1], 20, 20);
+            //Рисуем спицы
+            g.DrawLine(pen, wheel1Spokes[0, 0], wheel1Spokes[0, 1], wheel1Spokes[1, 0], wheel1Spokes[1, 1]);
+            g.DrawLine(pen, wheel2Spokes[0, 0], wheel2Spokes[0, 1], wheel2Spokes[1, 0], wheel2Spokes[1, 1]);
 
-            g.DrawLine(pen, figure2[0, 0], figure2[0, 1], figure2[1, 0], figure2[1, 1]);
-            g.DrawLine(pen, figure2[2, 0], figure2[2, 1], figure2[3, 0], figure2[3, 1]);
-            g.DrawLine(pen, figure2[4, 0], figure2[4, 1], figure2[5, 0], figure2[5, 1]);
-            g.DrawLine(pen, figure2[5, 0], figure2[5, 1], figure2[6, 0], figure2[6, 1]);
-            g.DrawLine(pen, figure2[6, 0], figure2[6, 1], figure2[3, 0], figure2[3, 1]);
 
-            g.DrawLine(pen, figure3[0, 0], figure3[0, 1], figure3[1, 0], figure3[1, 1]);
-            g.DrawLine(pen, figure3[2, 0], figure3[2, 1], figure3[3, 0], figure3[3, 1]);
+            g.DrawLine(pen, frame[0, 0], frame[0, 1], frame[1, 0], frame[1, 1]);
+            g.DrawLine(pen, frame[2, 0], frame[2, 1], frame[3, 0], frame[3, 1]);
+            g.DrawLine(pen, frame[4, 0], frame[4, 1], frame[5, 0], frame[5, 1]);
+            g.DrawLine(pen, frame[5, 0], frame[5, 1], frame[6, 0], frame[6, 1]);
+            g.DrawLine(pen, frame[6, 0], frame[6, 1], frame[3, 0], frame[3, 1]);
+            g.DrawEllipse(pen, frame[7, 0], frame[7, 1], 50, 50);
+            g.DrawEllipse(pen, frame[8, 0], frame[8, 1], 50, 50);
+            g.DrawEllipse(pen, frame[9, 0], frame[9, 1], 20, 20);
+
+            g.DrawLine(pen, pedal[0, 0], pedal[0, 1], pedal[1, 0], pedal[1, 1]);
+            g.DrawLine(pen, pedal[2, 0], pedal[2, 1], pedal[3, 0], pedal[3, 1]);
 
 
             g.Dispose();
@@ -465,7 +505,46 @@ namespace LaboratoryWork4
 
         private void BicycleButton_Click(object sender, EventArgs e)
         {
+            k = PictureBox.Width / 2;
+            l = PictureBox.Height / 2;
             DrawBicycle();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            angle -= 10;
+            k -= 5;
+            if (k < -170)
+            {
+                k = PictureBox.Width + 170;
+            }
+            RemovingBicycle();
+            Thread.Sleep(100);
+        }
+
+        private void RemovingBicycle()
+        {
+            PictureBox.Image = null;
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
+            DrawBicycle();
+            PictureBox.Image = bitmap;
+        }
+
+        private void StartBicycleButton_Click(object sender, EventArgs e)
+        {
+            timer2.Interval = 100;
+
+            StartBicycleButton.Text = "Стоп";
+            if (f == true)
+            {
+                timer2.Start();
+            }
+            else
+            {
+                timer2.Stop();
+                StartBicycleButton.Text = "Старт";
+            }
+            f = !f;
         }
     }
 }

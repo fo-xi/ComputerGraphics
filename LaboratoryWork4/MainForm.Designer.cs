@@ -44,6 +44,7 @@
             this.WidthTextBox = new System.Windows.Forms.TextBox();
             this.DrawFigureButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BicycleButton = new System.Windows.Forms.Button();
             this.ShiftButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -67,7 +68,9 @@
             this.ApplyScalingButton = new System.Windows.Forms.Button();
             this.ScalingTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.BicycleButton = new System.Windows.Forms.Button();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.StartBicycleButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -83,7 +86,7 @@
             // PictureBox
             // 
             this.PictureBox.Location = new System.Drawing.Point(16, 15);
-            this.PictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.PictureBox.Name = "PictureBox";
             this.PictureBox.Size = new System.Drawing.Size(491, 447);
             this.PictureBox.TabIndex = 1;
@@ -101,7 +104,7 @@
             this.panel2.Controls.Add(this.ColorsComboBox);
             this.panel2.Controls.Add(this.groupBox4);
             this.panel2.Location = new System.Drawing.Point(1045, 15);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(257, 446);
             this.panel2.TabIndex = 2;
@@ -111,9 +114,9 @@
             this.groupBox5.Controls.Add(this.SolidLineRadioButton);
             this.groupBox5.Controls.Add(this.DottedLineRadioButton);
             this.groupBox5.Location = new System.Drawing.Point(4, 178);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(247, 98);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
@@ -123,7 +126,7 @@
             // 
             this.SolidLineRadioButton.AutoSize = true;
             this.SolidLineRadioButton.Location = new System.Drawing.Point(8, 36);
-            this.SolidLineRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SolidLineRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.SolidLineRadioButton.Name = "SolidLineRadioButton";
             this.SolidLineRadioButton.Size = new System.Drawing.Size(141, 21);
             this.SolidLineRadioButton.TabIndex = 7;
@@ -136,7 +139,7 @@
             // 
             this.DottedLineRadioButton.AutoSize = true;
             this.DottedLineRadioButton.Location = new System.Drawing.Point(8, 66);
-            this.DottedLineRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DottedLineRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.DottedLineRadioButton.Name = "DottedLineRadioButton";
             this.DottedLineRadioButton.Size = new System.Drawing.Size(152, 21);
             this.DottedLineRadioButton.TabIndex = 8;
@@ -159,7 +162,7 @@
             // 
             this.ColorsComboBox.FormattingEnabled = true;
             this.ColorsComboBox.Location = new System.Drawing.Point(59, 15);
-            this.ColorsComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ColorsComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorsComboBox.Name = "ColorsComboBox";
             this.ColorsComboBox.Size = new System.Drawing.Size(183, 24);
             this.ColorsComboBox.TabIndex = 4;
@@ -172,9 +175,9 @@
             this.groupBox4.Controls.Add(this.ThickLineRadioButton);
             this.groupBox4.Controls.Add(this.WidthTextBox);
             this.groupBox4.Location = new System.Drawing.Point(4, 48);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(247, 123);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
@@ -184,7 +187,7 @@
             // 
             this.ThinLineRadioButton.AutoSize = true;
             this.ThinLineRadioButton.Location = new System.Drawing.Point(8, 92);
-            this.ThinLineRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ThinLineRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.ThinLineRadioButton.Name = "ThinLineRadioButton";
             this.ThinLineRadioButton.Size = new System.Drawing.Size(121, 21);
             this.ThinLineRadioButton.TabIndex = 6;
@@ -207,7 +210,7 @@
             // 
             this.ThickLineRadioButton.AutoSize = true;
             this.ThickLineRadioButton.Location = new System.Drawing.Point(8, 27);
-            this.ThickLineRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ThickLineRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.ThickLineRadioButton.Name = "ThickLineRadioButton";
             this.ThickLineRadioButton.Size = new System.Drawing.Size(128, 21);
             this.ThickLineRadioButton.TabIndex = 4;
@@ -219,7 +222,7 @@
             // WidthTextBox
             // 
             this.WidthTextBox.Location = new System.Drawing.Point(91, 57);
-            this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.WidthTextBox.Name = "WidthTextBox";
             this.WidthTextBox.Size = new System.Drawing.Size(147, 22);
             this.WidthTextBox.TabIndex = 2;
@@ -228,7 +231,7 @@
             // DrawFigureButton
             // 
             this.DrawFigureButton.Location = new System.Drawing.Point(4, 48);
-            this.DrawFigureButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DrawFigureButton.Margin = new System.Windows.Forms.Padding(4);
             this.DrawFigureButton.Name = "DrawFigureButton";
             this.DrawFigureButton.Size = new System.Drawing.Size(247, 28);
             this.DrawFigureButton.TabIndex = 8;
@@ -239,6 +242,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.StartBicycleButton);
             this.panel1.Controls.Add(this.BicycleButton);
             this.panel1.Controls.Add(this.ShiftButton);
             this.panel1.Controls.Add(this.StartButton);
@@ -247,15 +251,26 @@
             this.panel1.Controls.Add(this.ClearButton);
             this.panel1.Controls.Add(this.DrawAxisButton);
             this.panel1.Location = new System.Drawing.Point(515, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(257, 446);
             this.panel1.TabIndex = 3;
             // 
+            // BicycleButton
+            // 
+            this.BicycleButton.Location = new System.Drawing.Point(12, 313);
+            this.BicycleButton.Margin = new System.Windows.Forms.Padding(4);
+            this.BicycleButton.Name = "BicycleButton";
+            this.BicycleButton.Size = new System.Drawing.Size(108, 28);
+            this.BicycleButton.TabIndex = 14;
+            this.BicycleButton.Text = "Велосипед";
+            this.BicycleButton.UseVisualStyleBackColor = true;
+            this.BicycleButton.Click += new System.EventHandler(this.BicycleButton_Click);
+            // 
             // ShiftButton
             // 
             this.ShiftButton.Location = new System.Drawing.Point(12, 273);
-            this.ShiftButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ShiftButton.Margin = new System.Windows.Forms.Padding(4);
             this.ShiftButton.Name = "ShiftButton";
             this.ShiftButton.Size = new System.Drawing.Size(108, 28);
             this.ShiftButton.TabIndex = 13;
@@ -266,7 +281,7 @@
             // StartButton
             // 
             this.StartButton.Location = new System.Drawing.Point(128, 273);
-            this.StartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(116, 28);
             this.StartButton.TabIndex = 12;
@@ -281,9 +296,9 @@
             this.groupBox1.Controls.Add(this.OYDownRadioButton);
             this.groupBox1.Controls.Add(this.OXRightRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(4, 119);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(247, 146);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
@@ -293,7 +308,7 @@
             // 
             this.OYUpRadioButton.AutoSize = true;
             this.OYUpRadioButton.Location = new System.Drawing.Point(8, 116);
-            this.OYUpRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OYUpRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.OYUpRadioButton.Name = "OYUpRadioButton";
             this.OYUpRadioButton.Size = new System.Drawing.Size(177, 21);
             this.OYUpRadioButton.TabIndex = 2;
@@ -305,7 +320,7 @@
             // 
             this.OXLeftRadioButton.AutoSize = true;
             this.OXLeftRadioButton.Location = new System.Drawing.Point(8, 59);
-            this.OXLeftRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OXLeftRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.OXLeftRadioButton.Name = "OXLeftRadioButton";
             this.OXLeftRadioButton.Size = new System.Drawing.Size(179, 21);
             this.OXLeftRadioButton.TabIndex = 1;
@@ -317,7 +332,7 @@
             // 
             this.OYDownRadioButton.AutoSize = true;
             this.OYDownRadioButton.Location = new System.Drawing.Point(8, 87);
-            this.OYDownRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OYDownRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.OYDownRadioButton.Name = "OYDownRadioButton";
             this.OYDownRadioButton.Size = new System.Drawing.Size(171, 21);
             this.OYDownRadioButton.TabIndex = 1;
@@ -329,7 +344,7 @@
             // 
             this.OXRightRadioButton.AutoSize = true;
             this.OXRightRadioButton.Location = new System.Drawing.Point(8, 31);
-            this.OXRightRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OXRightRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.OXRightRadioButton.Name = "OXRightRadioButton";
             this.OXRightRadioButton.Size = new System.Drawing.Size(187, 21);
             this.OXRightRadioButton.TabIndex = 0;
@@ -340,7 +355,7 @@
             // ClearButton
             // 
             this.ClearButton.Location = new System.Drawing.Point(4, 84);
-            this.ClearButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ClearButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(247, 28);
             this.ClearButton.TabIndex = 10;
@@ -351,7 +366,7 @@
             // DrawAxisButton
             // 
             this.DrawAxisButton.Location = new System.Drawing.Point(4, 15);
-            this.DrawAxisButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DrawAxisButton.Margin = new System.Windows.Forms.Padding(4);
             this.DrawAxisButton.Name = "DrawAxisButton";
             this.DrawAxisButton.Size = new System.Drawing.Size(247, 28);
             this.DrawAxisButton.TabIndex = 8;
@@ -370,7 +385,7 @@
             this.panel3.Controls.Add(this.groupBox2);
             this.panel3.Controls.Add(this.groupBox3);
             this.panel3.Location = new System.Drawing.Point(780, 15);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(257, 446);
             this.panel3.TabIndex = 4;
@@ -381,9 +396,9 @@
             this.groupBox7.Controls.Add(this.AngleTextBox);
             this.groupBox7.Controls.Add(this.label2);
             this.groupBox7.Location = new System.Drawing.Point(4, 249);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox7.Size = new System.Drawing.Size(247, 92);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
@@ -392,7 +407,7 @@
             // ApplyAngleButton
             // 
             this.ApplyAngleButton.Location = new System.Drawing.Point(139, 55);
-            this.ApplyAngleButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ApplyAngleButton.Margin = new System.Windows.Forms.Padding(4);
             this.ApplyAngleButton.Name = "ApplyAngleButton";
             this.ApplyAngleButton.Size = new System.Drawing.Size(100, 28);
             this.ApplyAngleButton.TabIndex = 4;
@@ -403,7 +418,7 @@
             // AngleTextBox
             // 
             this.AngleTextBox.Location = new System.Drawing.Point(67, 23);
-            this.AngleTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AngleTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.AngleTextBox.Name = "AngleTextBox";
             this.AngleTextBox.Size = new System.Drawing.Size(171, 22);
             this.AngleTextBox.TabIndex = 2;
@@ -424,9 +439,9 @@
             this.groupBox2.Controls.Add(this.Y0ReflectionButton);
             this.groupBox2.Controls.Add(this.YXReflectionButton);
             this.groupBox2.Location = new System.Drawing.Point(4, 15);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(247, 130);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
@@ -435,7 +450,7 @@
             // X0ReflectionButton
             // 
             this.X0ReflectionButton.Location = new System.Drawing.Point(8, 94);
-            this.X0ReflectionButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.X0ReflectionButton.Margin = new System.Windows.Forms.Padding(4);
             this.X0ReflectionButton.Name = "X0ReflectionButton";
             this.X0ReflectionButton.Size = new System.Drawing.Size(231, 28);
             this.X0ReflectionButton.TabIndex = 2;
@@ -446,7 +461,7 @@
             // Y0ReflectionButton
             // 
             this.Y0ReflectionButton.Location = new System.Drawing.Point(8, 59);
-            this.Y0ReflectionButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Y0ReflectionButton.Margin = new System.Windows.Forms.Padding(4);
             this.Y0ReflectionButton.Name = "Y0ReflectionButton";
             this.Y0ReflectionButton.Size = new System.Drawing.Size(231, 28);
             this.Y0ReflectionButton.TabIndex = 1;
@@ -457,7 +472,7 @@
             // YXReflectionButton
             // 
             this.YXReflectionButton.Location = new System.Drawing.Point(8, 23);
-            this.YXReflectionButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.YXReflectionButton.Margin = new System.Windows.Forms.Padding(4);
             this.YXReflectionButton.Name = "YXReflectionButton";
             this.YXReflectionButton.Size = new System.Drawing.Size(231, 28);
             this.YXReflectionButton.TabIndex = 0;
@@ -471,9 +486,9 @@
             this.groupBox3.Controls.Add(this.ScalingTextBox);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Location = new System.Drawing.Point(4, 153);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(247, 96);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
@@ -482,7 +497,7 @@
             // ApplyScalingButton
             // 
             this.ApplyScalingButton.Location = new System.Drawing.Point(139, 60);
-            this.ApplyScalingButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ApplyScalingButton.Margin = new System.Windows.Forms.Padding(4);
             this.ApplyScalingButton.Name = "ApplyScalingButton";
             this.ApplyScalingButton.Size = new System.Drawing.Size(100, 28);
             this.ApplyScalingButton.TabIndex = 3;
@@ -493,7 +508,7 @@
             // ScalingTextBox
             // 
             this.ScalingTextBox.Location = new System.Drawing.Point(95, 27);
-            this.ScalingTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ScalingTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ScalingTextBox.Name = "ScalingTextBox";
             this.ScalingTextBox.Size = new System.Drawing.Size(143, 22);
             this.ScalingTextBox.TabIndex = 1;
@@ -508,16 +523,20 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Масштаб: ";
             // 
-            // BicycleButton
+            // timer2
             // 
-            this.BicycleButton.Location = new System.Drawing.Point(12, 313);
-            this.BicycleButton.Margin = new System.Windows.Forms.Padding(4);
-            this.BicycleButton.Name = "BicycleButton";
-            this.BicycleButton.Size = new System.Drawing.Size(232, 28);
-            this.BicycleButton.TabIndex = 14;
-            this.BicycleButton.Text = "Велосипед";
-            this.BicycleButton.UseVisualStyleBackColor = true;
-            this.BicycleButton.Click += new System.EventHandler(this.BicycleButton_Click);
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // StartBicycleButton
+            // 
+            this.StartBicycleButton.Location = new System.Drawing.Point(128, 313);
+            this.StartBicycleButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StartBicycleButton.Name = "StartBicycleButton";
+            this.StartBicycleButton.Size = new System.Drawing.Size(116, 28);
+            this.StartBicycleButton.TabIndex = 15;
+            this.StartBicycleButton.Text = "Старт";
+            this.StartBicycleButton.UseVisualStyleBackColor = true;
+            this.StartBicycleButton.Click += new System.EventHandler(this.StartBicycleButton_Click);
             // 
             // MainForm
             // 
@@ -528,7 +547,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.PictureBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Генерация отрезков";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -592,6 +611,9 @@
         private System.Windows.Forms.TextBox ScalingTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BicycleButton;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Button StartBicycleButton;
+        private System.Windows.Forms.Timer timer3;
     }
 }
 

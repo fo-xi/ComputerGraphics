@@ -44,6 +44,7 @@
             this.WidthTextBox = new System.Windows.Forms.TextBox();
             this.DrawFigureButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.StartBicycleButton = new System.Windows.Forms.Button();
             this.BicycleButton = new System.Windows.Forms.Button();
             this.ShiftButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
@@ -70,7 +71,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.StartBicycleButton = new System.Windows.Forms.Button();
+            this.TandemButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -242,6 +243,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.TandemButton);
             this.panel1.Controls.Add(this.StartBicycleButton);
             this.panel1.Controls.Add(this.BicycleButton);
             this.panel1.Controls.Add(this.ShiftButton);
@@ -255,6 +257,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(257, 446);
             this.panel1.TabIndex = 3;
+            // 
+            // StartBicycleButton
+            // 
+            this.StartBicycleButton.Location = new System.Drawing.Point(128, 328);
+            this.StartBicycleButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StartBicycleButton.Name = "StartBicycleButton";
+            this.StartBicycleButton.Size = new System.Drawing.Size(116, 28);
+            this.StartBicycleButton.TabIndex = 15;
+            this.StartBicycleButton.Text = "Старт";
+            this.StartBicycleButton.UseVisualStyleBackColor = true;
+            this.StartBicycleButton.Click += new System.EventHandler(this.StartBicycleButton_Click);
             // 
             // BicycleButton
             // 
@@ -527,16 +540,16 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // StartBicycleButton
+            // TandemButton
             // 
-            this.StartBicycleButton.Location = new System.Drawing.Point(128, 313);
-            this.StartBicycleButton.Margin = new System.Windows.Forms.Padding(4);
-            this.StartBicycleButton.Name = "StartBicycleButton";
-            this.StartBicycleButton.Size = new System.Drawing.Size(116, 28);
-            this.StartBicycleButton.TabIndex = 15;
-            this.StartBicycleButton.Text = "Старт";
-            this.StartBicycleButton.UseVisualStyleBackColor = true;
-            this.StartBicycleButton.Click += new System.EventHandler(this.StartBicycleButton_Click);
+            this.TandemButton.Location = new System.Drawing.Point(12, 349);
+            this.TandemButton.Margin = new System.Windows.Forms.Padding(4);
+            this.TandemButton.Name = "TandemButton";
+            this.TandemButton.Size = new System.Drawing.Size(108, 28);
+            this.TandemButton.TabIndex = 16;
+            this.TandemButton.Text = "Тандем";
+            this.TandemButton.UseVisualStyleBackColor = true;
+            this.TandemButton.Click += new System.EventHandler(this.TandemButton_Click);
             // 
             // MainForm
             // 
@@ -614,6 +627,7 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button StartBicycleButton;
         private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Button TandemButton;
     }
 }
 

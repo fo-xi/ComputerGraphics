@@ -45,7 +45,9 @@ namespace LaboratoryWork4
 
         public float[,] matrHousing = new float[10, 3];
 
-        public float[,] matrPedal = new float[4, 3];
+        public float[,] matrPedal1 = new float[2, 3];
+
+        public float[,] matrPedal2 = new float[2, 3];
 
         public float kWheel1 = 0;
 
@@ -450,10 +452,11 @@ namespace LaboratoryWork4
 
         private void InitPedal()
         {
-            matrPedal[0, 0] = 15; matrPedal[0, 1] = 35; matrPedal[0, 2] = 1;
-            matrPedal[1, 0] = 15; matrPedal[1, 1] = 45; matrPedal[1, 2] = 1;
-            matrPedal[2, 0] = 10; matrPedal[2, 1] = 45; matrPedal[2, 2] = 1;
-            matrPedal[3, 0] = 20; matrPedal[3, 1] = 45; matrPedal[3, 2] = 1;
+            matrPedal1[0, 0] = 0; matrPedal1[0, 1] = 0; matrPedal1[0, 2] = 1;
+            matrPedal1[1, 0] = 0; matrPedal1[1, 1] = 20; matrPedal1[1, 2] = 1;
+
+            matrPedal2[0, 0] = -5; matrPedal2[0, 1] = 20; matrPedal2[0, 2] = 1;
+            matrPedal2[1, 0] = 5; matrPedal2[1, 1] = 20; matrPedal2[1, 2] = 1;
 
             kWheel3 = k + 15;
             lWheel3 = l + 25;
@@ -474,9 +477,16 @@ namespace LaboratoryWork4
             float[,] wheel2Spokes = MultiplyMatr(matrWheel2Spokes, rotation);
             wheel2Spokes = MultiplyMatr(wheel2Spokes, matrSdv);
 
+            InitMatrSdv(kWheel3, lWheel3);
+            float[,] pedal1 = MultiplyMatr(matrPedal1, rotation);
+            pedal1 = MultiplyMatr(pedal1, matrSdv);
+
+            InitMatrSdv(kWheel3, lWheel3);
+            float[,] pedal2 = MultiplyMatr(matrPedal2, rotation);
+            pedal2 = MultiplyMatr(pedal2, matrSdv);
+
             InitMatrSdv(k, l);
             float[,] frame = MultiplyMatr(matrHousing, matrSdv);
-            float[,] pedal = MultiplyMatr(matrPedal, matrSdv);
 
             Graphics g = Graphics.FromImage(bitmap);
 
@@ -494,9 +504,9 @@ namespace LaboratoryWork4
             g.DrawEllipse(pen, frame[8, 0], frame[8, 1], 50, 50);
             g.DrawEllipse(pen, frame[9, 0], frame[9, 1], 20, 20);
 
-            g.DrawLine(pen, pedal[0, 0], pedal[0, 1], pedal[1, 0], pedal[1, 1]);
-            g.DrawLine(pen, pedal[2, 0], pedal[2, 1], pedal[3, 0], pedal[3, 1]);
 
+            g.DrawLine(pen, pedal1[0, 0], pedal1[0, 1], pedal1[1, 0], pedal1[1, 1]); 
+            g.DrawLine(pen, pedal2[0, 0], pedal2[0, 1], pedal2[1, 0], pedal2[1, 1]);
 
             g.Dispose();
 
@@ -545,6 +555,11 @@ namespace LaboratoryWork4
                 StartBicycleButton.Text = "Старт";
             }
             f = !f;
+        }
+
+        private void TandemButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

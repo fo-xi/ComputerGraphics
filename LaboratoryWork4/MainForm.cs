@@ -37,6 +37,14 @@ namespace LaboratoryWork4
 
         public float scale = 1;
 
+        /// Велосипед
+        
+        public float [,] wheels = new float[3, 3];
+
+        public float[,] housing = new float[7, 3];
+
+        public float[,] pedal = new float[4, 3];
+
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			switch (ColorsComboBox.SelectedIndex)
@@ -393,6 +401,66 @@ namespace LaboratoryWork4
         {
             angle = float.Parse(AngleTextBox.Text);
             RemovingOldFigure();
+        }
+
+        ///Велосипед
+
+        private void InitWheel()
+        {
+            wheels[0, 0] = 60; wheels[0, 1] = 300; wheels[0, 2] = 50;
+            wheels[1, 0] = 180; wheels[1, 1] = 300; wheels[1, 2] = 50;
+            wheels[2, 0] = 150; wheels[2, 1] = 315; wheels[2, 2] = 20;
+        }
+
+        private void InitHousing()
+        {
+            housing[0, 0] = 85; housing[0, 1] = 325; housing[0, 2] = 1;
+            housing[1, 0] = 85; housing[1, 1] = 260; housing[1, 2] = 1;
+            housing[2, 0] = 85; housing[2, 1] = 280; housing[2, 2] = 1;
+            housing[3, 0] = 160; housing[3, 1] = 280; housing[3, 2] = 1;
+            housing[4, 0] = 160; housing[4, 1] = 260; housing[4, 2] = 1;
+            housing[5, 0] = 160; housing[5, 1] = 325; housing[5, 2] = 1;
+            housing[6, 0] = 205; housing[6, 1] = 325; housing[6, 2] = 1;
+        }
+
+        private void InitPedal()
+        {
+            pedal[0, 0] = 160; pedal[0, 1] = 335; pedal[0, 2] = 1;
+            pedal[1, 0] = 160; pedal[1, 1] = 345; pedal[1, 2] = 1;
+            pedal[2, 0] = 155; pedal[2, 1] = 345; pedal[2, 2] = 1;
+            pedal[3, 0] = 165; pedal[3, 1] = 345; pedal[3, 2] = 1;
+        }
+
+        private void DrawBicycle()
+        {
+            InitWheel();
+            InitHousing();
+            InitPedal();
+
+            Graphics g = Graphics.FromImage(bitmap);
+
+            g.DrawEllipse(pen, wheels[0, 0], wheels[0, 1], wheels[0, 2], wheels[0, 2]);
+            g.DrawEllipse(pen, wheels[1, 0], wheels[1, 1], wheels[1, 2], wheels[1, 2]);
+            g.DrawEllipse(pen, wheels[2, 0], wheels[2, 1], wheels[2, 2], wheels[2, 2]);
+
+            g.DrawLine(pen, housing[0, 0], housing[0, 1], housing[1, 0], housing[1, 1]);
+            g.DrawLine(pen, housing[2, 0], housing[2, 1], housing[3, 0], housing[3, 1]);
+            g.DrawLine(pen, housing[4, 0], housing[4, 1], housing[5, 0], housing[5, 1]);
+            g.DrawLine(pen, housing[5, 0], housing[5, 1], housing[6, 0], housing[6, 1]);
+            g.DrawLine(pen, housing[6, 0], housing[6, 1], housing[3, 0], housing[3, 1]);
+
+            g.DrawLine(pen, pedal[0, 0], pedal[0, 1], pedal[1, 0], pedal[1, 1]);
+            g.DrawLine(pen, pedal[2, 0], pedal[2, 1], pedal[3, 0], pedal[3, 1]);
+
+
+            g.Dispose();
+
+            PictureBox.Image = bitmap;
+        }
+
+        private void BicycleButton_Click(object sender, EventArgs e)
+        {
+            DrawBicycle();
         }
     }
 }

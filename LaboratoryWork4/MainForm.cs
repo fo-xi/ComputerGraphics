@@ -49,14 +49,17 @@ namespace LaboratoryWork4
 
 		public float[,] matrPedal2 = new float[2, 3];
 
+        //Первое колесо
 		public float kWheel1 = 0;
 
 		public float lWheel1 = 0;
 
+        //Второе колесо
 		public float kWheel2 = 0;
 
 		public float lWheel2 = 0;
 
+		//Первая педаль
 		public float kWheel3 = 0;
 
 		public float lWheel3 = 0;
@@ -68,6 +71,11 @@ namespace LaboratoryWork4
 		public float[,] matrTandemPedal1 = new float[2, 3];
 
 		public float[,] matrTandemPedal2 = new float[2, 3];
+
+        //Вторая педаль
+        public float kWheel4 = 0;
+
+        public float lWheel4 = 0;
 
 		private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -431,21 +439,25 @@ namespace LaboratoryWork4
 
 		private void InitWheelSpokes()
 		{
+            //Создание центра колеса
+            kWheel1 = k - 60;
+            lWheel1 = l + 25;
+
+            matrWheel1Spokes[0, 0] = -25; matrWheel1Spokes[0, 1] = 0; matrWheel1Spokes[0, 2] = 1;
+            matrWheel1Spokes[1, 0] = 25; matrWheel1Spokes[1, 1] = 0; matrWheel1Spokes[1, 2] = 1;
 
 			if (TandemCheckBox.Checked)
-			{ 
-			
-			}
+			{
+                matrWheel2Spokes[0, 0] = -25; matrWheel2Spokes[0, 1] = 0; matrWheel2Spokes[0, 2] = 1;
+                matrWheel2Spokes[1, 0] = 25; matrWheel2Spokes[1, 1] = 0; matrWheel2Spokes[1, 2] = 1;
+
+                kWheel2 = k + 163;
+                lWheel2 = l + 25;
+            }
 			else 
 			{
-				matrWheel1Spokes[0, 0] = -25; matrWheel1Spokes[0, 1] = 0; matrWheel1Spokes[0, 2] = 1;
-				matrWheel1Spokes[1, 0] = 25; matrWheel1Spokes[1, 1] = 0; matrWheel1Spokes[1, 2] = 1;
-
-				matrWheel2Spokes[0, 0] = -25; matrWheel2Spokes[0, 1] = 0; matrWheel2Spokes[0, 2] = 1;
+                matrWheel2Spokes[0, 0] = -25; matrWheel2Spokes[0, 1] = 0; matrWheel2Spokes[0, 2] = 1;
 				matrWheel2Spokes[1, 0] = 25; matrWheel2Spokes[1, 1] = 0; matrWheel2Spokes[1, 2] = 1;
-
-				kWheel1 = k - 60;
-				lWheel1 = l + 25;
 
 				kWheel2 = k + 60;
 				lWheel2 = l + 25;
@@ -454,23 +466,16 @@ namespace LaboratoryWork4
 
 		private void InitHousing()
 		{
-			if (TandemCheckBox.Checked)
-			{
-
-			}
-			else
-			{
-				matrHousing[0, 0] = -60; matrHousing[0, 1] = 25; matrHousing[0, 2] = 1;
-				matrHousing[1, 0] = -60; matrHousing[1, 1] = -35; matrHousing[1, 2] = 1;
-				matrHousing[2, 0] = -60; matrHousing[2, 1] = -15; matrHousing[2, 2] = 1;
-				matrHousing[3, 0] = 15; matrHousing[3, 1] = -15; matrHousing[3, 2] = 1;
-				matrHousing[4, 0] = 15; matrHousing[4, 1] = -35; matrHousing[4, 2] = 1;
-				matrHousing[5, 0] = 15; matrHousing[5, 1] = 25; matrHousing[5, 2] = 1;
-				matrHousing[6, 0] = 60; matrHousing[6, 1] = 25; matrHousing[6, 2] = 1;
-				matrHousing[7, 0] = -85; matrHousing[7, 1] = 0; matrHousing[7, 2] = 1;
-				matrHousing[8, 0] = 35; matrHousing[8, 1] = 0; matrHousing[8, 2] = 1;
-				matrHousing[9, 0] = 5; matrHousing[9, 1] = 15; matrHousing[9, 2] = 1;
-			}
+            matrHousing[0, 0] = -60; matrHousing[0, 1] = 25; matrHousing[0, 2] = 1;
+            matrHousing[1, 0] = -60; matrHousing[1, 1] = -35; matrHousing[1, 2] = 1;
+            matrHousing[2, 0] = -60; matrHousing[2, 1] = -15; matrHousing[2, 2] = 1;
+            matrHousing[3, 0] = 15; matrHousing[3, 1] = -15; matrHousing[3, 2] = 1;
+            matrHousing[4, 0] = 15; matrHousing[4, 1] = -35; matrHousing[4, 2] = 1;
+            matrHousing[5, 0] = 15; matrHousing[5, 1] = 25; matrHousing[5, 2] = 1;
+            matrHousing[6, 0] = 60; matrHousing[6, 1] = 25; matrHousing[6, 2] = 1;
+            matrHousing[7, 0] = -85; matrHousing[7, 1] = 0; matrHousing[7, 2] = 1;
+            matrHousing[8, 0] = 35; matrHousing[8, 1] = 0; matrHousing[8, 2] = 1;
+            matrHousing[9, 0] = 5; matrHousing[9, 1] = 15; matrHousing[9, 2] = 1;
 		}
 
 		private void InitTandem()
@@ -491,19 +496,19 @@ namespace LaboratoryWork4
 			matrPedal2[0, 0] = -5; matrPedal2[0, 1] = 20; matrPedal2[0, 2] = 1;
 			matrPedal2[1, 0] = 5; matrPedal2[1, 1] = 20; matrPedal2[1, 2] = 1;
 
+            kWheel3 = k + 15;
+            lWheel3 = l + 25;
+
 			if (TandemCheckBox.Checked)
 			{
-				//matrTandemPedal1[0, 0] = 0;  matrTandemPedal1[0, 1] = 0;  matrTandemPedal1[0, 2] = 1;
-				//matrTandemPedal1[1, 0] = 0;  matrTandemPedal1[1, 1] = 20; matrTandemPedal1[1, 2] = 1;
-												 							  
-				//matrTandemPedal2[0, 0] = -80; matrTandemPedal2[0, 1] = 20; matrTandemPedal2[0, 2] = 1;
-				//matrTandemPedal2[1, 0] = 80;  matrTandemPedal2[1, 1] = 20; matrTandemPedal2[1, 2] = 1;
+				matrPedal1[0, 0] = 0; matrPedal1[0, 1] = 0; matrPedal1[0, 2] = 1;
+                matrPedal1[1, 0] = 0; matrPedal1[1, 1] = 20; matrPedal1[1, 2] = 1;
 
-			}
-			else
-			{
-				kWheel3 = k + 15;
-				lWheel3 = l + 25;
+                matrPedal2[0, 0] = -5; matrPedal2[0, 1] = 20; matrPedal2[0, 2] = 1;
+                matrPedal2[1, 0] = 5; matrPedal2[1, 1] = 20; matrPedal2[1, 2] = 1;
+
+				kWheel4 = k + 90;
+                lWheel4 = l + 25;
 			}
 		}
 
@@ -531,11 +536,25 @@ namespace LaboratoryWork4
 			float[,] pedal2 = MultiplyMatr(matrPedal2, rotation);
 			pedal2 = MultiplyMatr(pedal2, matrSdv);
 
-			InitMatrSdv(k, l);
+            Graphics g = Graphics.FromImage(bitmap);
+
+			if (TandemCheckBox.Checked)
+            {
+                InitMatrSdv(kWheel4, lWheel4);
+                float[,] pedal3 = MultiplyMatr(matrPedal1, rotation);
+                pedal3 = MultiplyMatr(pedal3, matrSdv);
+
+                InitMatrSdv(kWheel4, lWheel4);
+                float[,] pedal4 = MultiplyMatr(matrPedal2, rotation);
+                pedal4 = MultiplyMatr(pedal4, matrSdv);
+
+                g.DrawLine(pen, pedal3[0, 0], pedal3[0, 1], pedal3[1, 0], pedal3[1, 1]);
+                g.DrawLine(pen, pedal4[0, 0], pedal4[0, 1], pedal4[1, 0], pedal4[1, 1]);
+			}
+
+            InitMatrSdv(k, l);
 			float[,] frame = MultiplyMatr(matrHousing, matrSdv);
 			float[,] tandem = MultiplyMatr(matrTandem, matrSdv);
-
-			Graphics g = Graphics.FromImage(bitmap);
 
 			//Рисуем спицы
 			g.DrawLine(pen, wheel1Spokes[0, 0], wheel1Spokes[0, 1], wheel1Spokes[1, 0], wheel1Spokes[1, 1]);
@@ -562,10 +581,7 @@ namespace LaboratoryWork4
 
 				g.DrawEllipse(pen, tandem[5, 0], tandem[5, 1], 20, 20);
 				g.DrawEllipse(pen, tandem[4, 0], tandem[4, 1], 50, 50);
-
-				//g.DrawLine(pen, pedal1[0, 0], pedal1[0, 1], pedal1[1, 0], pedal1[1, 1]);
-				//g.DrawLine(pen, pedal2[0, 0], pedal2[0, 1], pedal2[1, 0], pedal2[1, 1]);
-			}
+            }
 			else
 			{
 				g.DrawLine(pen, frame[5, 0], frame[5, 1], frame[6, 0], frame[6, 1]);

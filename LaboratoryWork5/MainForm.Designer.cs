@@ -63,6 +63,9 @@
             this.ShiftButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.ScalingTextBox = new System.Windows.Forms.TextBox();
+            this.ApplyScalingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -71,6 +74,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // PictureBox
@@ -233,7 +237,6 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.groupBox7);
-            this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox6);
             this.panel1.Controls.Add(this.DrawFigureButton);
             this.panel1.Controls.Add(this.ClearButton);
@@ -336,6 +339,7 @@
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.groupBox1);
+            this.panel3.Controls.Add(this.groupBox3);
             this.panel3.Location = new System.Drawing.Point(780, 15);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
@@ -355,7 +359,10 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(4, 330);
+            this.groupBox3.Controls.Add(this.ApplyScalingButton);
+            this.groupBox3.Controls.Add(this.ScalingTextBox);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Location = new System.Drawing.Point(4, 226);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -450,6 +457,35 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 33);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 17);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Масштаб: ";
+            // 
+            // ScalingTextBox
+            // 
+            this.ScalingTextBox.Location = new System.Drawing.Point(92, 30);
+            this.ScalingTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ScalingTextBox.Name = "ScalingTextBox";
+            this.ScalingTextBox.Size = new System.Drawing.Size(147, 22);
+            this.ScalingTextBox.TabIndex = 2;
+            // 
+            // ApplyScalingButton
+            // 
+            this.ApplyScalingButton.Location = new System.Drawing.Point(139, 60);
+            this.ApplyScalingButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ApplyScalingButton.Name = "ApplyScalingButton";
+            this.ApplyScalingButton.Size = new System.Drawing.Size(100, 28);
+            this.ApplyScalingButton.TabIndex = 4;
+            this.ApplyScalingButton.Text = "Применить";
+            this.ApplyScalingButton.UseVisualStyleBackColor = true;
+            this.ApplyScalingButton.Click += new System.EventHandler(this.ApplyScalingButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -476,6 +512,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -515,6 +553,9 @@
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button ShiftButton;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox ScalingTextBox;
+        private System.Windows.Forms.Button ApplyScalingButton;
     }
 }
 

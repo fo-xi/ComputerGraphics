@@ -19,7 +19,7 @@ namespace LaboratoryWork5
 
         public float[,] osi = new float[4, 3];
 
-        public float[,] scaling = new float[3, 3];
+        public float[,] scaling = new float[4, 4];
 
         public float[,] projectionX = new float[4, 4];
 
@@ -237,8 +237,10 @@ namespace LaboratoryWork5
             InitFigure();
             InitProjection();
             InitMatrSdv(l, m, n);
+            InitScaling(scale);
 
-            float[,] figure1 = MultiplyMatr(figure, matrSdv);
+            float[,] figure1 = MultiplyMatr(figure, scaling);
+            figure1 = MultiplyMatr(figure1, matrSdv);
 
             Graphics g = Graphics.FromImage(bitmap);
 
@@ -393,6 +395,20 @@ namespace LaboratoryWork5
                 StartButton.Text = "Старт";
             }
             f = !f;
+        }
+
+        private void InitScaling(float scale)
+        {
+            scaling[0, 0] = 1; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
+            scaling[1, 0] = 0; scaling[1, 1] = 1; scaling[1, 2] = 0; scaling[1, 3] = 0;
+            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = 1; scaling[2, 3] = 0;
+            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = scale;
+        }
+
+        private void ApplyScalingButton_Click(object sender, EventArgs e)
+        {
+            scale = float.Parse(ScalingTextBox.Text);
+            Update();
         }
     }
 }

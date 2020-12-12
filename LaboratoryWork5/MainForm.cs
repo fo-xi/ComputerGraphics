@@ -21,11 +21,15 @@ namespace LaboratoryWork5
 
         public float[,] scaling = new float[4, 4];
 
+        public float[,] rotation = new float[4, 4];
+
         public float[,] projectionX = new float[4, 4];
 
         public float[,] projectionY = new float[4, 4];
 
         public float[,] projectionZ = new float[4, 4];
+
+        public float[,] straight = new float[1, 4];
 
         public float l;
 
@@ -38,6 +42,8 @@ namespace LaboratoryWork5
         public float angle = 0;
 
         public float scale = 1;
+
+        public int speed = 100;
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -155,12 +161,12 @@ namespace LaboratoryWork5
             projectionZ[3, 0] = 0; projectionZ[3, 1] = 0; projectionZ[3, 2] = 0; projectionZ[3, 3] = 1;
         }
 
-        private void InitMatrSdv(float l1, float m1, float n1)
+        private void InitMatrSdv(float l1, float m1)
         {
             matrSdv[0, 0] = 1;  matrSdv[0, 1] = 0;  matrSdv[0, 2] = 0;  matrSdv[0, 3] = 0;
             matrSdv[1, 0] = 0;  matrSdv[1, 1] = 1;  matrSdv[1, 2] = 0;  matrSdv[1, 3] = 0;
             matrSdv[2, 0] = 0;  matrSdv[2, 1] = 0;  matrSdv[2, 2] = 1;  matrSdv[2, 3] = 0;
-            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = n1; matrSdv[3, 3] = 1;
+            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = 0; matrSdv[3, 3] = 1;
         }
 
         private void InitMatrSdvOsi(float l1, float m1)
@@ -173,18 +179,7 @@ namespace LaboratoryWork5
         private void DrawFigureButton_Click(object sender, EventArgs e)
         {
             l = PictureBox.Width / 2;
-            n = PictureBox.Height / 2;
-
-            if (XOYRadioButton.Checked)
-            {
-                m = PictureBox.Height / 2;
-            }
-
-            if (YOZRadioButton.Checked)
-            {
-                m = PictureBox.Width / 2;
-            }
-
+            m = PictureBox.Height / 2;
             DrawFigure();
         }
 
@@ -225,7 +220,7 @@ namespace LaboratoryWork5
             {
                 for (int j = 0; j < m; j++)
                 {
-                    result[i, j] = result[i, j] / result[i, m-1];
+                    result[i, j] = result[i, j] / result[i, m - 1];
                 }
             }
 
@@ -236,43 +231,34 @@ namespace LaboratoryWork5
         {
             InitFigure();
             InitProjection();
-            InitMatrSdv(l, m, n);
+            InitMatrSdv(l, m);
             InitScaling(scale);
+            InitRotation(angle);
 
             float[,] figure1 = MultiplyMatr(figure, scaling);
-            figure1 = MultiplyMatr(figure1, matrSdv);
+            figure1 = MultiplyMatr(figure1, rotation);
 
             Graphics g = Graphics.FromImage(bitmap);
 
-            if (XOYRadioButton.Checked)
-            {
-                figure1 = MultiplyMatr(figure1, projectionZ);
+            figure1 = MultiplyMatr(figure1, projectionZ);
+            figure1 = MultiplyMatr(figure1, matrSdv);
 
-                g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
-                g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
-                g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
-                g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
-            }
+            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
+            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
+            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
+            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
 
-            if (YOZRadioButton.Checked)
-            {
-                figure1 = MultiplyMatr(figure1, projectionX);
+            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
+            g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[6, 0], figure1[6, 1]);
+            g.DrawLine(pen, figure1[6, 0], figure1[6, 1], figure1[7, 0], figure1[7, 1]);
+            g.DrawLine(pen, figure1[7, 0], figure1[7, 1], figure1[4, 0], figure1[4, 1]);
 
-                g.DrawLine(pen, figure1[0, 1], figure1[0, 2], figure1[4, 1], figure1[4, 2]);
-                g.DrawLine(pen, figure1[4, 1], figure1[4, 2], figure1[5, 1], figure1[5, 2]);
-                g.DrawLine(pen, figure1[5, 1], figure1[5, 2], figure1[1, 1], figure1[1, 2]);
-                g.DrawLine(pen, figure1[1, 1], figure1[1, 2], figure1[0, 1], figure1[0, 2]);
-            }
+            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
+            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[5, 0], figure1[5, 1]);
+            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
+            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
 
-            if (XOZRadioButton.Checked)
-            {
-                figure1 = MultiplyMatr(figure1, projectionY);
-
-                g.DrawLine(pen, figure1[0, 0], figure1[0, 2], figure1[3, 0], figure1[3, 2]);
-                g.DrawLine(pen, figure1[3, 0], figure1[3, 2], figure1[7, 0], figure1[7, 2]);
-                g.DrawLine(pen, figure1[7, 0], figure1[7, 2], figure1[4, 0], figure1[4, 2]);
-                g.DrawLine(pen, figure1[4, 0], figure1[4, 2], figure1[0, 0], figure1[0, 2]);
-            }
+            DrawLine();
 
             g.Dispose();
 
@@ -309,6 +295,15 @@ namespace LaboratoryWork5
             PictureBox.Image = bitmap;
         }
 
+        private void UpdateLine()
+        {
+            PictureBox.Image = null;
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
+            DrawOsi();
+            DrawLine();
+            PictureBox.Image = bitmap;
+        }
+
         private void ShiftButton_Click(object sender, EventArgs e)
         {
             if (XRightСheckBox.Checked)
@@ -329,16 +324,6 @@ namespace LaboratoryWork5
             if (YDownRadioButton.Checked)
             {
                 m -= 5;
-            }
-
-            if (ZForwardRadioButton.Checked)
-            {
-                n += 5;
-            }
-
-            if (ZBackRadioButton.Checked)
-            {
-                n -= 5;
             }
 
             Update();
@@ -366,16 +351,6 @@ namespace LaboratoryWork5
                 m -= 5;
             }
 
-            if (ZForwardRadioButton.Checked)
-            {
-                n += 5;
-            }
-
-            if (ZBackRadioButton.Checked)
-            {
-                n -= 5;
-            }
-
             Update();
             Thread.Sleep(100);
         }
@@ -385,7 +360,7 @@ namespace LaboratoryWork5
             timer1.Interval = 100;
 
             StartButton.Text = "Стоп";
-            if (f == true)
+            if (f)
             {
                 timer1.Start();
             }
@@ -409,6 +384,99 @@ namespace LaboratoryWork5
         {
             scale = float.Parse(ScalingTextBox.Text);
             Update();
+        }
+
+        private void DrawLine()
+        {
+            float l1 = PictureBox.Width / 2;
+            float m1 = PictureBox.Height / 2;
+
+            InitProjection();
+            InitMatrSdv(l1, m1);
+
+            Graphics g = Graphics.FromImage(bitmap);
+            float[,] straight1 = MultiplyMatr(straight, projectionZ);
+            straight1 = MultiplyMatr(straight1, matrSdv);
+            g.DrawLine(pen, l1, m1, straight1[0, 0], straight1[0, 1]);
+
+            g.Dispose();
+
+            PictureBox.Image = bitmap;
+        }
+
+        private void OKButton_Click(object sender, EventArgs e)
+        {
+            straight[0, 0] = float.Parse(XTextBox.Text);
+            straight[0, 1] = float.Parse(YTextBox.Text); 
+            straight[0, 2] = float.Parse(ZTextBox.Text);
+            straight[0, 3] = 1;
+            Update();
+        }
+
+        private void InitRotation(float angle)
+        {
+            angle = (angle * (float)Math.PI) / 180;
+            float cos = (float)Math.Cos(angle); 
+            float sin = (float)Math.Sin(angle);
+
+            rotation[0, 0] = straight[0, 0] * straight[0, 0] + (1 - straight[0, 0] * straight[0, 0]) * cos; 
+            rotation[0, 1] = straight[0, 0] * straight[0, 1] * (1 - cos) + straight[0, 2] * sin;
+            rotation[0, 2] = straight[0, 0] * straight[0, 2] * (1 - cos) - straight[0, 1] * sin;
+            rotation[0, 3] = 0;
+
+            rotation[1, 0] = straight[0, 0] * straight[0, 1] * (1 - cos) - straight[0, 2] * sin;
+            rotation[1, 1] = straight[0, 1] * straight[0, 1] + (1 - straight[0, 1] * straight[0, 1]) * cos;
+            rotation[1, 2] = straight[0, 1] * straight[0, 2] * (1 - cos) + straight[0, 0] * sin;
+            rotation[1, 3] = 0;
+
+            rotation[2, 0] = straight[0, 0] * straight[0, 2] * (1 - cos) + straight[0, 1] * sin;
+            rotation[2, 1] = straight[0, 1] * straight[0, 2] * (1 - cos) - straight[0, 0] * sin;
+            rotation[2, 2] = straight[0, 2] * straight[0, 2] + (1 - straight[0, 2] * straight[0, 2]) * cos;
+            rotation[2, 3] = 0;
+
+            rotation[3, 0] = 0;
+            rotation[3, 1] = 0;
+            rotation[3, 2] = 0;
+            rotation[3, 3] = 1;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            angle -= 10;
+            Update();
+            Thread.Sleep(speed);
+        }
+
+        private void StartRotationButton_Click(object sender, EventArgs e)
+        {
+            timer2.Interval = 100;
+
+            StartRotationButton.Text = "Закончить Вращение";
+            if (f)
+            {
+                timer2.Start();
+            }
+            else
+            {
+                timer2.Stop();
+                StartRotationButton.Text = "Начать Вращение";
+            }
+            f = !f;
+        }
+
+        private void ChangeDirectionButton_Click(object sender, EventArgs e)
+        {
+            angle *= -1;
+        }
+
+        private void IncreaseSpeedButton_Click(object sender, EventArgs e)
+        {
+            speed -= 10;
+        }
+
+        private void ReduceSpeedButton_Click(object sender, EventArgs e)
+        {
+            speed += 10;
         }
     }
 }

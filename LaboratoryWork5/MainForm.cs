@@ -23,10 +23,6 @@ namespace LaboratoryWork5
 
         public float[,] rotation = new float[4, 4];
 
-        public float[,] projectionX = new float[4, 4];
-
-        public float[,] projectionY = new float[4, 4];
-
         public float[,] projectionZ = new float[4, 4];
 
         public float[,] straight = new float[1, 4];
@@ -44,6 +40,10 @@ namespace LaboratoryWork5
         public float scale = 1;
 
         public int speed = 100;
+
+        public const int countPoints = 20;
+
+        public Point[,] graf = new Point[countPoints, countPoints];
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -145,16 +145,6 @@ namespace LaboratoryWork5
 
         private void InitProjection()
         {
-            projectionX[0, 0] = 0; projectionX[0, 1] = 0; projectionX[0, 2] = 0; projectionX[0, 3] = 0;
-            projectionX[1, 0] = 0; projectionX[1, 1] = 1; projectionX[1, 2] = 0; projectionX[1, 3] = 0;
-            projectionX[2, 0] = 0; projectionX[2, 1] = 0; projectionX[2, 2] = 1; projectionX[2, 3] = 0;
-            projectionX[3, 0] = 0; projectionX[3, 1] = 0; projectionX[3, 2] = 0; projectionX[3, 3] = 1;
-
-            projectionY[0, 0] = 1; projectionY[0, 1] = 0; projectionY[0, 2] = 0; projectionY[0, 3] = 0;
-            projectionY[1, 0] = 0; projectionY[1, 1] = 0; projectionY[1, 2] = 0; projectionY[1, 3] = 0;
-            projectionY[2, 0] = 0; projectionY[2, 1] = 0; projectionY[2, 2] = 1; projectionY[2, 3] = 0;
-            projectionY[3, 0] = 0; projectionY[3, 1] = 0; projectionY[3, 2] = 0; projectionY[3, 3] = 1;
-
             projectionZ[0, 0] = 1; projectionZ[0, 1] = 0; projectionZ[0, 2] = 0; projectionZ[0, 3] = 0;
             projectionZ[1, 0] = 0; projectionZ[1, 1] = 1; projectionZ[1, 2] = 0; projectionZ[1, 3] = 0;
             projectionZ[2, 0] = 0; projectionZ[2, 1] = 0; projectionZ[2, 2] = 0; projectionZ[2, 3] = 0;
@@ -196,35 +186,41 @@ namespace LaboratoryWork5
             DrawOsi();
         }
 
-        private float[,] MultiplyMatr(float[,] a, float[,] b)
+        private Point[,] MultiplyMatr(Point[,] a, float[,] b)
         {
             int n = a.GetLength(0);
-            int m = a.GetLength(1);
+            int m = b.GetLength(1);
 
-            float[,] result = new float[n, m];
+            float[,,] temp = new float[n, n, m];
 
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < m; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    result[i, j] = 0;
-
-                    for (int ii = 0; ii < m; ii++)
+                    for (int k = 0; k < m; k++)
                     {
-                        result[i, j] += a[i, ii] * b[ii, j];
+                        temp[i, j, k] = 0;
+
+                        temp[i, j, k] += (float)(a[i, j].X * b[0, k]);
+                        temp[i, j, k] += (float)(a[i, j].Y * b[1, k]);
+                        temp[i, j, k] += (float)(a[i, j].Z * b[2, k]);
+                        temp[i, j, k] += (float)(a[i, j].H * b[3, k]);
                     }
                 }
             }
 
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < m; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    result[i, j] = result[i, j] / result[i, m - 1];
+                    a[i, j].X = temp[i, j, 0];
+                    a[i, j].Y = temp[i, j, 1];
+                    a[i, j].Z = temp[i, j, 2];
+                    a[i, j].H = temp[i, j, 3];
                 }
             }
 
-            return result;
+            return a;
         }
 
         private void DrawFigure()
@@ -234,8 +230,9 @@ namespace LaboratoryWork5
             InitMatrSdv(l, m);
             InitScaling(scale);
             InitRotation(angle);
+            InitGraf();
 
-            float[,] figure1 = MultiplyMatr(figure, scaling);
+            Point[,] figure1 = MultiplyMatr(graf, scaling);
             figure1 = MultiplyMatr(figure1, rotation);
 
             Graphics g = Graphics.FromImage(bitmap);
@@ -243,22 +240,35 @@ namespace LaboratoryWork5
             figure1 = MultiplyMatr(figure1, projectionZ);
             figure1 = MultiplyMatr(figure1, matrSdv);
 
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
+            for (int i = 0; i < countPoints; i++)
+            {
+                for (int j = 0; j < countPoints - 1; j++)
+                {
+                    g.DrawLine(pen, figure1[i, j].X, figure1[i, j].Y, figure1[i, j + 1].Y, figure1[i, j + 1].Y);
+                }
+            }
+            for (int i = 0; i < countPoints; i++)
+            {
+                for (int j = 0; j < countPoints - 1; j++)
+                {
+                    g.DrawLine(pen, figure1[j, i].X, figure1[j, i].Y, figure1[j + 1, i].X, figure1[j + 1, i].Y);
+                }
+            }
 
-            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
-            g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[6, 0], figure1[6, 1]);
-            g.DrawLine(pen, figure1[6, 0], figure1[6, 1], figure1[7, 0], figure1[7, 1]);
-            g.DrawLine(pen, figure1[7, 0], figure1[7, 1], figure1[4, 0], figure1[4, 1]);
+            //g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
+            //g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
+            //g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
+            //g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
 
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[5, 0], figure1[5, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
+            //g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
+            //g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[6, 0], figure1[6, 1]);
+            //g.DrawLine(pen, figure1[6, 0], figure1[6, 1], figure1[7, 0], figure1[7, 1]);
+            //g.DrawLine(pen, figure1[7, 0], figure1[7, 1], figure1[4, 0], figure1[4, 1]);
 
-            DrawLine();
+            //g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
+            //g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[5, 0], figure1[5, 1]);
+            //g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
+            //g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
 
             g.Dispose();
 
@@ -269,11 +279,11 @@ namespace LaboratoryWork5
         {
             InitOsi();
             InitMatrSdvOsi(PictureBox.Width / 2, PictureBox.Height / 2);
-            float[,] osi1 = MultiplyMatr(osi, matrSdv);
+            //float[,] osi1 = MultiplyMatr(osi, matrSdv);
             Graphics g = Graphics.FromImage(bitmap);
 
-            g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
-            g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
+            //g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
+            //g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
             g.Dispose();
 
             PictureBox.Image = bitmap;
@@ -292,15 +302,6 @@ namespace LaboratoryWork5
             bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
             DrawOsi();
             DrawFigure();
-            PictureBox.Image = bitmap;
-        }
-
-        private void UpdateLine()
-        {
-            PictureBox.Image = null;
-            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
-            DrawOsi();
-            DrawLine();
             PictureBox.Image = bitmap;
         }
 
@@ -374,10 +375,10 @@ namespace LaboratoryWork5
 
         private void InitScaling(float scale)
         {
-            scaling[0, 0] = 1; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
-            scaling[1, 0] = 0; scaling[1, 1] = 1; scaling[1, 2] = 0; scaling[1, 3] = 0;
-            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = 1; scaling[2, 3] = 0;
-            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = scale;
+            scaling[0, 0] = scale; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
+            scaling[1, 0] = 0; scaling[1, 1] = scale; scaling[1, 2] = 0; scaling[1, 3] = 0;
+            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = scale; scaling[2, 3] = 0;
+            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = 1;
         }
 
         private void ApplyScalingButton_Click(object sender, EventArgs e)
@@ -386,31 +387,12 @@ namespace LaboratoryWork5
             Update();
         }
 
-        private void DrawLine()
-        {
-            float l1 = PictureBox.Width / 2;
-            float m1 = PictureBox.Height / 2;
-
-            InitProjection();
-            InitMatrSdv(l1, m1);
-
-            Graphics g = Graphics.FromImage(bitmap);
-            float[,] straight1 = MultiplyMatr(straight, projectionZ);
-            straight1 = MultiplyMatr(straight1, matrSdv);
-            g.DrawLine(pen, l1, m1, straight1[0, 0], straight1[0, 1]);
-
-            g.Dispose();
-
-            PictureBox.Image = bitmap;
-        }
-
         private void OKButton_Click(object sender, EventArgs e)
         {
             straight[0, 0] = float.Parse(XTextBox.Text);
             straight[0, 1] = float.Parse(YTextBox.Text); 
             straight[0, 2] = float.Parse(ZTextBox.Text);
             straight[0, 3] = 1;
-            Update();
         }
 
         private void InitRotation(float angle)
@@ -477,6 +459,22 @@ namespace LaboratoryWork5
         private void ReduceSpeedButton_Click(object sender, EventArgs e)
         {
             speed += 10;
+        }
+
+        private void InitGraf()
+        {
+            float x = -3;
+            float y = -3;
+            for (int i = 0; i < countPoints; i++)
+            {
+                for (int j = 0; j < countPoints; j++)
+                {
+                    graf[i, j] = new Point(x, y, (float)((x * x)*(y * y) - 100), 1);
+                    x += (float)0.5;
+                }
+                y += (float)0.5;
+                x = -3;
+            }
         }
     }
 }

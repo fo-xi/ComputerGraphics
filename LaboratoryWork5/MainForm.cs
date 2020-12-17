@@ -21,7 +21,11 @@ namespace LaboratoryWork5
 
         public float[,] scaling = new float[4, 4];
 
-        public float[,] rotation = new float[4, 4];
+        public float[,] rotationX = new float[4, 4];
+
+        public float[,] rotationY = new float[4, 4];
+
+        public float[,] rotationZ = new float[4, 4];
 
         public float[,] projectionZ = new float[4, 4];
 
@@ -162,6 +166,36 @@ namespace LaboratoryWork5
             matrSdv[2, 0] = l1; matrSdv[2, 1] = m1; matrSdv[2, 2] = 1;
         }
 
+        private void InitScaling(float scale)
+        {
+            scaling[0, 0] = scale; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
+            scaling[1, 0] = 0; scaling[1, 1] = scale; scaling[1, 2] = 0; scaling[1, 3] = 0;
+            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = scale; scaling[2, 3] = 0;
+            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = 1;
+        }
+
+        private void InitRotation(float angle)
+        {
+            angle = (angle * (float)Math.PI) / 180;
+            float cos = (float)Math.Cos(angle);
+            float sin = (float)Math.Sin(angle);
+
+            rotationX[0, 0] = 1; rotationX[0, 1] = 0; rotationX[0, 2] = 0; rotationX[0, 3] = 0;
+            rotationX[1, 0] = 0; rotationX[1, 1] = cos; rotationX[1, 2] = sin; rotationX[1, 3] = 0;
+            rotationX[2, 0] = 0; rotationX[2, 1] = -sin; rotationX[2, 2] = cos; rotationX[2, 3] = 0;
+            rotationX[3, 0] = 0; rotationX[3, 1] = 0; rotationX[3, 2] = 0; rotationX[3, 3] = 1;
+
+            rotationY[0, 0] = cos; rotationY[0, 1] = 0; rotationY[0, 2] = -sin; rotationY[0, 3] = 0;
+            rotationY[1, 0] = 0; rotationY[1, 1] = 1; rotationY[1, 2] = 0; rotationY[1, 3] = 0;
+            rotationY[2, 0] = sin; rotationY[2, 1] = 0; rotationY[2, 2] = cos; rotationY[2, 3] = 0;
+            rotationY[3, 0] = 0; rotationY[3, 1] = 0; rotationY[3, 2] = 0; rotationY[3, 3] = 1;
+
+            rotationZ[0, 0] = cos; rotationZ[0, 1] = sin; rotationZ[0, 2] = 0; rotationZ[0, 3] = 0;
+            rotationZ[1, 0] = -sin; rotationZ[1, 1] = cos; rotationZ[1, 2] = 0; rotationZ[1, 3] = 0;
+            rotationZ[2, 0] = 0; rotationZ[2, 1] = 0; rotationZ[2, 2] = 1; rotationZ[2, 3] = 0;
+            rotationZ[3, 0] = 0; rotationZ[3, 1] = 0; rotationZ[3, 2] = 0; rotationZ[3, 3] = 1;
+        }
+
         private void DrawFigureButton_Click(object sender, EventArgs e)
         {
             l = PictureBox.Width / 2;
@@ -201,15 +235,6 @@ namespace LaboratoryWork5
                     }
                 }
             }
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                    result[i, j] = result[i, j] / result[i, m - 1];
-                }
-            }
-
             return result;
         }
 
@@ -218,31 +243,18 @@ namespace LaboratoryWork5
             InitFigure();
             InitProjection();
             InitMatrSdv(l, m);
-            InitScaling(scale);
-            InitRotation(angle);
+            InitScaling(float.Parse(ScalingTextBox.Text));
+            InitRotation(float.Parse(AngleTextBox.Text));
 
             float[,] figure1 = MultiplyMatr(figure, scaling);
-            figure1 = MultiplyMatr(figure1, rotation);
+            figure1 = MultiplyMatr(figure1, rotationX);
+            figure1 = MultiplyMatr(figure1, rotationY);
+            figure1 = MultiplyMatr(figure1, rotationZ);
 
             Graphics g = Graphics.FromImage(bitmap);
 
             figure1 = MultiplyMatr(figure1, projectionZ);
             figure1 = MultiplyMatr(figure1, matrSdv);
-
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
-
-            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
-            g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[6, 0], figure1[6, 1]);
-            g.DrawLine(pen, figure1[6, 0], figure1[6, 1], figure1[7, 0], figure1[7, 1]);
-            g.DrawLine(pen, figure1[7, 0], figure1[7, 1], figure1[4, 0], figure1[4, 1]);
-
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[5, 0], figure1[5, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
 
             g.Dispose();
 
@@ -345,94 +357,6 @@ namespace LaboratoryWork5
                 StartButton.Text = "Старт";
             }
             f = !f;
-        }
-
-        private void InitScaling(float scale)
-        {
-            scaling[0, 0] = 1; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
-            scaling[1, 0] = 0; scaling[1, 1] = 1; scaling[1, 2] = 0; scaling[1, 3] = 0;
-            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = 1; scaling[2, 3] = 0;
-            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = scale;
-        }
-
-        private void ApplyScalingButton_Click(object sender, EventArgs e)
-        {
-            scale = float.Parse(ScalingTextBox.Text);
-            Update();
-        }
-
-        private void OKButton_Click(object sender, EventArgs e)
-        {
-            straight[0, 0] = float.Parse(XTextBox.Text);
-            straight[0, 1] = float.Parse(YTextBox.Text);
-            straight[0, 2] = float.Parse(ZTextBox.Text);
-            straight[0, 3] = 1;
-        }
-
-        private void InitRotation(float angle)
-        {
-            angle = (angle * (float)Math.PI) / 180;
-            float cos = (float)Math.Cos(angle);
-            float sin = (float)Math.Sin(angle);
-
-            rotation[0, 0] = straight[0, 0] * straight[0, 0] + (1 - straight[0, 0] * straight[0, 0]) * cos;
-            rotation[0, 1] = straight[0, 0] * straight[0, 1] * (1 - cos) + straight[0, 2] * sin;
-            rotation[0, 2] = straight[0, 0] * straight[0, 2] * (1 - cos) - straight[0, 1] * sin;
-            rotation[0, 3] = 0;
-
-            rotation[1, 0] = straight[0, 0] * straight[0, 1] * (1 - cos) - straight[0, 2] * sin;
-            rotation[1, 1] = straight[0, 1] * straight[0, 1] + (1 - straight[0, 1] * straight[0, 1]) * cos;
-            rotation[1, 2] = straight[0, 1] * straight[0, 2] * (1 - cos) + straight[0, 0] * sin;
-            rotation[1, 3] = 0;
-
-            rotation[2, 0] = straight[0, 0] * straight[0, 2] * (1 - cos) + straight[0, 1] * sin;
-            rotation[2, 1] = straight[0, 1] * straight[0, 2] * (1 - cos) - straight[0, 0] * sin;
-            rotation[2, 2] = straight[0, 2] * straight[0, 2] + (1 - straight[0, 2] * straight[0, 2]) * cos;
-            rotation[2, 3] = 0;
-
-            rotation[3, 0] = 0;
-            rotation[3, 1] = 0;
-            rotation[3, 2] = 0;
-            rotation[3, 3] = 1;
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            angle -= 10;
-            Update();
-            Thread.Sleep(speed);
-        }
-
-        private void StartRotationButton_Click(object sender, EventArgs e)
-        {
-            timer2.Interval = 100;
-
-            StartRotationButton.Text = "Закончить Вращение";
-            if (f)
-            {
-                timer2.Start();
-            }
-            else
-            {
-                timer2.Stop();
-                StartRotationButton.Text = "Начать Вращение";
-            }
-            f = !f;
-        }
-
-        private void ChangeDirectionButton_Click(object sender, EventArgs e)
-        {
-            angle *= -1;
-        }
-
-        private void IncreaseSpeedButton_Click(object sender, EventArgs e)
-        {
-            speed -= 10;
-        }
-
-        private void ReduceSpeedButton_Click(object sender, EventArgs e)
-        {
-            speed += 10;
         }
     }
 }

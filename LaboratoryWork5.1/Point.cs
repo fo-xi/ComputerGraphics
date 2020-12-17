@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaboratoryWork5
+namespace LaboratoryWork5._1
 {
     public class Point
     {

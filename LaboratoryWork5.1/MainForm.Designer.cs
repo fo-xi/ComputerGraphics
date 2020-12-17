@@ -79,7 +79,7 @@
             // 
             this.PictureBox.Location = new System.Drawing.Point(12, 12);
             this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(368, 372);
+            this.PictureBox.Size = new System.Drawing.Size(723, 831);
             this.PictureBox.TabIndex = 1;
             this.PictureBox.TabStop = false;
             // 
@@ -94,7 +94,7 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.ColorsComboBox);
             this.panel2.Controls.Add(this.groupBox4);
-            this.panel2.Location = new System.Drawing.Point(784, 12);
+            this.panel2.Location = new System.Drawing.Point(1139, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(193, 372);
             this.panel2.TabIndex = 2;
@@ -223,7 +223,7 @@
             this.panel1.Controls.Add(this.DrawSurfaceButton);
             this.panel1.Controls.Add(this.ClearButton);
             this.panel1.Controls.Add(this.DrawAxisButton);
-            this.panel1.Location = new System.Drawing.Point(386, 12);
+            this.panel1.Location = new System.Drawing.Point(741, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(193, 372);
             this.panel1.TabIndex = 3;
@@ -392,7 +392,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(585, 12);
+            this.panel3.Location = new System.Drawing.Point(940, 12);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(193, 372);
             this.panel3.TabIndex = 4;
@@ -414,6 +414,7 @@
             this.ScalingTextBox.Name = "ScalingTextBox";
             this.ScalingTextBox.Size = new System.Drawing.Size(111, 20);
             this.ScalingTextBox.TabIndex = 2;
+            this.ScalingTextBox.TextChanged += new System.EventHandler(this.ScalingTextBox_TextChanged);
             // 
             // label1
             // 
@@ -432,7 +433,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 395);
+            this.ClientSize = new System.Drawing.Size(1346, 855);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);

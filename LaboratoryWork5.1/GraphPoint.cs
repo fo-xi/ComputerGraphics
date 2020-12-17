@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LaboratoryWork5._1
 {
-    public class Point
+    public class GraphPoint
     {
         private float _x;
 
@@ -64,7 +64,7 @@ namespace LaboratoryWork5._1
             }
         }
 
-        public Point(float x, float y, float z, float h)
+        public GraphPoint(float x, float y, float z, float h)
         {
             X = x;
             Y = y;

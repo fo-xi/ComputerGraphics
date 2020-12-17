@@ -13,8 +13,6 @@ namespace LaboratoryWork5._1
 
         public Bitmap bitmap;
 
-        public float[,] figure = new float[8, 4];
-
         public float[,] matrSdv = new float[4, 4];
 
         public float[,] osi = new float[4, 3];
@@ -22,8 +20,6 @@ namespace LaboratoryWork5._1
         public float[,] scaling = new float[4, 4];
 
         public float[,] projectionZ = new float[4, 4];
-
-        public float[,] straight = new float[1, 4];
 
         public float l;
 
@@ -34,8 +30,6 @@ namespace LaboratoryWork5._1
         public bool f;
 
         public float scale = 1;
-
-        public int speed = 100;
 
         // График поверхности
 
@@ -51,9 +45,11 @@ namespace LaboratoryWork5._1
 
         public float[,] rotationZ = new float[4, 4];
 
-        public const int countPoints = 20;
+        public const int countPoints = 10;
 
-        public Point[,] surface = new Point[countPoints, countPoints];
+        public GraphPoint[,] surface = new GraphPoint[countPoints, countPoints];
+
+        public GraphPoint[,] drawSurface = new GraphPoint[countPoints, countPoints];
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -140,19 +136,6 @@ namespace LaboratoryWork5._1
             pen.DashStyle = DashStyle.Dash;
         }
 
-        private void InitFigure()
-        {
-            figure[0, 0] = -50; figure[0, 1] = -50; figure[0, 2] = 50; figure[0, 3] = 1;
-            figure[1, 0] = -50; figure[1, 1] = 50; figure[1, 2] = 50; figure[1, 3] = 1;
-            figure[2, 0] = 50; figure[2, 1] = 50; figure[2, 2] = 50; figure[2, 3] = 1;
-            figure[3, 0] = 50; figure[3, 1] = -50; figure[3, 2] = 50; figure[3, 3] = 1;
-
-            figure[4, 0] = -50; figure[4, 1] = -50; figure[4, 2] = -50; figure[4, 3] = 1;
-            figure[5, 0] = -50; figure[5, 1] = 50; figure[5, 2] = -50; figure[5, 3] = 1;
-            figure[6, 0] = 50; figure[6, 1] = 50; figure[6, 2] = -50; figure[6, 3] = 1;
-            figure[7, 0] = 50; figure[7, 1] = -50; figure[7, 2] = -50; figure[7, 3] = 1;
-        }
-
         private void InitProjection()
         {
             projectionZ[0, 0] = 1; projectionZ[0, 1] = 0; projectionZ[0, 2] = 0; projectionZ[0, 3] = 0;
@@ -178,25 +161,25 @@ namespace LaboratoryWork5._1
 
         private void InitScaling(float scale)
         {
-            scaling[0, 0] = scale; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
-            scaling[1, 0] = 0; scaling[1, 1] = scale; scaling[1, 2] = 0; scaling[1, 3] = 0;
-            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = scale; scaling[2, 3] = 0;
-            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = 1;
+            scaling[0, 0] = scale; scaling[0, 1] = 0;     scaling[0, 2] = 0;     scaling[0, 3] = 0;
+            scaling[1, 0] = 0;     scaling[1, 1] = scale; scaling[1, 2] = 0;     scaling[1, 3] = 0;
+            scaling[2, 0] = 0;     scaling[2, 1] = 0;     scaling[2, 2] = scale; scaling[2, 3] = 0;
+            scaling[3, 0] = 0;     scaling[3, 1] = 0;     scaling[3, 2] = 0;     scaling[3, 3] = 1;
         }
 
         private void InitRotation(float angleX, float angleY, float angleZ)
         {
-            angleX = (angleX * (float)Math.PI) / 180;
-            float cosX = (float)Math.Cos(angleX);
-            float sinX = (float)Math.Sin(angleX);
+            var newAngleX = (angleX * (float)Math.PI) / 180;
+            float cosX = (float)Math.Cos(newAngleX);
+            float sinX = (float)Math.Sin(newAngleX);
 
-            angleY = (angleY * (float)Math.PI) / 180;
-            float cosY = (float)Math.Cos(angleY);
-            float sinY = (float)Math.Sin(angleY);
+            var newAngleY = (angleY * (float)Math.PI) / 180;
+            float cosY = (float)Math.Cos(newAngleY);
+            float sinY = (float)Math.Sin(newAngleY);
 
-            angleZ = (angleZ * (float)Math.PI) / 180;
-            float cosZ = (float)Math.Cos(angleZ);
-            float sinZ = (float)Math.Sin(angleZ);
+            var newAngleZ = (angleZ * (float)Math.PI) / 180;
+            float cosZ = (float)Math.Cos(newAngleZ);
+            float sinZ = (float)Math.Sin(newAngleZ);
 
             rotationX[0, 0] = 1; rotationX[0, 1] = 0;     rotationX[0, 2] = 0;    rotationX[0, 3] = 0;
             rotationX[1, 0] = 0; rotationX[1, 1] = cosX;  rotationX[1, 2] = sinX; rotationX[1, 3] = 0;
@@ -234,9 +217,9 @@ namespace LaboratoryWork5._1
             DrawOsi();
         }
 
-        private Point[,] MultiplyMatr(Point[,] a, float[,] b)
+        private GraphPoint[,] MultiplyMatr(GraphPoint[,] a, float[,] b)
         {
-            int n = a.GetLength(0);
+            int n = countPoints;
             int m = b.GetLength(1);
 
             float[,,] temp = new float[n, n, m];
@@ -273,22 +256,31 @@ namespace LaboratoryWork5._1
 
         private void DrawFigure()
         {
-            InitFigure();
+
+            InitSurface();
+
+            drawSurface = new GraphPoint[countPoints, countPoints];
+            for (int i = 0; i < countPoints; i++)
+            {
+                for (int j = 0; j < countPoints; j++)
+                {
+                    drawSurface[i, j] = new GraphPoint(surface[i, j].X, surface[i, j].Y, surface[i, j].Z, surface[i, j].H);
+                }
+            }
+
             InitProjection();
             InitMatrSdv(l, m);
-            InitScaling(float.Parse(ScalingTextBox.Text));
+            InitScaling(scale);
             InitRotation(angleX, angleY, angleZ);
-            InitGraf();
-
-            Point[,] surface1 = MultiplyMatr(surface, scaling);
+            
+            GraphPoint[,] surface1 = MultiplyMatr(drawSurface, scaling);
             surface1 = MultiplyMatr(surface1, rotationX);
             surface1 = MultiplyMatr(surface1, rotationY);
             surface1 = MultiplyMatr(surface1, rotationZ);
-
-            Graphics g = Graphics.FromImage(bitmap);
-
             surface1 = MultiplyMatr(surface1, projectionZ);
             surface1 = MultiplyMatr(surface1, matrSdv);
+
+            Graphics g = Graphics.FromImage(bitmap);
 
             for (int i = 0; i < countPoints; i++)
             {
@@ -407,7 +399,7 @@ namespace LaboratoryWork5._1
             f = !f;
         }
 
-        private void InitGraf()
+        private void InitSurface()
         {
             float x = -3;
             float y = -3;
@@ -415,10 +407,10 @@ namespace LaboratoryWork5._1
             {
                 for (int j = 0; j < countPoints; j++)
                 {
-                    surface[i, j] = new Point(x, y, (float)((x * x) - (y * y) - 100), 1);
-                    x += (float)0.5;
+                    surface[i, j] = new GraphPoint(x, y, (float)((x * x) - (y * y) - 100), 1);
+                    x += (float)0.3;
                 }
-                y += (float)0.5;
+                y += (float)0.3;
                 x = -3;
             }
         }
@@ -426,16 +418,29 @@ namespace LaboratoryWork5._1
         private void RotationX_Click(object sender, EventArgs e)
         {
             angleX += float.Parse(AngleTextBox.Text);
+            Update();
         }
 
         private void RotationY_Click(object sender, EventArgs e)
         {
             angleY += float.Parse(AngleTextBox.Text);
+            Update();
         }
 
         private void RotationZ_Click(object sender, EventArgs e)
         {
             angleY += float.Parse(AngleTextBox.Text);
+            Update();
+        }
+
+        private void ScalingTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!float.TryParse(ScalingTextBox.Text, out scale))
+            {
+                scale = 1;
+            }
+
+            Update();
         }
     }
 }

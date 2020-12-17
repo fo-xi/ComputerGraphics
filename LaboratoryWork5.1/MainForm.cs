@@ -21,8 +21,6 @@ namespace LaboratoryWork5._1
 
         public float[,] scaling = new float[4, 4];
 
-        public float[,] rotation = new float[4, 4];
-
         public float[,] projectionZ = new float[4, 4];
 
         public float[,] straight = new float[1, 4];
@@ -35,15 +33,27 @@ namespace LaboratoryWork5._1
 
         public bool f;
 
-        public float angle = 0;
-
         public float scale = 1;
 
         public int speed = 100;
 
+        // График поверхности
+
+        public float angleX = 0;
+
+        public float angleY = 0;
+
+        public float angleZ = 0;
+
+        public float[,] rotationX = new float[4, 4];
+
+        public float[,] rotationY = new float[4, 4];
+
+        public float[,] rotationZ = new float[4, 4];
+
         public const int countPoints = 20;
 
-        public Point[,] graf = new Point[countPoints, countPoints];
+        public Point[,] surface = new Point[countPoints, countPoints];
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -153,9 +163,9 @@ namespace LaboratoryWork5._1
 
         private void InitMatrSdv(float l1, float m1)
         {
-            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0; matrSdv[0, 3] = 0;
-            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0; matrSdv[1, 3] = 0;
-            matrSdv[2, 0] = 0; matrSdv[2, 1] = 0; matrSdv[2, 2] = 1; matrSdv[2, 3] = 0;
+            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0;  matrSdv[0, 3] = 0;
+            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0;  matrSdv[1, 3] = 0;
+            matrSdv[2, 0] = 0; matrSdv[2, 1] = 0; matrSdv[2, 2] = 1;  matrSdv[2, 3] = 0;
             matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = 0; matrSdv[3, 3] = 1;
         }
 
@@ -166,19 +176,57 @@ namespace LaboratoryWork5._1
             matrSdv[2, 0] = l1; matrSdv[2, 1] = m1; matrSdv[2, 2] = 1;
         }
 
+        private void InitScaling(float scale)
+        {
+            scaling[0, 0] = scale; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
+            scaling[1, 0] = 0; scaling[1, 1] = scale; scaling[1, 2] = 0; scaling[1, 3] = 0;
+            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = scale; scaling[2, 3] = 0;
+            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = 1;
+        }
+
+        private void InitRotation(float angleX, float angleY, float angleZ)
+        {
+            angleX = (angleX * (float)Math.PI) / 180;
+            float cosX = (float)Math.Cos(angleX);
+            float sinX = (float)Math.Sin(angleX);
+
+            angleY = (angleY * (float)Math.PI) / 180;
+            float cosY = (float)Math.Cos(angleY);
+            float sinY = (float)Math.Sin(angleY);
+
+            angleZ = (angleZ * (float)Math.PI) / 180;
+            float cosZ = (float)Math.Cos(angleZ);
+            float sinZ = (float)Math.Sin(angleZ);
+
+            rotationX[0, 0] = 1; rotationX[0, 1] = 0;     rotationX[0, 2] = 0;    rotationX[0, 3] = 0;
+            rotationX[1, 0] = 0; rotationX[1, 1] = cosX;  rotationX[1, 2] = sinX; rotationX[1, 3] = 0;
+            rotationX[2, 0] = 0; rotationX[2, 1] = -sinX; rotationX[2, 2] = cosX; rotationX[2, 3] = 0;
+            rotationX[3, 0] = 0; rotationX[3, 1] = 0;     rotationX[3, 2] = 0;    rotationX[3, 3] = 1;
+
+            rotationY[0, 0] = cosY; rotationY[0, 1] = 0; rotationY[0, 2] = -sinY; rotationY[0, 3] = 0;
+            rotationY[1, 0] = 0;    rotationY[1, 1] = 1; rotationY[1, 2] = 0;     rotationY[1, 3] = 0;
+            rotationY[2, 0] = sinY; rotationY[2, 1] = 0; rotationY[2, 2] = cosY;  rotationY[2, 3] = 0;
+            rotationY[3, 0] = 0;    rotationY[3, 1] = 0; rotationY[3, 2] = 0;     rotationY[3, 3] = 1;
+
+            rotationZ[0, 0] = cosZ;  rotationZ[0, 1] = sinZ; rotationZ[0, 2] = 0; rotationZ[0, 3] = 0;
+            rotationZ[1, 0] = -sinZ; rotationZ[1, 1] = cosZ; rotationZ[1, 2] = 0; rotationZ[1, 3] = 0;
+            rotationZ[2, 0] = 0;     rotationZ[2, 1] = 0;    rotationZ[2, 2] = 1; rotationZ[2, 3] = 0;
+            rotationZ[3, 0] = 0;     rotationZ[3, 1] = 0;    rotationZ[3, 2] = 0; rotationZ[3, 3] = 1;
+        }
+
+        private void InitOsi()
+        {
+            osi[0, 0] = -200; osi[0, 1] = 0;    osi[0, 2] = 1;
+            osi[1, 0] = 200;  osi[1, 1] = 0;    osi[1, 2] = 1;
+            osi[2, 0] = 0;    osi[2, 1] = 200;  osi[2, 2] = 1;
+            osi[3, 0] = 0;    osi[3, 1] = -200; osi[3, 2] = 1;
+        }
+
         private void DrawFigureButton_Click(object sender, EventArgs e)
         {
             l = PictureBox.Width / 2;
             m = PictureBox.Height / 2;
             DrawFigure();
-        }
-
-        private void InitOsi()
-        {
-            osi[0, 0] = -200; osi[0, 1] = 0; osi[0, 2] = 1;
-            osi[1, 0] = 200; osi[1, 1] = 0; osi[1, 2] = 1;
-            osi[2, 0] = 0; osi[2, 1] = 200; osi[2, 2] = 1;
-            osi[3, 0] = 0; osi[3, 1] = -200; osi[3, 2] = 1;
         }
 
         private void DrawAxisButton_Click(object sender, EventArgs e)
@@ -228,48 +276,34 @@ namespace LaboratoryWork5._1
             InitFigure();
             InitProjection();
             InitMatrSdv(l, m);
-            InitScaling(scale);
-            InitRotation(angle);
+            InitScaling(float.Parse(ScalingTextBox.Text));
+            InitRotation(angleX, angleY, angleZ);
             InitGraf();
 
-            Point[,] figure1 = MultiplyMatr(graf, scaling);
-            figure1 = MultiplyMatr(figure1, rotation);
+            Point[,] surface1 = MultiplyMatr(surface, scaling);
+            surface1 = MultiplyMatr(surface1, rotationX);
+            surface1 = MultiplyMatr(surface1, rotationY);
+            surface1 = MultiplyMatr(surface1, rotationZ);
 
             Graphics g = Graphics.FromImage(bitmap);
 
-            figure1 = MultiplyMatr(figure1, projectionZ);
-            figure1 = MultiplyMatr(figure1, matrSdv);
+            surface1 = MultiplyMatr(surface1, projectionZ);
+            surface1 = MultiplyMatr(surface1, matrSdv);
 
             for (int i = 0; i < countPoints; i++)
             {
                 for (int j = 0; j < countPoints - 1; j++)
                 {
-                    g.DrawLine(pen, figure1[i, j].X, figure1[i, j].Y, figure1[i, j + 1].Y, figure1[i, j + 1].Y);
+                    g.DrawLine(pen, surface1[i, j].X, surface1[i, j].Y, surface1[i, j + 1].Y, surface1[i, j + 1].Y);
                 }
             }
             for (int i = 0; i < countPoints; i++)
             {
                 for (int j = 0; j < countPoints - 1; j++)
                 {
-                    g.DrawLine(pen, figure1[j, i].X, figure1[j, i].Y, figure1[j + 1, i].X, figure1[j + 1, i].Y);
+                    g.DrawLine(pen, surface1[j, i].X, surface1[j, i].Y, surface1[j + 1, i].X, surface1[j + 1, i].Y);
                 }
-            }
-
-            //g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
-            //g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
-            //g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
-            //g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
-
-            //g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
-            //g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[6, 0], figure1[6, 1]);
-            //g.DrawLine(pen, figure1[6, 0], figure1[6, 1], figure1[7, 0], figure1[7, 1]);
-            //g.DrawLine(pen, figure1[7, 0], figure1[7, 1], figure1[4, 0], figure1[4, 1]);
-
-            //g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
-            //g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[5, 0], figure1[5, 1]);
-            //g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
-            //g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
-
+            } 
             g.Dispose();
 
             PictureBox.Image = bitmap;
@@ -373,94 +407,6 @@ namespace LaboratoryWork5._1
             f = !f;
         }
 
-        private void InitScaling(float scale)
-        {
-            scaling[0, 0] = scale; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
-            scaling[1, 0] = 0; scaling[1, 1] = scale; scaling[1, 2] = 0; scaling[1, 3] = 0;
-            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = scale; scaling[2, 3] = 0;
-            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = 1;
-        }
-
-        private void ApplyScalingButton_Click(object sender, EventArgs e)
-        {
-            scale = float.Parse(ScalingTextBox.Text);
-            Update();
-        }
-
-        private void OKButton_Click(object sender, EventArgs e)
-        {
-            straight[0, 0] = float.Parse(XTextBox.Text);
-            straight[0, 1] = float.Parse(YTextBox.Text);
-            straight[0, 2] = float.Parse(ZTextBox.Text);
-            straight[0, 3] = 1;
-        }
-
-        private void InitRotation(float angle)
-        {
-            angle = (angle * (float)Math.PI) / 180;
-            float cos = (float)Math.Cos(angle);
-            float sin = (float)Math.Sin(angle);
-
-            rotation[0, 0] = straight[0, 0] * straight[0, 0] + (1 - straight[0, 0] * straight[0, 0]) * cos;
-            rotation[0, 1] = straight[0, 0] * straight[0, 1] * (1 - cos) + straight[0, 2] * sin;
-            rotation[0, 2] = straight[0, 0] * straight[0, 2] * (1 - cos) - straight[0, 1] * sin;
-            rotation[0, 3] = 0;
-
-            rotation[1, 0] = straight[0, 0] * straight[0, 1] * (1 - cos) - straight[0, 2] * sin;
-            rotation[1, 1] = straight[0, 1] * straight[0, 1] + (1 - straight[0, 1] * straight[0, 1]) * cos;
-            rotation[1, 2] = straight[0, 1] * straight[0, 2] * (1 - cos) + straight[0, 0] * sin;
-            rotation[1, 3] = 0;
-
-            rotation[2, 0] = straight[0, 0] * straight[0, 2] * (1 - cos) + straight[0, 1] * sin;
-            rotation[2, 1] = straight[0, 1] * straight[0, 2] * (1 - cos) - straight[0, 0] * sin;
-            rotation[2, 2] = straight[0, 2] * straight[0, 2] + (1 - straight[0, 2] * straight[0, 2]) * cos;
-            rotation[2, 3] = 0;
-
-            rotation[3, 0] = 0;
-            rotation[3, 1] = 0;
-            rotation[3, 2] = 0;
-            rotation[3, 3] = 1;
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            angle -= 10;
-            Update();
-            Thread.Sleep(speed);
-        }
-
-        private void StartRotationButton_Click(object sender, EventArgs e)
-        {
-            timer2.Interval = 100;
-
-            StartRotationButton.Text = "Закончить Вращение";
-            if (f)
-            {
-                timer2.Start();
-            }
-            else
-            {
-                timer2.Stop();
-                StartRotationButton.Text = "Начать Вращение";
-            }
-            f = !f;
-        }
-
-        private void ChangeDirectionButton_Click(object sender, EventArgs e)
-        {
-            angle *= -1;
-        }
-
-        private void IncreaseSpeedButton_Click(object sender, EventArgs e)
-        {
-            speed -= 10;
-        }
-
-        private void ReduceSpeedButton_Click(object sender, EventArgs e)
-        {
-            speed += 10;
-        }
-
         private void InitGraf()
         {
             float x = -3;
@@ -469,12 +415,27 @@ namespace LaboratoryWork5._1
             {
                 for (int j = 0; j < countPoints; j++)
                 {
-                    graf[i, j] = new Point(x, y, (float)((x * x) * (y * y) - 100), 1);
+                    surface[i, j] = new Point(x, y, (float)((x * x) - (y * y) - 100), 1);
                     x += (float)0.5;
                 }
                 y += (float)0.5;
                 x = -3;
             }
+        }
+
+        private void RotationX_Click(object sender, EventArgs e)
+        {
+            angleX += float.Parse(AngleTextBox.Text);
+        }
+
+        private void RotationY_Click(object sender, EventArgs e)
+        {
+            angleY += float.Parse(AngleTextBox.Text);
+        }
+
+        private void RotationZ_Click(object sender, EventArgs e)
+        {
+            angleY += float.Parse(AngleTextBox.Text);
         }
     }
 }

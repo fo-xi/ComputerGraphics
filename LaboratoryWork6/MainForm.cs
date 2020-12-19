@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace LaboratoryWork5
+namespace LaboratoryWork6
 {
     public partial class MainForm : Form
     {
@@ -436,4 +436,3 @@ namespace LaboratoryWork5
         }
     }
 }
-

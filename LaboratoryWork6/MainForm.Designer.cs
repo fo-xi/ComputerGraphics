@@ -1,4 +1,4 @@
-﻿namespace LaboratoryWork5
+﻿namespace LaboratoryWork6
 {
     partial class MainForm
     {
@@ -624,4 +624,3 @@
         private System.Windows.Forms.Button ChangeDirectionButton;
     }
 }
-

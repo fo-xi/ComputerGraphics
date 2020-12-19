@@ -17,7 +17,7 @@ namespace LaboratoryWork6
 
         public float[,] matrSdv = new float[4, 4];
 
-        public float[,] osi = new float[4, 3];
+        public float[,] osi = new float[6, 4];
 
         public float[,] scaling = new float[4, 4];
 
@@ -40,6 +40,12 @@ namespace LaboratoryWork6
         public float scale = 1;
 
         public int speed = 100;
+
+        //Удаление невидимых линий
+
+        public const float angleA = 45;
+
+        public const float angleB = 35.26f;
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -141,25 +147,26 @@ namespace LaboratoryWork6
 
         private void InitProjection()
         {
-            projectionZ[0, 0] = 1; projectionZ[0, 1] = 0; projectionZ[0, 2] = 0; projectionZ[0, 3] = 0;
-            projectionZ[1, 0] = 0; projectionZ[1, 1] = 1; projectionZ[1, 2] = 0; projectionZ[1, 3] = 0;
-            projectionZ[2, 0] = 0; projectionZ[2, 1] = 0; projectionZ[2, 2] = 0; projectionZ[2, 3] = 0;
-            projectionZ[3, 0] = 0; projectionZ[3, 1] = 0; projectionZ[3, 2] = 0; projectionZ[3, 3] = 1;
+            var newAngleA = (angleA * (float)Math.PI) / 180;
+            float cosA = (float)Math.Cos(newAngleA);
+            float sinA = (float)Math.Sin(newAngleA);
+
+            var newAngleB = (angleB * (float)Math.PI) / 180;
+            float cosB = (float)Math.Cos(newAngleB);
+            float sinB = (float)Math.Sin(newAngleB);
+
+            projectionZ[0, 0] = cosA; projectionZ[0, 1] = sinA * sinB;  projectionZ[0, 2] = 0; projectionZ[0, 3] = 1;
+            projectionZ[1, 0] = 0;    projectionZ[1, 1] = cosB;         projectionZ[1, 2] = 0; projectionZ[1, 3] = 1;
+            projectionZ[2, 0] = sinA; projectionZ[2, 1] = -cosA * sinB; projectionZ[2, 2] = 0; projectionZ[2, 3] = 1;
+            projectionZ[3, 0] = 0;    projectionZ[3, 1] = 0;            projectionZ[3, 2] = 0; projectionZ[3, 3] = 1;
         }
 
         private void InitMatrSdv(float l1, float m1)
         {
-            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0; matrSdv[0, 3] = 0;
-            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0; matrSdv[1, 3] = 0;
-            matrSdv[2, 0] = 0; matrSdv[2, 1] = 0; matrSdv[2, 2] = 1; matrSdv[2, 3] = 0;
+            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0;   matrSdv[0, 2] = 0; matrSdv[0, 3] = 0;
+            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1;   matrSdv[1, 2] = 0; matrSdv[1, 3] = 0;
+            matrSdv[2, 0] = 0; matrSdv[2, 1] = 0;   matrSdv[2, 2] = 1; matrSdv[2, 3] = 0;
             matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = 0; matrSdv[3, 3] = 1;
-        }
-
-        private void InitMatrSdvOsi(float l1, float m1)
-        {
-            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0;
-            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0;
-            matrSdv[2, 0] = l1; matrSdv[2, 1] = m1; matrSdv[2, 2] = 1;
         }
 
         private void DrawFigureButton_Click(object sender, EventArgs e)
@@ -171,10 +178,30 @@ namespace LaboratoryWork6
 
         private void InitOsi()
         {
-            osi[0, 0] = -200; osi[0, 1] = 0; osi[0, 2] = 1;
-            osi[1, 0] = 200; osi[1, 1] = 0; osi[1, 2] = 1;
-            osi[2, 0] = 0; osi[2, 1] = 200; osi[2, 2] = 1;
-            osi[3, 0] = 0; osi[3, 1] = -200; osi[3, 2] = 1;
+            osi[0, 0] = -200; osi[0, 1] = 0;    osi[0, 2] = 0;    osi[0, 3] = 1;
+            osi[1, 0] = 200;  osi[1, 1] = 0;    osi[1, 2] = 0;    osi[1, 3] = 1;
+            osi[2, 0] = 0;    osi[2, 1] = 200;  osi[2, 2] = 0;    osi[2, 3] = 1;
+            osi[3, 0] = 0;    osi[3, 1] = -200; osi[3, 2] = 0;    osi[3, 3] = 1;
+            osi[4, 0] = 0;    osi[4, 1] = 0;    osi[4, 2] = -200; osi[4, 3] = 1;
+            osi[5, 0] = 0;    osi[5, 1] = 0;    osi[5, 2] = 200;  osi[5, 3] = 1;
+        }
+
+        private void DrawOsi()
+        {
+            InitOsi();
+            InitMatrSdv(PictureBox.Width / 2, PictureBox.Height / 2);
+
+            //Делает из трехмерного пространства двухмерное изображение так, что мы видим трехмерного пространство
+            float[,] osi1 = MultiplyMatr(osi, projectionZ);
+            osi1 = MultiplyMatr(osi, matrSdv);
+            Graphics g = Graphics.FromImage(bitmap);
+
+            g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
+            g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
+            g.DrawLine(pen, osi1[4, 0], osi1[4, 1], osi1[5, 0], osi1[5, 1]);
+            g.Dispose();
+
+            PictureBox.Image = bitmap;
         }
 
         private void DrawAxisButton_Click(object sender, EventArgs e)
@@ -199,14 +226,6 @@ namespace LaboratoryWork6
                     {
                         result[i, j] += a[i, ii] * b[ii, j];
                     }
-                }
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                    result[i, j] = result[i, j] / result[i, m - 1];
                 }
             }
 
@@ -244,20 +263,6 @@ namespace LaboratoryWork6
             g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
             g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
 
-            g.Dispose();
-
-            PictureBox.Image = bitmap;
-        }
-
-        private void DrawOsi()
-        {
-            InitOsi();
-            InitMatrSdvOsi(PictureBox.Width / 2, PictureBox.Height / 2);
-            float[,] osi1 = MultiplyMatr(osi, matrSdv);
-            Graphics g = Graphics.FromImage(bitmap);
-
-            g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
-            g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
             g.Dispose();
 
             PictureBox.Image = bitmap;

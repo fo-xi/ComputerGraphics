@@ -13,6 +13,8 @@ namespace LaboratoryWork5._1
 
         public Bitmap bitmap;
 
+        public float[,] matrPreob = new float[4, 4];
+
         public float[,] matrSdv = new float[4, 4];
 
         public float[,] osi = new float[4, 3];
@@ -45,7 +47,7 @@ namespace LaboratoryWork5._1
 
         public float[,] rotationZ = new float[4, 4];
 
-        public const int countPoints = 10;
+        public const int countPoints = 60;
 
         public GraphPoint[,] surface = new GraphPoint[countPoints, countPoints];
 
@@ -136,20 +138,20 @@ namespace LaboratoryWork5._1
             pen.DashStyle = DashStyle.Dash;
         }
 
-        private void InitProjection()
+        private void InitMatrPreob(float l1, float m1)
         {
-            projectionZ[0, 0] = 1; projectionZ[0, 1] = 0; projectionZ[0, 2] = 0; projectionZ[0, 3] = 0;
-            projectionZ[1, 0] = 0; projectionZ[1, 1] = 1; projectionZ[1, 2] = 0; projectionZ[1, 3] = 0;
-            projectionZ[2, 0] = 0; projectionZ[2, 1] = 0; projectionZ[2, 2] = 0; projectionZ[2, 3] = 0;
-            projectionZ[3, 0] = 0; projectionZ[3, 1] = 0; projectionZ[3, 2] = 0; projectionZ[3, 3] = 1;
+            matrPreob[0, 0] = 1;  matrPreob[0, 1] = 0;  matrPreob[0, 2] = 0; matrPreob[0, 3] = 0;
+            matrPreob[1, 0] = 0;  matrPreob[1, 1] = 1;  matrPreob[1, 2] = 0; matrPreob[1, 3] = 0;
+            matrPreob[2, 0] = 0;  matrPreob[2, 1] = 0;  matrPreob[2, 2] = 1; matrPreob[2, 3] = 0;
+            matrPreob[3, 0] = l1; matrPreob[3, 1] = m1; matrPreob[3, 2] = 0; matrPreob[3, 3] = 1;
         }
 
-        private void InitMatrSdv(float l1, float m1)
+        private void InitMatrSdv(float l1, float m1, float n1)
         {
             matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0;  matrSdv[0, 3] = 0;
             matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0;  matrSdv[1, 3] = 0;
             matrSdv[2, 0] = 0; matrSdv[2, 1] = 0; matrSdv[2, 2] = 1;  matrSdv[2, 3] = 0;
-            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = 0; matrSdv[3, 3] = 1;
+            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = n1; matrSdv[3, 3] = 1;
         }
 
         private void InitMatrSdvOsi(float l1, float m1)
@@ -197,24 +199,20 @@ namespace LaboratoryWork5._1
             rotationZ[3, 0] = 0;     rotationZ[3, 1] = 0;    rotationZ[3, 2] = 0; rotationZ[3, 3] = 1;
         }
 
-        private void InitOsi()
+        private void InitSurface()
         {
-            osi[0, 0] = -200; osi[0, 1] = 0;    osi[0, 2] = 1;
-            osi[1, 0] = 200;  osi[1, 1] = 0;    osi[1, 2] = 1;
-            osi[2, 0] = 0;    osi[2, 1] = 200;  osi[2, 2] = 1;
-            osi[3, 0] = 0;    osi[3, 1] = -200; osi[3, 2] = 1;
-        }
-
-        private void DrawFigureButton_Click(object sender, EventArgs e)
-        {
-            l = PictureBox.Width / 2;
-            m = PictureBox.Height / 2;
-            DrawFigure();
-        }
-
-        private void DrawAxisButton_Click(object sender, EventArgs e)
-        {
-            DrawOsi();
+            float x = -3;
+            float y = -3;
+            for (int i = 0; i < countPoints; i++)
+            {
+                for (int j = 0; j < countPoints; j++)
+                {
+                    surface[i, j] = new GraphPoint(x, y, (float)((x * x) - (y * y)), 1);
+                    x += (float)0.1;
+                }
+                y += (float)0.1;
+                x = -3;
+            }
         }
 
         private GraphPoint[,] MultiplyMatr(GraphPoint[,] a, float[,] b)
@@ -254,9 +252,28 @@ namespace LaboratoryWork5._1
             return a;
         }
 
+        private void InitOsi()
+        {
+            osi[0, 0] = -200; osi[0, 1] = 0;    osi[0, 2] = 1;
+            osi[1, 0] = 200;  osi[1, 1] = 0;    osi[1, 2] = 1;
+            osi[2, 0] = 0;    osi[2, 1] = 200;  osi[2, 2] = 1;
+            osi[3, 0] = 0;    osi[3, 1] = -200; osi[3, 2] = 1;
+        }
+
+        private void DrawFigureButton_Click(object sender, EventArgs e)
+        {
+            l = 0;
+            m = 0;
+            DrawFigure();
+        }
+
+        private void DrawAxisButton_Click(object sender, EventArgs e)
+        {
+            DrawOsi();
+        }
+
         private void DrawFigure()
         {
-
             InitSurface();
 
             drawSurface = new GraphPoint[countPoints, countPoints];
@@ -268,17 +285,17 @@ namespace LaboratoryWork5._1
                 }
             }
 
-            InitProjection();
-            InitMatrSdv(l, m);
             InitScaling(scale);
+            InitMatrPreob(PictureBox.Width / 2, PictureBox.Height / 2);
+            InitMatrSdv(l, m, 0);
             InitRotation(angleX, angleY, angleZ);
             
             GraphPoint[,] surface1 = MultiplyMatr(drawSurface, scaling);
             surface1 = MultiplyMatr(surface1, rotationX);
             surface1 = MultiplyMatr(surface1, rotationY);
             surface1 = MultiplyMatr(surface1, rotationZ);
-            surface1 = MultiplyMatr(surface1, projectionZ);
             surface1 = MultiplyMatr(surface1, matrSdv);
+            surface1 = MultiplyMatr(surface1, matrPreob);
 
             Graphics g = Graphics.FromImage(bitmap);
 
@@ -397,22 +414,6 @@ namespace LaboratoryWork5._1
                 StartButton.Text = "Старт";
             }
             f = !f;
-        }
-
-        private void InitSurface()
-        {
-            float x = -3;
-            float y = -3;
-            for (int i = 0; i < countPoints; i++)
-            {
-                for (int j = 0; j < countPoints; j++)
-                {
-                    surface[i, j] = new GraphPoint(x, y, (float)((x * x) - (y * y) - 100), 1);
-                    x += (float)0.3;
-                }
-                y += (float)0.3;
-                x = -3;
-            }
         }
 
         private void RotationX_Click(object sender, EventArgs e)

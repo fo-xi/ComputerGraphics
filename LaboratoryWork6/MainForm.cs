@@ -13,7 +13,7 @@ namespace LaboratoryWork6
 
         public Bitmap bitmap;
 
-        public float[,] figure = new float[8, 4];
+        public float[,] figure = new float[5, 4];
 
         public float[,] matrSdv = new float[4, 4];
 
@@ -134,15 +134,11 @@ namespace LaboratoryWork6
 
         private void InitFigure()
         {
-            figure[0, 0] = -50; figure[0, 1] = -50; figure[0, 2] = 50; figure[0, 3] = 1;
-            figure[1, 0] = -50; figure[1, 1] = 50; figure[1, 2] = 50; figure[1, 3] = 1;
-            figure[2, 0] = 50; figure[2, 1] = 50; figure[2, 2] = 50; figure[2, 3] = 1;
-            figure[3, 0] = 50; figure[3, 1] = -50; figure[3, 2] = 50; figure[3, 3] = 1;
-
-            figure[4, 0] = -50; figure[4, 1] = -50; figure[4, 2] = -50; figure[4, 3] = 1;
-            figure[5, 0] = -50; figure[5, 1] = 50; figure[5, 2] = -50; figure[5, 3] = 1;
-            figure[6, 0] = 50; figure[6, 1] = 50; figure[6, 2] = -50; figure[6, 3] = 1;
-            figure[7, 0] = 50; figure[7, 1] = -50; figure[7, 2] = -50; figure[7, 3] = 1;
+            figure[0, 0] = 0;   figure[0, 1] = -50; figure[0, 2] = 0;   figure[0, 3] = 1;
+            figure[1, 0] = 0;   figure[1, 1] = 50;  figure[1, 2] = 0;   figure[1, 3] = 1;
+            figure[2, 0] = -50; figure[2, 1] = 0;   figure[2, 2] = 0;   figure[2, 3] = 1;
+            figure[3, 0] = 50;  figure[3, 1] = 0;   figure[3, 2] = 0;   figure[3, 3] = 1;
+            figure[4, 0] = 0;   figure[4, 1] = 0;   figure[4, 2] = -50; figure[4, 3] = 1;
         }
 
         private void InitProjection()
@@ -161,18 +157,19 @@ namespace LaboratoryWork6
             projectionZ[3, 0] = 0;    projectionZ[3, 1] = 0;            projectionZ[3, 2] = 0; projectionZ[3, 3] = 1;
         }
 
-        private void InitMatrSdv(float l1, float m1)
+        private void InitMatrSdv(float l1, float m1, float n1)
         {
             matrSdv[0, 0] = 1; matrSdv[0, 1] = 0;   matrSdv[0, 2] = 0; matrSdv[0, 3] = 0;
             matrSdv[1, 0] = 0; matrSdv[1, 1] = 1;   matrSdv[1, 2] = 0; matrSdv[1, 3] = 0;
             matrSdv[2, 0] = 0; matrSdv[2, 1] = 0;   matrSdv[2, 2] = 1; matrSdv[2, 3] = 0;
-            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = 0; matrSdv[3, 3] = 1;
+            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = n1; matrSdv[3, 3] = 1;
         }
 
         private void DrawFigureButton_Click(object sender, EventArgs e)
         {
             l = PictureBox.Width / 2;
             m = PictureBox.Height / 2;
+            n = PictureBox.Height / 2 - 110;
             DrawFigure();
         }
 
@@ -189,11 +186,12 @@ namespace LaboratoryWork6
         private void DrawOsi()
         {
             InitOsi();
-            InitMatrSdv(PictureBox.Width / 2, PictureBox.Height / 2);
+            InitMatrSdv(PictureBox.Width / 2, PictureBox.Height / 2, PictureBox.Height / 2 - 110);
+            InitProjection();
 
             //Делает из трехмерного пространства двухмерное изображение так, что мы видим трехмерного пространство
-            float[,] osi1 = MultiplyMatr(osi, projectionZ);
-            osi1 = MultiplyMatr(osi, matrSdv);
+            float[,] osi1 = MultiplyMatr(osi, matrSdv);
+            osi1 = MultiplyMatr(osi1, projectionZ);
             Graphics g = Graphics.FromImage(bitmap);
 
             g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
@@ -216,15 +214,15 @@ namespace LaboratoryWork6
 
             float[,] result = new float[n, m];
 
-            for (int i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
             {
-                for (int j = 0; j < m; j++)
+                for (var j = 0; j < m; j++)
                 {
                     result[i, j] = 0;
 
-                    for (int ii = 0; ii < m; ii++)
+                    for (var k = 0; k < m; k++)
                     {
-                        result[i, j] += a[i, ii] * b[ii, j];
+                        result[i, j] += a[i, k] * b[k, j];
                     }
                 }
             }
@@ -236,7 +234,7 @@ namespace LaboratoryWork6
         {
             InitFigure();
             InitProjection();
-            InitMatrSdv(l, m);
+            InitMatrSdv(l, m, n);
             InitScaling(scale);
             InitRotation(angle);
 
@@ -245,23 +243,20 @@ namespace LaboratoryWork6
 
             Graphics g = Graphics.FromImage(bitmap);
 
-            figure1 = MultiplyMatr(figure1, projectionZ);
             figure1 = MultiplyMatr(figure1, matrSdv);
+            figure1 = MultiplyMatr(figure1, projectionZ);
 
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[1, 0], figure1[1, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[3, 0], figure1[3, 1]);
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[0, 0], figure1[0, 1]);
-
-            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[5, 0], figure1[5, 1]);
-            g.DrawLine(pen, figure1[5, 0], figure1[5, 1], figure1[6, 0], figure1[6, 1]);
-            g.DrawLine(pen, figure1[6, 0], figure1[6, 1], figure1[7, 0], figure1[7, 1]);
-            g.DrawLine(pen, figure1[7, 0], figure1[7, 1], figure1[4, 0], figure1[4, 1]);
-
+            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[2, 0], figure1[2, 1]);
+            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[3, 0], figure1[3, 1]);
             g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[5, 0], figure1[5, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[6, 0], figure1[6, 1]);
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[7, 0], figure1[7, 1]);
+
+            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
+            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[3, 0], figure1[3, 1]);
+            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[4, 0], figure1[4, 1]);
+
+            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[2, 0], figure1[2, 1]);
+            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[3, 0], figure1[3, 1]);
+            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[4, 0], figure1[4, 1]);
 
             g.Dispose();
 
@@ -354,10 +349,10 @@ namespace LaboratoryWork6
 
         private void InitScaling(float scale)
         {
-            scaling[0, 0] = 1; scaling[0, 1] = 0; scaling[0, 2] = 0; scaling[0, 3] = 0;
-            scaling[1, 0] = 0; scaling[1, 1] = 1; scaling[1, 2] = 0; scaling[1, 3] = 0;
-            scaling[2, 0] = 0; scaling[2, 1] = 0; scaling[2, 2] = 1; scaling[2, 3] = 0;
-            scaling[3, 0] = 0; scaling[3, 1] = 0; scaling[3, 2] = 0; scaling[3, 3] = scale;
+            scaling[0, 0] = scale; scaling[0, 1] = 0;     scaling[0, 2] = 0;     scaling[0, 3] = 0;
+            scaling[1, 0] = 0;     scaling[1, 1] = scale; scaling[1, 2] = 0;     scaling[1, 3] = 0;
+            scaling[2, 0] = 0;     scaling[2, 1] = 0;     scaling[2, 2] = scale; scaling[2, 3] = 0;
+            scaling[3, 0] = 0;     scaling[3, 1] = 0;     scaling[3, 2] = 0;     scaling[3, 3] = 1;
         }
 
         private void ApplyScalingButton_Click(object sender, EventArgs e)

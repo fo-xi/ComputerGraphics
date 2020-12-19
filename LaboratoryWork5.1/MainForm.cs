@@ -17,8 +17,6 @@ namespace LaboratoryWork5._1
 
         public float[,] matrSdv = new float[4, 4];
 
-        public float[,] osi = new float[4, 3];
-
         public float[,] scaling = new float[4, 4];
 
         public float l;
@@ -48,8 +46,6 @@ namespace LaboratoryWork5._1
         public const int countPoints = 20;
 
         public GraphPoint[,] surface = new GraphPoint[countPoints, countPoints];
-
-        public GraphPoint[,] drawSurface = new GraphPoint[countPoints, countPoints];
 
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -137,6 +133,7 @@ namespace LaboratoryWork5._1
             pen.DashStyle = DashStyle.Dash;
         }
 
+        //Смещаем систему координат в центр
         private void InitMatrPreob(float l1, float m1)
         {
             matrPreob[0, 0] = 1;  matrPreob[0, 1] = 0;  matrPreob[0, 2] = 0; matrPreob[0, 3] = 0;
@@ -145,12 +142,13 @@ namespace LaboratoryWork5._1
             matrPreob[3, 0] = l1; matrPreob[3, 1] = m1; matrPreob[3, 2] = 0; matrPreob[3, 3] = 1;
         }
 
-        private void InitMatrSdv(float l1, float m1, float n1)
+        //Перемещаем объект
+        private void InitMatrSdv(float l1, float m1)
         {
-            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0;  matrSdv[0, 3] = 0;
-            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0;  matrSdv[1, 3] = 0;
-            matrSdv[2, 0] = 0; matrSdv[2, 1] = 0; matrSdv[2, 2] = 1;  matrSdv[2, 3] = 0;
-            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = n1; matrSdv[3, 3] = 1;
+            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0;   matrSdv[0, 2] = 0;    matrSdv[0, 3] = 0;
+            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1;   matrSdv[1, 2] = 0;    matrSdv[1, 3] = 0;
+            matrSdv[2, 0] = 0; matrSdv[2, 1] = 0;   matrSdv[2, 2] = 1;    matrSdv[2, 3] = 0;
+            matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = 0; matrSdv[3, 3] = 1;
         }
 
         private void InitScaling(float scale)
@@ -162,18 +160,18 @@ namespace LaboratoryWork5._1
         }
 
         private void InitRotation(float angleX, float angleY, float angleZ)
-        {
-            var newAngleX = (angleX * (float)Math.PI) / 180;
-            float cosX = (float)Math.Cos(newAngleX);
-            float sinX = (float)Math.Sin(newAngleX);
+        { 
+            angleX = (angleX * (float)Math.PI) / 180;
+            float cosX = (float)Math.Cos(angleX);
+            float sinX = (float)Math.Sin(angleX);
 
-            var newAngleY = (angleY * (float)Math.PI) / 180;
-            float cosY = (float)Math.Cos(newAngleY);
-            float sinY = (float)Math.Sin(newAngleY);
+            angleY = (angleY * (float)Math.PI) / 180;
+            float cosY = (float)Math.Cos(angleY);
+            float sinY = (float)Math.Sin(angleY);
 
-            var newAngleZ = (angleZ * (float)Math.PI) / 180;
-            float cosZ = (float)Math.Cos(newAngleZ);
-            float sinZ = (float)Math.Sin(newAngleZ);
+            angleZ = (angleZ * (float)Math.PI) / 180;
+            float cosZ = (float)Math.Cos(angleZ);
+            float sinZ = (float)Math.Sin(angleZ);
 
             rotationX[0, 0] = 1; rotationX[0, 1] = 0;     rotationX[0, 2] = 0;    rotationX[0, 3] = 0;
             rotationX[1, 0] = 0; rotationX[1, 1] = cosX;  rotationX[1, 2] = sinX; rotationX[1, 3] = 0;
@@ -191,6 +189,7 @@ namespace LaboratoryWork5._1
             rotationZ[3, 0] = 0;     rotationZ[3, 1] = 0;    rotationZ[3, 2] = 0; rotationZ[3, 3] = 1;
         }
 
+        //Считает координаты каждой точки для функции (x * x) - (y * y), расттояние между точками 0.3
         private void InitSurface()
         {
             float x = -3;
@@ -222,13 +221,15 @@ namespace LaboratoryWork5._1
                     {
                         temp[i, j, k] = 0;
 
-                        temp[i, j, k] += (float)(a[i, j].X * b[0, k]);
-                        temp[i, j, k] += (float)(a[i, j].Y * b[1, k]);
-                        temp[i, j, k] += (float)(a[i, j].Z * b[2, k]);
-                        temp[i, j, k] += (float)(a[i, j].H * b[3, k]);
+                        temp[i, j, k] += a[i, j].X * b[0, k];
+                        temp[i, j, k] += a[i, j].Y * b[1, k];
+                        temp[i, j, k] += a[i, j].Z * b[2, k];
+                        temp[i, j, k] += a[i, j].H * b[3, k];
                     }
                 }
             }
+
+            //0 = X, 1 = Y, 2 = Z, 3 = H
 
             for (int i = 0; i < n; i++)
             {
@@ -242,14 +243,6 @@ namespace LaboratoryWork5._1
             }
 
             return a;
-        }
-
-        private void InitOsi()
-        {
-            osi[0, 0] = -200; osi[0, 1] = 0;    osi[0, 2] = 1;
-            osi[1, 0] = 200;  osi[1, 1] = 0;    osi[1, 2] = 1;
-            osi[2, 0] = 0;    osi[2, 1] = 200;  osi[2, 2] = 1;
-            osi[3, 0] = 0;    osi[3, 1] = -200; osi[3, 2] = 1;
         }
 
         private void DrawFigureButton_Click(object sender, EventArgs e)
@@ -270,31 +263,25 @@ namespace LaboratoryWork5._1
 
         private void DrawFigure()
         {
+            PictureBox.Image = null;
+
             InitSurface();
-
-            drawSurface = new GraphPoint[countPoints, countPoints];
-            for (int i = 0; i < countPoints; i++)
-            {
-                for (int j = 0; j < countPoints; j++)
-                {
-                    drawSurface[i, j] = new GraphPoint(surface[i, j].X, surface[i, j].Y, surface[i, j].Z, surface[i, j].H);
-                }
-            }
-
             InitScaling(scale);
             InitMatrPreob(PictureBox.Width / 2, PictureBox.Height / 2);
-            InitMatrSdv(l, m, 0);
+            InitMatrSdv(l, m);
             InitRotation(angleX, angleY, angleZ);
             
-            GraphPoint[,] surface1 = MultiplyMatr(drawSurface, scaling);
+            GraphPoint[,] surface1 = MultiplyMatr(surface, scaling);
             surface1 = MultiplyMatr(surface1, rotationX);
             surface1 = MultiplyMatr(surface1, rotationY);
             surface1 = MultiplyMatr(surface1, rotationZ);
             surface1 = MultiplyMatr(surface1, matrSdv);
             surface1 = MultiplyMatr(surface1, matrPreob);
 
+            bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
             Graphics g = Graphics.FromImage(bitmap);
 
+            //Соединение точек по горизонтальной линии
             for (int i = 0; i < countPoints; i++)
             {
                 for (int j = 0; j < countPoints - 1; j++)
@@ -302,6 +289,8 @@ namespace LaboratoryWork5._1
                     g.DrawLine(pen, surface1[i, j].X, surface1[i, j].Y, surface1[i, j + 1].X, surface1[i, j + 1].Y);
                 }
             }
+
+            //Соединение точек по вертикальной линии
             for (int i = 0; i < countPoints; i++)
             {
                 for (int j = 0; j < countPoints - 1; j++)
@@ -309,8 +298,11 @@ namespace LaboratoryWork5._1
                     g.DrawLine(pen, surface1[j, i].X, surface1[j, i].Y, surface1[j + 1, i].X, surface1[j + 1, i].Y);
                 }
             } 
+
             g.Dispose();
+
             DrawOsi();
+
             PictureBox.Image = bitmap;
         }
 

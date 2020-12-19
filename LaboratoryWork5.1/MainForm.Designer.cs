@@ -51,7 +51,6 @@
             this.AngleTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.ClearButton = new System.Windows.Forms.Button();
-            this.DrawAxisButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StartButton = new System.Windows.Forms.Button();
             this.ShiftButton = new System.Windows.Forms.Button();
@@ -79,7 +78,7 @@
             // 
             this.PictureBox.Location = new System.Drawing.Point(12, 12);
             this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(723, 831);
+            this.PictureBox.Size = new System.Drawing.Size(405, 372);
             this.PictureBox.TabIndex = 1;
             this.PictureBox.TabStop = false;
             // 
@@ -94,7 +93,7 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.ColorsComboBox);
             this.panel2.Controls.Add(this.groupBox4);
-            this.panel2.Location = new System.Drawing.Point(1139, 12);
+            this.panel2.Location = new System.Drawing.Point(821, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(193, 372);
             this.panel2.TabIndex = 2;
@@ -208,7 +207,7 @@
             // 
             // DrawSurfaceButton
             // 
-            this.DrawSurfaceButton.Location = new System.Drawing.Point(3, 39);
+            this.DrawSurfaceButton.Location = new System.Drawing.Point(3, 15);
             this.DrawSurfaceButton.Name = "DrawSurfaceButton";
             this.DrawSurfaceButton.Size = new System.Drawing.Size(185, 23);
             this.DrawSurfaceButton.TabIndex = 8;
@@ -222,8 +221,7 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.DrawSurfaceButton);
             this.panel1.Controls.Add(this.ClearButton);
-            this.panel1.Controls.Add(this.DrawAxisButton);
-            this.panel1.Location = new System.Drawing.Point(741, 12);
+            this.panel1.Location = new System.Drawing.Point(423, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(193, 372);
             this.panel1.TabIndex = 3;
@@ -235,7 +233,7 @@
             this.groupBox2.Controls.Add(this.RotationX);
             this.groupBox2.Controls.Add(this.AngleTextBox);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(3, 97);
+            this.groupBox2.Location = new System.Drawing.Point(3, 76);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(185, 140);
             this.groupBox2.TabIndex = 14;
@@ -290,23 +288,13 @@
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(3, 68);
+            this.ClearButton.Location = new System.Drawing.Point(3, 44);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(185, 23);
             this.ClearButton.TabIndex = 10;
             this.ClearButton.Text = "Очистить";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
-            // 
-            // DrawAxisButton
-            // 
-            this.DrawAxisButton.Location = new System.Drawing.Point(3, 12);
-            this.DrawAxisButton.Name = "DrawAxisButton";
-            this.DrawAxisButton.Size = new System.Drawing.Size(185, 23);
-            this.DrawAxisButton.TabIndex = 8;
-            this.DrawAxisButton.Text = "Нарисовать ось";
-            this.DrawAxisButton.UseVisualStyleBackColor = true;
-            this.DrawAxisButton.Click += new System.EventHandler(this.DrawAxisButton_Click);
             // 
             // groupBox1
             // 
@@ -392,7 +380,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(940, 12);
+            this.panel3.Location = new System.Drawing.Point(622, 12);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(193, 372);
             this.panel3.TabIndex = 4;
@@ -433,7 +421,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1346, 855);
+            this.ClientSize = new System.Drawing.Size(1025, 396);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -477,7 +465,6 @@
         private System.Windows.Forms.Button DrawSurfaceButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ClearButton;
-        private System.Windows.Forms.Button DrawAxisButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox3;

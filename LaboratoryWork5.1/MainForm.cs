@@ -21,8 +21,6 @@ namespace LaboratoryWork5._1
 
         public float[,] scaling = new float[4, 4];
 
-        public float[,] projectionZ = new float[4, 4];
-
         public float l;
 
         public float m;
@@ -47,7 +45,7 @@ namespace LaboratoryWork5._1
 
         public float[,] rotationZ = new float[4, 4];
 
-        public const int countPoints = 60;
+        public const int countPoints = 20;
 
         public GraphPoint[,] surface = new GraphPoint[countPoints, countPoints];
 
@@ -84,6 +82,7 @@ namespace LaboratoryWork5._1
         {
             List<string> colors = new List<string> { "Red", "Pink", "Blue", "Green" };
             ColorsComboBox.DataSource = colors;
+            ScalingTextBox.Text = "50";
         }
 
         public MainForm()
@@ -154,13 +153,6 @@ namespace LaboratoryWork5._1
             matrSdv[3, 0] = l1; matrSdv[3, 1] = m1; matrSdv[3, 2] = n1; matrSdv[3, 3] = 1;
         }
 
-        private void InitMatrSdvOsi(float l1, float m1)
-        {
-            matrSdv[0, 0] = 1; matrSdv[0, 1] = 0; matrSdv[0, 2] = 0;
-            matrSdv[1, 0] = 0; matrSdv[1, 1] = 1; matrSdv[1, 2] = 0;
-            matrSdv[2, 0] = l1; matrSdv[2, 1] = m1; matrSdv[2, 2] = 1;
-        }
-
         private void InitScaling(float scale)
         {
             scaling[0, 0] = scale; scaling[0, 1] = 0;     scaling[0, 2] = 0;     scaling[0, 3] = 0;
@@ -208,9 +200,9 @@ namespace LaboratoryWork5._1
                 for (int j = 0; j < countPoints; j++)
                 {
                     surface[i, j] = new GraphPoint(x, y, (float)((x * x) - (y * y)), 1);
-                    x += (float)0.1;
+                    x += (float)0.3;
                 }
-                y += (float)0.1;
+                y += (float)0.3;
                 x = -3;
             }
         }
@@ -264,12 +256,16 @@ namespace LaboratoryWork5._1
         {
             l = 0;
             m = 0;
+            scale = 50;
             DrawFigure();
         }
 
-        private void DrawAxisButton_Click(object sender, EventArgs e)
+        private void DrawOsi()
         {
-            DrawOsi();
+            Graphics g = Graphics.FromImage(bitmap);
+            g.DrawLine(pen, PictureBox.Width / 2, 0, PictureBox.Width / 2, PictureBox.Height);
+            g.DrawLine(pen, 0, PictureBox.Height / 2, PictureBox.Width, PictureBox.Height / 2);
+            g.Dispose();
         }
 
         private void DrawFigure()
@@ -303,7 +299,7 @@ namespace LaboratoryWork5._1
             {
                 for (int j = 0; j < countPoints - 1; j++)
                 {
-                    g.DrawLine(pen, surface1[i, j].X, surface1[i, j].Y, surface1[i, j + 1].Y, surface1[i, j + 1].Y);
+                    g.DrawLine(pen, surface1[i, j].X, surface1[i, j].Y, surface1[i, j + 1].X, surface1[i, j + 1].Y);
                 }
             }
             for (int i = 0; i < countPoints; i++)
@@ -314,21 +310,7 @@ namespace LaboratoryWork5._1
                 }
             } 
             g.Dispose();
-
-            PictureBox.Image = bitmap;
-        }
-
-        private void DrawOsi()
-        {
-            InitOsi();
-            InitMatrSdvOsi(PictureBox.Width / 2, PictureBox.Height / 2);
-            //float[,] osi1 = MultiplyMatr(osi, matrSdv);
-            Graphics g = Graphics.FromImage(bitmap);
-
-            //g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
-            //g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
-            g.Dispose();
-
+            DrawOsi();
             PictureBox.Image = bitmap;
         }
 
@@ -343,7 +325,6 @@ namespace LaboratoryWork5._1
         {
             PictureBox.Image = null;
             bitmap = new Bitmap(PictureBox.Width, PictureBox.Height);
-            DrawOsi();
             DrawFigure();
             PictureBox.Image = bitmap;
         }
@@ -418,19 +399,34 @@ namespace LaboratoryWork5._1
 
         private void RotationX_Click(object sender, EventArgs e)
         {
-            angleX += float.Parse(AngleTextBox.Text);
+            if (!float.TryParse(AngleTextBox.Text, out float angle))
+            {
+                angle = 0;
+            }
+
+            angleX += angle;
             Update();
         }
 
         private void RotationY_Click(object sender, EventArgs e)
         {
-            angleY += float.Parse(AngleTextBox.Text);
+            if (!float.TryParse(AngleTextBox.Text, out float angle))
+            {
+                angle = 0;
+            }
+
+            angleY += angle;
             Update();
         }
 
         private void RotationZ_Click(object sender, EventArgs e)
         {
-            angleY += float.Parse(AngleTextBox.Text);
+            if (!float.TryParse(AngleTextBox.Text, out float angle))
+            {
+                angle = 0;
+            }
+
+            angleZ += angle;
             Update();
         }
 

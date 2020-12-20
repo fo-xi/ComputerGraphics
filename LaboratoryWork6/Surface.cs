@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace LaboratoryWork6
 {
@@ -49,12 +50,13 @@ namespace LaboratoryWork6
         //DirectingVectorStraight = направляющий вектор прямой
         public void DirectingVectorStraightCalculate(float a, float b)
         {
+            //Из градусов в радианы
             var angleA = a * (float)Math.PI / 180;
             var angleB = b * (float)Math.PI / 180;
 
-            DirectingVectorStraight[0] = (float)Math.Sin(angleA);
-            DirectingVectorStraight[1] = (float)(-Math.Cos(angleA) * Math.Sin(angleB));
-            DirectingVectorStraight[2] = 0;
+            DirectingVectorStraight[0] = 0;
+            DirectingVectorStraight[1] = 0;
+            DirectingVectorStraight[2] = 1;
             DirectingVectorStraight[3] = 1;
 
             DirectingVectorStraightLengt = (float)Math.Sqrt(DirectingVectorStraight[0] * DirectingVectorStraight[0] +

@@ -47,6 +47,8 @@ namespace LaboratoryWork6
 
         public const float angleB = 35.26f;
 
+        public Surface[] surfaces = new Surface[6];
+
         private void ColorsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (ColorsComboBox.SelectedIndex)
@@ -78,6 +80,10 @@ namespace LaboratoryWork6
         {
             List<string> colors = new List<string> { "Red", "Pink", "Blue", "Green" };
             ColorsComboBox.DataSource = colors;
+
+            l = PictureBox.Width / 2;
+            m = PictureBox.Height / 2;
+            n = PictureBox.Height / 2 - 110;
         }
 
         public MainForm()
@@ -96,6 +102,7 @@ namespace LaboratoryWork6
                     float width = Int32.Parse(WidthTextBox.Text);
                     pen = new Pen(pen.Color, width);
                 }
+                Update();
             }
             catch (Exception exception)
             {
@@ -109,6 +116,7 @@ namespace LaboratoryWork6
             {
                 float width = float.Parse(WidthTextBox.Text);
                 pen = new Pen(pen.Color, width);
+                Update();
             }
             catch (Exception exception)
             {
@@ -120,16 +128,19 @@ namespace LaboratoryWork6
         {
             WidthTextBox.Enabled = false;
             pen = new Pen(pen.Color, 1);
+            Update();
         }
 
         private void SolidLineRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             pen.DashStyle = DashStyle.Solid;
+            Update();
         }
 
         private void DottedLineRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             pen.DashStyle = DashStyle.Dash;
+            Update();
         }
 
         private void InitFigure()
@@ -173,6 +184,171 @@ namespace LaboratoryWork6
             DrawFigure();
         }
 
+        private void InitSurfaces()
+        {
+            surfaces[0] = new Surface
+            {
+                Points = new float[3, 4]
+                {
+                    {
+                        figure[2, 0],
+                        figure[2, 1],
+                        figure[2, 2],
+                        figure[2, 3],
+                    },
+
+                    {
+                        figure[0, 0],
+                        figure[0, 1],
+                        figure[0, 2],
+                        figure[0, 3],
+                    },
+
+                    {
+                        figure[3, 0],
+                        figure[3, 1],
+                        figure[3, 2],
+                        figure[3, 3],
+                    },
+                }
+            };
+
+            surfaces[1] = new Surface
+            {
+                Points = new float[3, 4]
+                {
+                    {
+                        figure[4, 0],
+                        figure[4, 1],
+                        figure[4, 2],
+                        figure[4, 3],
+                    },
+
+                    {
+                        figure[3, 0],
+                        figure[3, 1],
+                        figure[3, 2],
+                        figure[3, 3],
+                    },
+
+                    {
+                        figure[0, 0],
+                        figure[0, 1],
+                        figure[0, 2],
+                        figure[0, 3],
+                    },
+                }
+            };
+
+            surfaces[2] = new Surface
+            {
+                Points = new float[3, 4]
+                {
+                    {
+                        figure[4, 0],
+                        figure[4, 1],
+                        figure[4, 2],
+                        figure[4, 3],
+                    },
+
+                    {
+                        figure[0, 0],
+                        figure[0, 1],
+                        figure[0, 2],
+                        figure[0, 3],
+                    },
+
+                    {
+                        figure[2, 0],
+                        figure[2, 1],
+                        figure[2, 2],
+                        figure[2, 3],
+                    },
+                }
+            };
+
+            surfaces[3] = new Surface
+            {
+                Points = new float[3, 4]
+                {
+                    {
+                        figure[4, 0],
+                        figure[4, 1],
+                        figure[4, 2],
+                        figure[4, 3],
+                    },
+
+                    {
+                        figure[2, 0],
+                        figure[2, 1],
+                        figure[2, 2],
+                        figure[2, 3],
+                    },
+
+                    {
+                        figure[1, 0],
+                        figure[1, 1],
+                        figure[1, 2],
+                        figure[1, 3],
+                    },
+                }
+            };
+
+            surfaces[4] = new Surface
+            {
+                Points = new float[3, 4]
+                {
+                    {
+                        figure[4, 0],
+                        figure[4, 1],
+                        figure[4, 2],
+                        figure[4, 3],
+                    },
+
+                    {
+                        figure[3, 0],
+                        figure[3, 1],
+                        figure[3, 2],
+                        figure[3, 3],
+                    },
+
+                    {
+                        figure[1, 0],
+                        figure[1, 1],
+                        figure[1, 2],
+                        figure[1, 3],
+                    },
+                }
+            };
+
+            surfaces[5] = new Surface
+            {
+                Points = new float[3, 4]
+                {
+                    {
+                        figure[2, 0],
+                        figure[2, 1],
+                        figure[2, 2],
+                        figure[2, 3],
+                    },
+
+                    {
+                        figure[3, 0],
+                        figure[3, 1],
+                        figure[3, 2],
+                        figure[3, 3],
+                    },
+
+                    {
+                        figure[1, 0],
+                        figure[1, 1],
+                        figure[1, 2],
+                        figure[1, 3],
+                    },
+                }
+            };
+        }
+
         private void InitOsi()
         {
             osi[0, 0] = -200; osi[0, 1] = 0;    osi[0, 2] = 0;    osi[0, 3] = 1;
@@ -193,6 +369,7 @@ namespace LaboratoryWork6
             float[,] osi1 = MultiplyMatr(osi, matrSdv);
             osi1 = MultiplyMatr(osi1, projectionZ);
             Graphics g = Graphics.FromImage(bitmap);
+            var pen = new Pen(Color.Black);
 
             g.DrawLine(pen, osi1[0, 0], osi1[0, 1], osi1[1, 0], osi1[1, 1]);
             g.DrawLine(pen, osi1[2, 0], osi1[2, 1], osi1[3, 0], osi1[3, 1]);
@@ -237,26 +414,37 @@ namespace LaboratoryWork6
             InitMatrSdv(l, m, n);
             InitScaling(scale);
             InitRotation(angle);
-
-            float[,] figure1 = MultiplyMatr(figure, scaling);
-            figure1 = MultiplyMatr(figure1, rotation);
+            InitSurfaces();
 
             Graphics g = Graphics.FromImage(bitmap);
 
-            figure1 = MultiplyMatr(figure1, matrSdv);
-            figure1 = MultiplyMatr(figure1, projectionZ);
+            foreach (var surface in surfaces)
+            {
+                surface.Points = MultiplyMatr(surface.Points, scaling);
+                surface.Points = MultiplyMatr(surface.Points, rotation);
+                surface.CalculateAngle(angleA, angleB);
+                surface.Points = MultiplyMatr(surface.Points, matrSdv);
+                surface.Points = MultiplyMatr(surface.Points, projectionZ);
+            }
 
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[2, 0], figure1[2, 1]);
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[3, 0], figure1[3, 1]);
-            g.DrawLine(pen, figure1[0, 0], figure1[0, 1], figure1[4, 0], figure1[4, 1]);
+            foreach (var surface in surfaces)
+            {
+                var rightAngle = 90;
+                //Из радиан в градусы
+                var angle = (surface.CalculateAngle(angleA, angleB)) * 180 / (float)Math.PI;
+                if (angle > rightAngle)
+                {
+                    pen.DashStyle = DashStyle.Dash;
+                }
+                else
+                {
+                    pen.DashStyle = DashStyle.Solid;
+                }
 
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[2, 0], figure1[2, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[3, 0], figure1[3, 1]);
-            g.DrawLine(pen, figure1[1, 0], figure1[1, 1], figure1[4, 0], figure1[4, 1]);
-
-            g.DrawLine(pen, figure1[3, 0], figure1[3, 1], figure1[2, 0], figure1[2, 1]);
-            g.DrawLine(pen, figure1[4, 0], figure1[4, 1], figure1[3, 0], figure1[3, 1]);
-            g.DrawLine(pen, figure1[2, 0], figure1[2, 1], figure1[4, 0], figure1[4, 1]);
+                g.DrawLine(pen, surface.Points[0, 0], surface.Points[0, 1], surface.Points[1, 0], surface.Points[1, 1]);
+                g.DrawLine(pen, surface.Points[1, 0], surface.Points[1, 1], surface.Points[2, 0], surface.Points[2, 1]);
+                g.DrawLine(pen, surface.Points[2, 0], surface.Points[2, 1], surface.Points[0, 0], surface.Points[0, 1]);
+            }
 
             g.Dispose();
 
@@ -301,6 +489,16 @@ namespace LaboratoryWork6
                 m -= 5;
             }
 
+            if (ZBackRadioButton.Checked)
+            {
+                n += 5;
+            }
+
+            if (ZForwardRadioButton.Checked)
+            {
+                n -= 5;
+            }
+
             Update();
         }
 
@@ -324,6 +522,16 @@ namespace LaboratoryWork6
             if (YDownRadioButton.Checked)
             {
                 m -= 5;
+            }
+
+            if (ZBackRadioButton.Checked)
+            {
+                n += 5;
+            }
+
+            if (ZForwardRadioButton.Checked)
+            {
+                n -= 5;
             }
 
             Update();

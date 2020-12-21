@@ -422,7 +422,7 @@ namespace LaboratoryWork6
             {
                 surface.Points = MultiplyMatr(surface.Points, scaling);
                 surface.Points = MultiplyMatr(surface.Points, rotation);
-                surface.CalculateAngle(angleA, angleB);
+                surface.PlaneNormalVectorCalculate();
                 surface.Points = MultiplyMatr(surface.Points, matrSdv);
                 surface.Points = MultiplyMatr(surface.Points, projectionZ);
             }

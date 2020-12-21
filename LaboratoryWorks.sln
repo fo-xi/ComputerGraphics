@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaboratoryWork5.1", "Labora
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaboratoryWork6", "LaboratoryWork6\LaboratoryWork6.csproj", "{53083B1F-A18A-4506-9269-916A678CFC57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGLTest", "OpenGLTest\OpenGLTest.csproj", "{8A586202-0F47-4D11-87FA-F0D4D5F18648}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{53083B1F-A18A-4506-9269-916A678CFC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53083B1F-A18A-4506-9269-916A678CFC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53083B1F-A18A-4506-9269-916A678CFC57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A586202-0F47-4D11-87FA-F0D4D5F18648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A586202-0F47-4D11-87FA-F0D4D5F18648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A586202-0F47-4D11-87FA-F0D4D5F18648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A586202-0F47-4D11-87FA-F0D4D5F18648}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

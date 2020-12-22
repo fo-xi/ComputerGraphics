@@ -54,9 +54,9 @@ namespace LaboratoryWork6
             var angleA = a * (float)Math.PI / 180;
             var angleB = b * (float)Math.PI / 180;
 
-            DirectingVectorStraight[0] = 0;
-            DirectingVectorStraight[1] = (float)Math.Cos(angleB);
-            DirectingVectorStraight[2] = 0;
+            DirectingVectorStraight[0] = (float)Math.Sin(angleA); ;
+            DirectingVectorStraight[1] = (float)(-Math.Cos(angleA) * Math.Sin(angleB));
+            DirectingVectorStraight[2] = 1;
             DirectingVectorStraight[3] = 1;
 
             DirectingVectorStraightLengt = (float)Math.Sqrt(DirectingVectorStraight[0] * DirectingVectorStraight[0] +
@@ -66,7 +66,7 @@ namespace LaboratoryWork6
 
         public float CalculateAngle(float a, float b)
         {
-            //PlaneNormalVectorCalculate();
+            PlaneNormalVectorCalculate();
             DirectingVectorStraightCalculate(a, b);
 
             float angle = (float)Math.Acos((PlaneNormalVector[0] * DirectingVectorStraight[0] +

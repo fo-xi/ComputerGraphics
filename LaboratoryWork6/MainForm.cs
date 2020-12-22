@@ -45,7 +45,7 @@ namespace LaboratoryWork6
 
         public const float angleA = 45;
 
-        public const float angleB = 35.26f;
+        public const float angleB = 45;
 
         public Surface[] surfaces = new Surface[6];
 
@@ -422,7 +422,6 @@ namespace LaboratoryWork6
             {
                 surface.Points = MultiplyMatr(surface.Points, scaling);
                 surface.Points = MultiplyMatr(surface.Points, rotation);
-                surface.PlaneNormalVectorCalculate();
                 surface.Points = MultiplyMatr(surface.Points, matrSdv);
                 surface.Points = MultiplyMatr(surface.Points, projectionZ);
             }
@@ -444,6 +443,8 @@ namespace LaboratoryWork6
                 g.DrawLine(pen, surface.Points[0, 0], surface.Points[0, 1], surface.Points[1, 0], surface.Points[1, 1]);
                 g.DrawLine(pen, surface.Points[1, 0], surface.Points[1, 1], surface.Points[2, 0], surface.Points[2, 1]);
                 g.DrawLine(pen, surface.Points[2, 0], surface.Points[2, 1], surface.Points[0, 0], surface.Points[0, 1]);
+
+                //g.DrawLine(pen, 0, 0, surface.DirectingVectorStraight[0], surface.DirectingVectorStraight[1]);
             }
 
             g.Dispose();
